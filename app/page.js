@@ -378,6 +378,11 @@ export default function AgentOpsLab() {
               View Source Code
               <ArrowRight size={22} />
             </a>
+            <a href="https://agentopslab-t3c97qqfpvdqjtx22qczsm.streamlit.app/" target="_blank" rel="noopener noreferrer" className="cta-button" style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', padding: '18px 36px', background: 'linear-gradient(135deg, #10b981, #059669)', color: 'white', borderRadius: '12px', fontSize: '17px', fontWeight: '600', textDecoration: 'none', boxShadow: '0 10px 40px rgba(16, 185, 129, 0.3)' }}>
+              <Zap size={22} />
+              Try Live Demo
+              <ArrowRight size={22} />
+            </a>
             <a href="/governance" className="cta-button" style={{ display: 'inline-flex', alignItems: 'center', gap: '12px', padding: '18px 36px', background: 'linear-gradient(135deg, #8b5cf6, #7c3aed)', color: 'white', borderRadius: '12px', fontSize: '17px', fontWeight: '600', textDecoration: 'none', boxShadow: '0 10px 40px rgba(139, 92, 246, 0.3)' }}>
               <Activity size={22} />
               View Governance Dashboard
