@@ -1,0 +1,47 @@
+{
+  "filename": "NDA_Axion_Biotech_CRITICAL.pdf",
+  "company": "Axion BioTech Ventures GmbH",
+  "nda_type": "Mutual",
+  "governing_law": "Germany (Munich courts)",
+  "risk_level": "CRITICAL",
+  "risk_score": 78,
+  "action": "ESCALATE",
+  "compliance_status": "FAIL",
+  "sign_off_required": "General Counsel",
+  "revision_rounds": 3,
+  "clauses_found": 7,
+  "clauses_missing": 3,
+  "summary": "CRITICAL — Do not sign. German biotech firm presenting a document labelled 'mutual NDA' that is structurally one-way. Obligations of receiving party are worded as perpetual, absolute, with no standard exclusions. No permitted disclosure for legal compulsion. Auto-renewal clause with 90-day opt-out window. Three mandatory clauses missing. German governing law with mandatory Munich jurisdiction — litigation cost would be prohibitive. IP ownership clause inserted in section 4.3 attempts to claim joint ownership of any derivative work created during collaboration.",
+  "playbook_results": [
+    { "clause_id": "CL-001", "clause_name": "Definition of Confidential Information", "status": "RISKY",             "risk_score": 9, "deviation": "Definition includes 'all information exchanged in any form, including information that the Receiving Party independently develops if it could reasonably be derived from Confidential Information.' This effectively eliminates the independent development exclusion and creates unlimited scope.", "page": 1 },
+    { "clause_id": "CL-002", "clause_name": "Obligations of Receiving Party",         "status": "RISKY",             "risk_score": 8, "deviation": "'Absolute confidentiality' language used — no standard of care defined, which courts may interpret as strict liability for any disclosure regardless of negligence. Additionally, obligations extend to 'employees, contractors, agents, and affiliates' without any carve-out for need-to-know.", "page": 2 },
+    { "clause_id": "CL-003", "clause_name": "Term and Duration",                       "status": "RISKY",             "risk_score": 9, "deviation": "Initial 5-year term with automatic renewal unless terminated on 90-day written notice. Renewal cycle is perpetual with no maximum term cap. If notice is missed by one day, obligations extend another 5 years.", "page": 3 },
+    { "clause_id": "CL-004", "clause_name": "Permitted Disclosures",                   "status": "RISKY",             "risk_score": 8, "deviation": "No compelled disclosure carve-out. Section 4.1 states 'Receiving Party shall not disclose Confidential Information in any circumstances, including pursuant to any court order or regulatory requirement.' This clause is unenforceable in most jurisdictions but creates significant legal exposure during the challenge process.", "page": 4 },
+    { "clause_id": "CL-005", "clause_name": "Return or Destruction of Information",    "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "Return/destruction required within 30 days of request (playbook requires 10 days). No certification requirement. Backup retention carve-out is unlimited — 'retained in accordance with internal data retention policies' with no defined maximum period.", "page": 5 },
+    { "clause_id": "CL-006", "clause_name": "Remedies and Injunctive Relief",         "status": "RISKY",             "risk_score": 8, "deviation": "Receiving party pre-consents to injunctive relief, specific performance, and 'any other equitable remedy' without bond requirement. Additionally includes a liquidated damages clause: EUR 500,000 per breach — amount untethered to actual harm.", "page": 6 },
+    { "clause_id": "CL-007", "clause_name": "Governing Law and Jurisdiction",          "status": "RISKY",             "risk_score": 9, "deviation": "Mandatory German law with exclusive jurisdiction in Munich District Court (Landgericht München I). Waiver of any objection to jurisdiction. German civil litigation is exceptionally costly and slow for a foreign party.", "page": 7 },
+    { "clause_id": "CL-008", "clause_name": "Mutual vs One-Way Obligations",           "status": "RISKY",             "risk_score": 7, "deviation": "Document titled 'Mutual NDA' but section 3.1 imposes obligations only on our company. Disclosing party obligations are in section 3.2 but limited to 'commercially reasonable efforts' vs our 'absolute confidentiality' standard. Structurally asymmetric despite 'mutual' label.", "page": 2 },
+    { "clause_id": "CL-009", "clause_name": "Exclusions from Confidentiality",         "status": "MISSING",           "risk_score": 7, "deviation": "Standard four exclusions (public domain, prior knowledge, independent development, third-party disclosure) entirely absent. Any information shared becomes permanently confidential with no escape route.", "page": null },
+    { "clause_id": "CL-010", "clause_name": "No License Grant",                        "status": "MISSING",           "risk_score": 8, "deviation": "Not only missing — section 4.3 contains an affirmative IP clause stating any 'derivative work, improvement, or invention' arising from access to Confidential Information is jointly owned 50/50. This clause alone warrants rejection.", "page": 4 }
+  ],
+  "critical_flags": [
+    "CL-001: Independent development exclusion eliminated by definition",
+    "CL-003: Auto-renewal perpetual NDA — 90-day opt-out trap",
+    "CL-004: No compelled disclosure carve-out — unenforceable but creates litigation risk",
+    "CL-007: German law + Munich courts — prohibitive foreign litigation",
+    "CL-008: Mislabelled 'mutual' NDA — structurally one-way against us",
+    "CL-009: No standard exclusions — all information permanently confidential",
+    "CL-010: Section 4.3 claims joint IP ownership of derivative works — reject immediately"
+  ],
+  "recommended_redlines": [
+    "CL-001: Rewrite definition to standard scope — remove 'reasonably derived' language",
+    "CL-002: Replace 'absolute confidentiality' with 'same degree of care as own confidential information, no less than reasonable care'",
+    "CL-003: Remove auto-renewal. Fixed 3-year term with no renewal.",
+    "CL-004: Insert standard compelled disclosure carve-out with prior notice obligation",
+    "CL-006: Remove EUR 500,000 liquidated damages. Remove pre-consent to injunctive relief without bond.",
+    "CL-007: Negotiate to English law, England & Wales courts or binding arbitration (ICC)",
+    "CL-008: Rewrite section 3.1 and 3.2 to apply identical standard to both parties",
+    "CL-009: Insert standard four exclusions in full",
+    "CL-010: Delete section 4.3 entirely. Insert explicit no-license clause."
+  ]
+}

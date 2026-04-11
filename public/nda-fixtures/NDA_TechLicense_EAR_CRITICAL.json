@@ -1,0 +1,43 @@
+{
+  "filename": "NDA_TechLicense_EAR_CRITICAL.pdf",
+  "company": "Helix Semiconductor IP Holdings Inc. (Delaware / Bermuda parent)",
+  "nda_type": "One-Way (We are Receiving Party)",
+  "governing_law": "Delaware (US) — EAR and BIS-referenced",
+  "risk_level": "CRITICAL",
+  "risk_score": 76,
+  "action": "ESCALATE",
+  "compliance_status": "FAIL",
+  "sign_off_required": "General Counsel",
+  "revision_rounds": 3,
+  "clauses_found": 8,
+  "clauses_missing": 2,
+  "summary": "CRITICAL — Semiconductor IP licensing NDA with Export Administration Regulations (EAR) compliance obligations embedded throughout. Technology is classified as EAR99 and ECCNs 3E001/3E002 (dual-use semiconductor fabrication technology). EAR violations carry criminal liability of up to USD 1M per violation and 20 years imprisonment. Three compounding problems: (1) Source code and mask work data included in Confidential Information definition — mask works carry separate IP protections under the Semiconductor Chip Protection Act and cannot be subject to standard NDA obligations; (2) Section 7 includes a 'deemed export' clause requiring us to obtain BIS export licences before sharing with any non-US employees, even internally — this transfers Helix's export compliance burden to us; (3) Section 9 contains a 'reverse engineering prohibition' that extends beyond the IP to 'any improvements or derivative works created by Receiving Party using knowledge gained from the Confidential Information' — an attempt to claim IP ownership by contract rather than statute. Two mandatory clauses missing. Requires General Counsel and export control specialist review before any response.",
+  "playbook_results": [
+    { "clause_id": "CL-001", "clause_name": "Definition of Confidential Information", "status": "RISKY",             "risk_score": 9, "deviation": "Definition incorporates 'source code, RTL designs, GDSII files, mask work data, and technical specifications subject to Export Administration Regulations (EAR), ECCNs 3E001 and 3E002.' Mask work data carries independent IP protection under the Semiconductor Chip Protection Act (17 U.S.C. § 901-914) — standard NDA obligations are incompatible with SCPA mask work regime. EAR classification means any breach simultaneously constitutes an export control violation.", "page": 1 },
+    { "clause_id": "CL-002", "clause_name": "Obligations of Receiving Party",         "status": "RISKY",           "risk_score": 9, "deviation": "Section 7.1 'Deemed Export Compliance': Receiving Party must obtain BIS export licences before sharing any EAR-controlled Confidential Information with non-US nationals, including our own employees. This transfers Helix's export compliance program obligations to us. We would need to establish an export control classification program for information we receive from a third party — not our regulatory burden.", "page": 2 },
+    { "clause_id": "CL-003", "clause_name": "Term and Duration",                       "status": "RISKY",           "risk_score": 8, "deviation": "Dual-tier term structure: 7 years for standard Confidential Information; PERPETUAL for any information classified under EAR ECCNs 3E001/3E002. Perpetual EAR obligations cannot be negotiated away under US export law. Additionally, the 7-year term for non-EAR information exceeds playbook maximum of 5 years.", "page": 3 },
+    { "clause_id": "CL-004", "clause_name": "Permitted Disclosures",                   "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "Compelled disclosure carve-out present but section 4.3 requires BIS notification before any regulatory disclosure of EAR-controlled information — BIS does not accept third-party consent requirements as a condition of regulatory disclosure. Creates a compliance conflict.", "page": 4 },
+    { "clause_id": "CL-005", "clause_name": "Return or Destruction of Information",    "status": "MODERATE_DEVIATION","risk_score": 4, "deviation": "Destruction requires NIST SP 800-88 compliant methods for all EAR-controlled materials (same as defense sector standard). Certification must reference specific ECCN numbers destroyed. Requires tracking ECCN classification of each document received — creates significant administrative burden.", "page": 5 },
+    { "clause_id": "CL-006", "clause_name": "Remedies and Injunctive Relief",         "status": "RISKY",           "risk_score": 8, "deviation": "Section 9.2 'Derivative Works': any improvement, invention, or derivative work created by Receiving Party 'that could not have been created without access to the Confidential Information' is automatically assigned to Helix IP Holdings. This is a contractual IP assignment clause disguised as an NDA remedy — unprecedented and likely unenforceable but will generate significant IP ownership disputes post-engagement.", "page": 7 },
+    { "clause_id": "CL-007", "clause_name": "Governing Law and Jurisdiction",          "status": "ACCEPTABLE",       "risk_score": 2, "deviation": "Delaware law. Courts of the State of Delaware or federal courts in Delaware. Acceptable. However, any EAR enforcement action is federal and not subject to this NDA's governing law clause.", "page": 8 },
+    { "clause_id": "CL-008", "clause_name": "Mutual vs One-Way Obligations",           "status": "ACCEPTABLE",       "risk_score": 1, "deviation": "One-way NDA accurately reflects arrangement — we are receiving semiconductor IP for evaluation. Correctly documented.", "page": 1 },
+    { "clause_id": "CL-009", "clause_name": "Exclusions from Confidentiality",         "status": "RISKY",           "risk_score": 8, "deviation": "Section 3.4 eliminates all four standard exclusions for information 'subject to EAR classification.' Independently developed information that falls within the ECCN definitions remains Helix's Confidential Information — creates perpetual obligation on technology we develop independently.", "page": 4 },
+    { "clause_id": "CL-010", "clause_name": "No License Grant",                        "status": "MISSING",           "risk_score": 8, "deviation": "Absent — and section 9.2 contains an affirmative IP assignment clause going the opposite direction. Not only is there no no-license grant, Helix is asserting ownership of derivative works we create. This is a fundamental structural defect.", "page": null }
+  ],
+  "critical_flags": [
+    "CL-001: EAR ECCNs 3E001/3E002 embedded — criminal liability USD 1M per violation, 20 years imprisonment",
+    "CL-001: Mask work data in NDA scope — incompatible with Semiconductor Chip Protection Act regime",
+    "CL-002: Deemed export compliance transferred to us — BIS licence program obligation for our own employees",
+    "CL-006: Section 9.2 IP assignment clause — automatically assigns our derivative works to Helix",
+    "CL-009: All four standard exclusions eliminated for EAR-controlled information"
+  ],
+  "recommended_redlines": [
+    "CL-001: Engage export control counsel before responding. Do not sign pending EAR specialist review.",
+    "CL-001: Remove mask work data from NDA scope — handle under separate SCPA licence agreement",
+    "CL-002: Delete section 7.1 deemed export compliance entirely. Helix retains its own BIS obligations.",
+    "CL-003: 5-year maximum term for non-EAR information. Acknowledge perpetual EAR obligation separately in specialist advice.",
+    "CL-006: Delete section 9.2 derivative works assignment in its entirety. No IP assignment in an NDA.",
+    "CL-009: Restore independent development exclusion regardless of ECCN status",
+    "CL-010: Insert explicit no-license clause before signatures"
+  ]
+}

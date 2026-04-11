@@ -1,0 +1,42 @@
+{
+  "filename": "NDA_CrossBorder_MA_HIGH.pdf",
+  "company": "Fenwick-Hargreaves Capital AG (Switzerland) / Dalton Ridge Holdings Ltd. (Singapore)",
+  "nda_type": "Mutual",
+  "governing_law": "Swiss law (primary) / Singapore law (data provisions) — dual-jurisdiction",
+  "risk_level": "HIGH",
+  "risk_score": 57,
+  "action": "REDLINE",
+  "compliance_status": "CONDITIONAL",
+  "sign_off_required": "Deputy General Counsel",
+  "revision_rounds": 2,
+  "clauses_found": 8,
+  "clauses_missing": 2,
+  "summary": "HIGH — Dual-jurisdiction M&A NDA spanning Swiss law (governing contract) and Singapore law (data provisions). Created in the context of a potential acquisition of a Singapore-incorporated target by a Swiss PE firm. Three structural defects: (1) dual governing law creates ambiguity — Swiss and Singapore courts have concurrent jurisdiction per section 11.3, meaning either party can forum-shop; (2) a 'clean room' provision in section 5 prohibits use of confidential information to poach personnel for 24 months — enforceable in Switzerland, likely unenforceable in Singapore as an unlawful restraint of trade; (3) the NDA attempts to cover deal-related financial models, valuation analyses, and synergy projections as 'Confidential Information' but these are typically excluded in M&A contexts under deal privilege. Two missing clauses. The clean room and forum selection provisions alone require Deputy GC review.",
+  "playbook_results": [
+    { "clause_id": "CL-001", "clause_name": "Definition of Confidential Information", "status": "RISKY",             "risk_score": 8, "deviation": "Definition includes 'financial models, synergy analyses, integration plans, and deal valuation materials.' In M&A context, these materials are typically deal-privileged and their inclusion in an NDA creates ambiguity about post-deal obligations. If the deal falls through, are valuation models permanently confidential? No carve-out for materials created independently for the transaction.", "page": 1 },
+    { "clause_id": "CL-002", "clause_name": "Obligations of Receiving Party",         "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "Section 5.1 introduces a 24-month non-solicitation obligation: 'Receiving Party shall not, directly or indirectly, solicit, induce, or employ any employee, officer, or key contractor of Disclosing Party.' Playbook requires NDA obligations to be limited to confidentiality. Non-solicitation should be in a separate agreement. Bundled here, it survives NDA termination independently.", "page": 3 },
+    { "clause_id": "CL-003", "clause_name": "Term and Duration",                       "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "NDA term is 5 years (playbook upper limit). However, the non-solicitation in section 5.1 has its own 24-month term running independently from the date of last disclosure — not the NDA effective date. Creates ambiguity on when the 24-month clock starts.", "page": 4 },
+    { "clause_id": "CL-004", "clause_name": "Permitted Disclosures",                   "status": "RISKY",           "risk_score": 7, "deviation": "Compelled disclosure carve-out present but creates a conflict: Swiss law (governing law) requires disclosure of certain financial information to FINMA (Swiss regulator) without notice. Singapore law requires similar disclosure to MAS. Section 4.2 requires prior written consent of the other party before any regulatory disclosure — consent requirement is unenforceable against FINMA/MAS statutory obligations.", "page": 4 },
+    { "clause_id": "CL-005", "clause_name": "Return or Destruction of Information",    "status": "MISSING",          "risk_score": 6, "deviation": "Clause absent. In an M&A context, financial models and integration plans exchanged under this NDA may be replicated across deal teams. No return/destruction obligation creates a material gap — particularly for any deal-related materials if transaction does not proceed.", "page": null },
+    { "clause_id": "CL-006", "clause_name": "Remedies and Injunctive Relief",         "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "Both parties retain injunctive relief rights. However, section 7.3 adds: 'In the event of breach, the non-breaching party shall be entitled to seek relief in any competent court.' Combined with dual jurisdiction in section 11.3, this enables simultaneous injunction applications in Swiss and Singapore courts — creating parallel litigation risk.", "page": 6 },
+    { "clause_id": "CL-007", "clause_name": "Governing Law and Jurisdiction",          "status": "RISKY",           "risk_score": 8, "deviation": "Section 11.3 specifies Swiss law as governing law but grants concurrent (non-exclusive) jurisdiction to courts of Switzerland AND Singapore. Concurrent jurisdiction in two countries is forum-shopping invitation. Counterparty can choose the more favorable forum based on litigation posture. Playbook requires exclusive jurisdiction in a single forum.", "page": 8 },
+    { "clause_id": "CL-008", "clause_name": "Mutual vs One-Way Obligations",           "status": "ACCEPTABLE",       "risk_score": 1, "deviation": "Genuinely mutual structure — both parties are potential disclosing and receiving parties in M&A due diligence context. Obligations apply symmetrically.", "page": 2 },
+    { "clause_id": "CL-009", "clause_name": "Exclusions from Confidentiality",         "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "Standard four exclusions present. However, section 3.4 adds: 'Information shared during deal negotiations shall not benefit from the independent development exclusion.' This eliminates the independent development carve-out for any information in the deal context — overly broad for an M&A NDA.", "page": 5 },
+    { "clause_id": "CL-010", "clause_name": "No License Grant",                        "status": "MISSING",           "risk_score": 7, "deviation": "Absent. Given the M&A context where IP and technical data are shared as part of due diligence, the absence of a no-license clause creates serious ambiguity. If the deal does not close, does the receiving party retain implied licence to use technical information reviewed during diligence?", "page": null }
+  ],
+  "critical_flags": [
+    "CL-001: M&A deal materials (valuations, synergy models) included in CI definition — post-deal ambiguity",
+    "CL-002: 24-month non-solicitation bundled into NDA — survives NDA termination independently",
+    "CL-004: Regulatory disclosure requires counterparty consent — unenforceable against FINMA/MAS",
+    "CL-007: Concurrent jurisdiction Switzerland + Singapore — forum shopping risk",
+    "CL-010: No license grant absent in IP-heavy M&A due diligence context"
+  ],
+  "recommended_redlines": [
+    "CL-001: Carve out deal-privilege materials (valuation models, integration plans) from post-deal confidentiality obligations",
+    "CL-002: Delete non-solicitation from NDA entirely. Execute separate Non-Solicitation Agreement if required.",
+    "CL-004: Replace consent requirement with 'reasonable prior notice where legally permissible' — remove veto power over regulatory disclosure",
+    "CL-005: Insert standard return/destruction clause with 10-day certification requirement",
+    "CL-007: Elect exclusive jurisdiction in a single forum — ICC International Arbitration (Geneva seat) recommended for cross-border M&A",
+    "CL-010: Insert explicit no-license clause covering all due diligence materials"
+  ]
+}

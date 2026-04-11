@@ -1,0 +1,37 @@
+{
+  "filename": "NDA_Vantage_Cloud_MEDIUM.pdf",
+  "company": "Vantage Cloud Systems Inc.",
+  "nda_type": "Mutual",
+  "governing_law": "Delaware (US)",
+  "risk_level": "MEDIUM",
+  "risk_score": 28,
+  "action": "REVISE",
+  "compliance_status": "CONDITIONAL",
+  "sign_off_required": "Senior Legal Counsel",
+  "revision_rounds": 1,
+  "clauses_found": 9,
+  "clauses_missing": 1,
+  "summary": "Medium-risk mutual NDA from a Delaware SaaS vendor. Governing law and structure are acceptable. Three specific issues require revision before signing: (1) the confidentiality obligation standard is 'reasonable efforts' rather than our required 'same degree of care as own information'; (2) a data processing addendum is cross-referenced but not attached — creates ambiguity around GDPR obligations if any EU personal data is shared; (3) the definition of confidential information includes a retroactive clause capturing all information exchanged in the 6 months prior to the NDA effective date, which our playbook does not permit without specific carve-outs.",
+  "playbook_results": [
+    { "clause_id": "CL-001", "clause_name": "Definition of Confidential Information", "status": "RISKY",             "risk_score": 7, "deviation": "Retroactive confidentiality: Section 1.1(c) captures 'all information exchanged between the parties in the six (6) month period prior to the Effective Date.' Playbook requires explicit written designation for retroactive information. No such designation mechanism exists in this NDA.", "page": 1 },
+    { "clause_id": "CL-002", "clause_name": "Obligations of Receiving Party",         "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "'Commercially reasonable efforts' standard. Playbook requires 'same degree of care as own confidential information, no less than reasonable care.' The 'commercially reasonable' qualifier creates wiggle room in the event of a dispute.", "page": 2 },
+    { "clause_id": "CL-003", "clause_name": "Term and Duration",                       "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "3-year term from Effective Date. No auto-renewal. Within playbook acceptable range (2–5 years).", "page": 3 },
+    { "clause_id": "CL-004", "clause_name": "Permitted Disclosures",                   "status": "ACCEPTABLE",        "risk_score": 2, "deviation": "Compelled disclosure carve-out present. Prior written notice required where legally permissible. Disclosure limited to minimum required by law. Acceptable.", "page": 3 },
+    { "clause_id": "CL-005", "clause_name": "Return or Destruction of Information",    "status": "MINOR_DEVIATION",   "risk_score": 3, "deviation": "15-day return/destruction period (playbook: 10 days). No destruction certification required. Cross-referenced DPA in section 5.3 regarding backup retention is not attached to this NDA — creates undefined carve-out.", "page": 4 },
+    { "clause_id": "CL-006", "clause_name": "Remedies and Injunctive Relief",         "status": "ACCEPTABLE",        "risk_score": 2, "deviation": "Mutual right to injunctive relief without bond requirement. Equitable remedies available to both parties equally. Acceptable.", "page": 5 },
+    { "clause_id": "CL-007", "clause_name": "Governing Law and Jurisdiction",          "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "Delaware law. Courts of the State of Delaware or federal courts in Delaware. Acceptable for a US counterparty.", "page": 6 },
+    { "clause_id": "CL-008", "clause_name": "Mutual vs One-Way Obligations",           "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "Genuinely mutual — identical obligations and standards apply to both parties. Correctly labelled.", "page": 2 },
+    { "clause_id": "CL-009", "clause_name": "Exclusions from Confidentiality",         "status": "MINOR_DEVIATION",   "risk_score": 3, "deviation": "Standard four exclusions present. Minor: the 'rightfully received from a third party' exclusion requires that the third party 'had authority to disclose' — additional burden of proof vs playbook standard.", "page": 4 },
+    { "clause_id": "CL-010", "clause_name": "No License Grant",                        "status": "MISSING",           "risk_score": 3, "deviation": "No explicit no-license clause. Given the SaaS/technology context and the retroactive information clause, absence of this provision creates IP risk.", "page": null }
+  ],
+  "critical_flags": [
+    "CL-001: Retroactive confidentiality (6 months pre-NDA) without written designation mechanism",
+    "CL-005: DPA cross-referenced but not attached — undefined backup retention carve-out"
+  ],
+  "recommended_redlines": [
+    "CL-001: Delete section 1.1(c) retroactive clause OR add: 'retroactive information must be designated in writing within 30 days of Effective Date'",
+    "CL-002: Replace 'commercially reasonable efforts' with 'same degree of care as Receiving Party uses to protect its own confidential information of similar nature, but in no event less than reasonable care'",
+    "CL-005: Attach DPA or delete cross-reference. Add destruction certification requirement.",
+    "CL-010: Insert standard no-license clause before signatures"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "filename": "NDA_PrivateEquity_Fund_HIGH.pdf",
+  "company": "Corvus Capital Partners IV LP (Cayman Islands GP / Delaware LP)",
+  "nda_type": "One-Way (We are Receiving Party)",
+  "governing_law": "New York",
+  "risk_level": "HIGH",
+  "risk_score": 54,
+  "action": "REDLINE",
+  "compliance_status": "CONDITIONAL",
+  "sign_off_required": "Deputy General Counsel",
+  "revision_rounds": 2,
+  "clauses_found": 9,
+  "clauses_missing": 1,
+  "summary": "HIGH — NDA from a Cayman Islands/Delaware PE fund providing access to its portfolio company data room. Structural complexity: Confidential Information includes 'financial data, operational metrics, and portfolio company materials of Corvus Capital IV LP and its portfolio companies' — meaning we receive obligations regarding entities we have no direct relationship with. Portfolio company carve-out in section 2.4 attempts to extend our obligations to 40+ portfolio companies that are not named parties to this agreement. Additionally, a trading restriction in section 6 prohibits any securities trading in portfolio company stock for 18 months — this is a securities compliance obligation (not NDA language) and carries SEC enforcement risk if violated. No return/destruction clause. NY law and jurisdiction — manageable. Strongly recommend Deputy GC review given the securities restriction embedded in what is presented as a routine NDA.",
+  "playbook_results": [
+    { "clause_id": "CL-001", "clause_name": "Definition of Confidential Information", "status": "RISKY",             "risk_score": 9, "deviation": "Definition extends to 'Confidential Information of Corvus Capital Partners IV LP and any portfolio company in which Corvus holds or has held a direct or indirect investment.' The phrase 'has held' creates retroactive obligations covering divested portfolio companies. We cannot know which companies are included — the list is not attached and Corvus reserves the right to add companies to the definition by written notice.", "page": 1 },
+    { "clause_id": "CL-002", "clause_name": "Obligations of Receiving Party",         "status": "MODERATE_DEVIATION","risk_score": 6, "deviation": "Standard of care is 'reasonable care' rather than 'same degree of care as own confidential information.' This is a weaker standard than playbook requires. Additionally, section 3.3 prohibits sharing with 'any competitor of any portfolio company' — we cannot comply without knowing the full portfolio company list and their respective competitive sets.", "page": 2 },
+    { "clause_id": "CL-003", "clause_name": "Term and Duration",                       "status": "RISKY",           "risk_score": 7, "deviation": "Standard 5-year term for NDA obligations. However, the securities trading restriction in section 6.1 is PERPETUAL for any material non-public information ('MNPI') received. The NDA does not define MNPI — leaving us to determine independently what constitutes MNPI under SEC Rule 10b-5 and whether the 5-year NDA term affects the MNPI obligation.", "page": 3 },
+    { "clause_id": "CL-004", "clause_name": "Permitted Disclosures",                   "status": "ACCEPTABLE",       "risk_score": 2, "deviation": "Compelled disclosure carve-out present. Prior written notice required where permissible. Disclosure limited to what is legally required. Acceptable.", "page": 4 },
+    { "clause_id": "CL-005", "clause_name": "Return or Destruction of Information",    "status": "MISSING",          "risk_score": 6, "deviation": "Clause absent. Given data room access covering portfolio company financials, the absence of a return/destruction obligation is a significant gap. Data room materials may include highly sensitive third-party information.", "page": null },
+    { "clause_id": "CL-006", "clause_name": "Remedies and Injunctive Relief",         "status": "RISKY",           "risk_score": 8, "deviation": "Section 6.1 embeds a securities trading restriction: 'Receiving Party acknowledges that Confidential Information may constitute material non-public information and agrees not to trade in securities of any portfolio company for a period of 18 months from date of last disclosure.' This is a securities compliance obligation — violation could constitute insider trading under SEC enforcement. This is not standard NDA language and should be in a separate compliance acknowledgment.", "page": 5 },
+    { "clause_id": "CL-007", "clause_name": "Governing Law and Jurisdiction",          "status": "ACCEPTABLE",       "risk_score": 2, "deviation": "New York law. Courts of the State of New York or federal courts in SDNY. Acceptable for a PE fund NDA. New York law is predictable and well-developed for commercial disputes.", "page": 6 },
+    { "clause_id": "CL-008", "clause_name": "Mutual vs One-Way Obligations",           "status": "ACCEPTABLE",       "risk_score": 1, "deviation": "One-way NDA accurately represents arrangement. We are receiving party with data room access. Corvus as fund manager has no confidentiality obligations flowing the other way.", "page": 2 },
+    { "clause_id": "CL-009", "clause_name": "Exclusions from Confidentiality",         "status": "MODERATE_DEVIATION","risk_score": 6, "deviation": "Standard four exclusions present but section 3.5 overrides: 'The exclusions in section 3 shall not apply to any information relating to portfolio company operations, financial performance, or strategic plans, regardless of how such information enters the public domain.' Effectively eliminates the public domain exclusion for the most sensitive category of information.", "page": 4 },
+    { "clause_id": "CL-010", "clause_name": "No License Grant",                        "status": "ACCEPTABLE",       "risk_score": 1, "deviation": "Explicit no-license clause present. Clear language: 'Nothing herein grants Receiving Party any right, title, or interest in any Confidential Information.' Acceptable.", "page": 7 }
+  ],
+  "critical_flags": [
+    "CL-001: Obligations extend to undisclosed portfolio companies past and present — cannot scope compliance",
+    "CL-003: MNPI trading restriction is PERPETUAL — not bounded by 5-year NDA term",
+    "CL-006: SEC trading restriction embedded in NDA — violation constitutes insider trading, not contract breach",
+    "CL-009: Public domain exclusion eliminated for portfolio company information"
+  ],
+  "recommended_redlines": [
+    "CL-001: Require attached, complete list of portfolio companies at signing. No additions without mutual written amendment.",
+    "CL-002: Replace 'reasonable care' with 'same degree of care as Receiving Party uses to protect own confidential information of similar nature, no less than reasonable care'",
+    "CL-003: Remove MNPI reference from NDA. Execute separate MNPI acknowledgment if required by counterparty.",
+    "CL-005: Insert standard return/destruction clause with 10-day certification requirement",
+    "CL-006: Delete securities trading restriction from NDA entirely. This obligation belongs in a separate trading policy acknowledgment reviewed by compliance team.",
+    "CL-009: Restore public domain exclusion without carve-out for portfolio company information"
+  ]
+}

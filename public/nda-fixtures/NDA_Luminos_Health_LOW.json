@@ -1,0 +1,29 @@
+{
+  "filename": "NDA_Luminos_Health_LOW.pdf",
+  "company": "Luminos Health Technologies Ltd.",
+  "nda_type": "Mutual",
+  "governing_law": "England & Wales",
+  "risk_level": "LOW",
+  "risk_score": 11,
+  "action": "APPROVE",
+  "compliance_status": "PASS",
+  "sign_off_required": "Legal Manager",
+  "revision_rounds": 0,
+  "clauses_found": 10,
+  "clauses_missing": 0,
+  "summary": "Low-risk mutual NDA. Well-drafted by experienced counsel — all 10 clauses present with playbook-compliant positions. English law with English courts. 3-year term. Standard of care is 'same degree of care as own confidential information.' Two minor observations noted but neither rises to the level of a required amendment: (1) the return/destruction period is 14 days vs our preferred 10 — not material; (2) the third-party disclosure exclusion requires the disclosing party to confirm in writing that disclosure is authorised — slightly elevated burden but provides additional protection for us as potential disclosing party. Recommend Legal Manager sign-off with no redlines required.",
+  "playbook_results": [
+    { "clause_id": "CL-001", "clause_name": "Definition of Confidential Information", "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "Well-defined. Written information marked 'Confidential.' Oral information confirmed in writing within 10 days. Standard scope — neither too broad nor too narrow.", "page": 1 },
+    { "clause_id": "CL-002", "clause_name": "Obligations of Receiving Party",         "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "'Same degree of care as the Receiving Party uses to protect its own confidential information of like nature, but in no event less than reasonable care.' Exact playbook-required standard.", "page": 2 },
+    { "clause_id": "CL-003", "clause_name": "Term and Duration",                       "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "3 years from Effective Date. No auto-renewal. Obligations survive termination for the stated period only. Within playbook acceptable range.", "page": 3 },
+    { "clause_id": "CL-004", "clause_name": "Permitted Disclosures",                   "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "Compelled disclosure carve-out present. Prior written notice to disclosing party where legally permissible. Disclosure limited to minimum legally required. Acceptable.", "page": 3 },
+    { "clause_id": "CL-005", "clause_name": "Return or Destruction of Information",    "status": "MINOR_DEVIATION",   "risk_score": 2, "deviation": "14-day return/destruction period (playbook: 10 days). Written certification of destruction required. Minor deviation — not material given the 4-day difference.", "page": 4 },
+    { "clause_id": "CL-006", "clause_name": "Remedies and Injunctive Relief",         "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "Mutual right to seek injunctive relief and other equitable remedies. No pre-consent to injunctive relief without bond. Both parties on equal footing.", "page": 5 },
+    { "clause_id": "CL-007", "clause_name": "Governing Law and Jurisdiction",          "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "English law. Exclusive jurisdiction of the English courts. Preferred playbook jurisdiction. Acceptable.", "page": 6 },
+    { "clause_id": "CL-008", "clause_name": "Mutual vs One-Way Obligations",           "status": "ACCEPTABLE",        "risk_score": 1, "deviation": "Genuinely mutual. Identical obligations, rights, and standards apply to both parties. Verified symmetry in sections 3.1 and 3.2.", "page": 2 },
+    { "clause_id": "CL-009", "clause_name": "Exclusions from Confidentiality",         "status": "MINOR_DEVIATION",   "risk_score": 2, "deviation": "All four standard exclusions present. Minor: third-party disclosure exclusion requires written confirmation from disclosing party that the third party had authority to disclose. Slightly elevated proof burden but protects both parties.", "page": 4 },
+    { "clause_id": "CL-010", "clause_name": "No License Grant",                        "status": "ACCEPTABLE",        "risk_score": 0, "deviation": "Explicit no-license clause present in section 8. Clear and unambiguous — 'Nothing in this Agreement shall be construed to grant either party any rights, title, or licence in any Confidential Information of the other party.'", "page": 7 }
+  ],
+  "critical_flags": [],
+  "recommended_redlines": []
+}

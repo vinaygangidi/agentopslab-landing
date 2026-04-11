@@ -1,0 +1,41 @@
+{
+  "filename": "NDA_Healthcare_HIPAA_HIGH.pdf",
+  "company": "Novagen Diagnostics Corporation (US) / Pinnacle Health Network LLC",
+  "nda_type": "Mutual",
+  "governing_law": "Massachusetts",
+  "risk_level": "HIGH",
+  "risk_score": 58,
+  "action": "REDLINE",
+  "compliance_status": "CONDITIONAL",
+  "sign_off_required": "Deputy General Counsel",
+  "revision_rounds": 2,
+  "clauses_found": 9,
+  "clauses_missing": 1,
+  "summary": "HIGH — Healthcare sector NDA between a diagnostics firm and a hospital network. HIPAA/HITECH overlay creates regulatory complexity beyond standard NDA scope. Three specific problems: (1) Confidential Information definition includes 'de-identified patient data, aggregate clinical datasets, and research cohort data' — de-identified data under HIPAA Safe Harbor (45 CFR §164.514) is NOT protected health information and should not carry NDA obligations; (2) section 5 incorporates HIPAA Business Associate Agreement (BAA) obligations by reference, but no BAA is attached — HIPAA violations carry civil penalties up to USD 1.9M per violation category per year, and a deficient BAA creates OCR enforcement exposure; (3) breach notification obligation in section 8 requires us to notify the other party within 4 hours of any suspected breach — HIPAA Breach Notification Rule (45 CFR §164.400) requires 60-day notification to HHS; a 4-hour contractual obligation is operationally impossible and creates conflict with the federal timeline. One missing clause.",
+  "playbook_results": [
+    { "clause_id": "CL-001", "clause_name": "Definition of Confidential Information", "status": "RISKY",             "risk_score": 8, "deviation": "Definition includes (a) proprietary diagnostic algorithms, (b) patient cohort data 'whether or not de-identified,' and (c) 'any data derived from clinical operations that could reasonably identify a patient.' The phrase 'whether or not de-identified' attempts to treat HIPAA Safe Harbor de-identified data as Confidential Information — this is legally inconsistent and expands our obligations beyond HIPAA scope. Additionally, 'could reasonably identify' is a broader standard than HIPAA's Safe Harbor requirements.", "page": 1 },
+    { "clause_id": "CL-002", "clause_name": "Obligations of Receiving Party",         "status": "MODERATE_DEVIATION","risk_score": 6, "deviation": "'Reasonable efforts to maintain the confidentiality and security of Protected Health Information' — uses the HIPAA PHI definition in an NDA clause without incorporating the actual HIPAA standard of care. Creates ambiguity: does 'reasonable efforts' mean HIPAA-compliant security measures (encryption, access controls, audit logs) or standard commercial NDA care? The answer has significant compliance implications.", "page": 2 },
+    { "clause_id": "CL-003", "clause_name": "Term and Duration",                       "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "NDA term is 5 years (playbook maximum). However, section 5.2 states 'HIPAA obligations survive termination indefinitely.' Indefinite HIPAA obligations in an NDA create ambiguity about what 'HIPAA obligations' means post-NDA — particularly since no BAA is attached defining those obligations.", "page": 3 },
+    { "clause_id": "CL-004", "clause_name": "Permitted Disclosures",                   "status": "RISKY",           "risk_score": 7, "deviation": "Section 4.3 restricts compelled disclosure: 'Receiving Party shall not disclose any patient data pursuant to a court order without first obtaining a HIPAA-compliant Qualified Protective Order.' While this aligns with 45 CFR §164.512(e), incorporating a HIPAA procedural requirement into an NDA compelled disclosure clause without attaching the BAA creates a gap — what happens if the QPN process is not completed in time to comply with the court order?", "page": 4 },
+    { "clause_id": "CL-005", "clause_name": "Return or Destruction of Information",    "status": "MODERATE_DEVIATION","risk_score": 5, "deviation": "Return/destruction required within 30 days (playbook: 10 days). Section 5.5 requires destruction of 'all copies, including backup tapes, in a HIPAA-compliant manner.' No definition of 'HIPAA-compliant destruction' provided — HIPAA requires destruction rendering PHI unreadable and indecipherable (NIST SP 800-88), which is more specific than general NDA destruction requirements.", "page": 5 },
+    { "clause_id": "CL-006", "clause_name": "Remedies and Injunctive Relief",         "status": "RISKY",           "risk_score": 8, "deviation": "Section 8.1 'Breach Notification': 'Receiving Party shall notify Disclosing Party of any suspected or actual breach of this Agreement within four (4) hours of discovery.' HIPAA Breach Notification Rule requires 60-day notification to HHS (45 CFR §164.400). A 4-hour contractual obligation is operationally impossible in a healthcare context and creates conflict with federal compliance timeline. If we notify the counterparty within 4 hours, we may be creating an admission before completing our internal investigation.", "page": 7 },
+    { "clause_id": "CL-007", "clause_name": "Governing Law and Jurisdiction",          "status": "ACCEPTABLE",       "risk_score": 2, "deviation": "Massachusetts law. Courts of the Commonwealth of Massachusetts. Acceptable for a healthcare sector NDA with US counterparties. Federal law governs HIPAA obligations regardless.", "page": 8 },
+    { "clause_id": "CL-008", "clause_name": "Mutual vs One-Way Obligations",           "status": "ACCEPTABLE",       "risk_score": 1, "deviation": "Genuinely mutual. Both parties will exchange confidential clinical and operational data. Obligations apply symmetrically. Verified in sections 3.1 and 3.2.", "page": 2 },
+    { "clause_id": "CL-009", "clause_name": "Exclusions from Confidentiality",         "status": "RISKY",           "risk_score": 7, "deviation": "Standard four exclusions present but section 3.6 overrides: 'No exclusion shall apply to patient data, clinical records, or research cohort data regardless of de-identification status or public availability.' This creates perpetual confidentiality obligations on data that HIPAA explicitly removes from PHI protection via Safe Harbor de-identification.", "page": 4 },
+    { "clause_id": "CL-010", "clause_name": "No License Grant",                        "status": "MISSING",           "risk_score": 4, "deviation": "No explicit no-license clause. In the context of diagnostic algorithms and clinical datasets, absence of this provision creates ambiguity about whether access to Novagen's diagnostic IP for evaluation purposes implies a licence to use the algorithms in Pinnacle's clinical operations.", "page": null }
+  ],
+  "critical_flags": [
+    "CL-001: De-identified HIPAA Safe Harbor data included in NDA scope — legally inconsistent",
+    "CL-003: Indefinite HIPAA obligations survive NDA without attached BAA defining their scope",
+    "CL-006: 4-hour breach notification requirement conflicts with HIPAA 60-day federal notification timeline",
+    "CL-009: All exclusions overridden for patient data — creates obligations on non-PHI data"
+  ],
+  "recommended_redlines": [
+    "CL-001: Remove 'whether or not de-identified' — de-identified data (45 CFR §164.514 Safe Harbor) must be excluded from CI definition",
+    "CL-002: Define standard of care by reference to HIPAA Security Rule technical safeguards (45 CFR §164.312) rather than 'reasonable efforts'",
+    "CL-003: Remove 'indefinitely' — HIPAA obligations survive only to the extent required by applicable law; define in attached BAA",
+    "CL-005: Attach BAA or strike HIPAA cross-references entirely. NDA cannot incorporate BAA obligations without a BAA.",
+    "CL-006: Replace 4-hour notification with 'as soon as practicable but no later than the timeframe required under applicable law (including HIPAA Breach Notification Rule)'",
+    "CL-010: Insert explicit no-license clause covering diagnostic algorithms and clinical datasets"
+  ]
+}

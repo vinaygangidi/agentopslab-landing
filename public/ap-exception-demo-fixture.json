@@ -1,0 +1,161 @@
+{
+  "run_date": "2026-04-10T09:15:42",
+  "executive_summary": "6 exception invoices processed. 2 invoices frozen for fraud (BEC signals detected — do not release payment). 1 high-priority early payment discount expiring in 8 days with 36.7% annualised ROI. 2 invoices auto-approved after PO amendment and vendor tolerance verification. 1 partial GRN approval — 75% payable now, remainder on full receipt.",
+  "fraud_frozen": [
+    {
+      "invoice_number": "INV-2024-FAKE-001",
+      "vendor_name": "Fake Acme Supplies",
+      "amount": 4250.00,
+      "currency": "USD",
+      "risk_level": "FRAUD_RISK_HIGH",
+      "signals": [
+        "BANK_ACCOUNT_CHANGE: Bank account ****9999 does not match registered ****1234",
+        "EMAIL_DOMAIN_MISMATCH: Invoice from acme-supplies-corp.com, registered acmesupplies.com",
+        "NEW_VENDOR: Account registered 45 days ago"
+      ],
+      "action_required": "Freeze payment. Contact vendor via registered phone number only. Do not use any contact details from this invoice. Escalate to AP Manager and Treasury."
+    },
+    {
+      "invoice_number": "INV-2024-FAST-001",
+      "vendor_name": "FastPay Solutions LLC",
+      "amount": 49750.00,
+      "currency": "USD",
+      "risk_level": "FRAUD_RISK_HIGH",
+      "signals": [
+        "STRUCTURING: Amount $49,750 is within 0.5% of $50,000 approval threshold",
+        "ROUND_NUMBERS: All line items divisible by $500 or $1,000",
+        "NEW_VENDOR: First invoice from this vendor",
+        "RUSH_PAYMENT_TERMS: Net 7 terms vs industry standard Net 30"
+      ],
+      "action_required": "Freeze payment. Amount appears structured to avoid $50K approval threshold. Verify vendor legitimacy before any payment. Escalate to CFO."
+    }
+  ],
+  "auto_approved": [
+    {
+      "invoice_number": "INV-2024-TP-002",
+      "vendor_name": "TechParts GmbH",
+      "amount": 3900.00,
+      "currency": "EUR",
+      "gl_codes": [
+        { "gl_code": "5100", "description": "Manufacturing & Production Supplies", "amount": 3900.00 }
+      ],
+      "approval_reason": "Price variance of €195 vs PO €185 per unit covered by PO Amendment #AMD-2024-1002 dated 2024-11-20. Full GRN confirmed for all 20 units. 3-way match: PRICE_AMENDED → AUTO_APPROVED."
+    },
+    {
+      "invoice_number": "INV-2024-GOS-003",
+      "vendor_name": "Global Office Solutions",
+      "amount": 252.75,
+      "currency": "GBP",
+      "gl_codes": [
+        { "gl_code": "5300", "description": "Office Supplies & Equipment", "amount": 252.75 }
+      ],
+      "approval_reason": "Price variance 1.5% (£252.75 vs £249.00). Within vendor-specific 3% tolerance policy for VND-003 negotiated 2024-01-15. Full GRN confirmed. AUTO_APPROVED per tolerance policy."
+    }
+  ],
+  "partial_approved": [
+    {
+      "invoice_number": "INV-2024-AS-001",
+      "vendor_name": "Acme Supplies",
+      "approve_amount": 7500.00,
+      "hold_amount": 2500.00,
+      "currency": "USD",
+      "reason": "GRN-2024-001 confirms 15 of 20 units received (75%). Approving confirmed portion $7,500. Holding $2,500 pending receipt of remaining 5 units. PO-2024-1001 remains open."
+    }
+  ],
+  "needs_approval": [],
+  "compliance_blocked": [],
+  "payment_priority_queue": [
+    {
+      "invoice_number": "INV-2024-NF-001",
+      "vendor_name": "Nordic Freight AB",
+      "discount_amount": 2340.00,
+      "currency": "SEK",
+      "deadline": "2026-04-18",
+      "days_remaining": 8,
+      "roi_pct": 36.7,
+      "discount_pct": 2.0,
+      "net_days": 45,
+      "priority": "HIGH",
+      "recommendation": "Pay by 2026-04-18 to capture SEK 2,340 discount. Annualised ROI 36.7% — exceeds cost of capital. Do not let this expire."
+    }
+  ],
+  "run_stats": {
+    "total_invoices": 6,
+    "auto_approved": 2,
+    "partial_approved": 1,
+    "needs_approval": 0,
+    "fraud_frozen": 2,
+    "compliance_blocked": 0,
+    "total_approvable_value": "USD 7,500 + EUR 3,900 + GBP 252.75",
+    "total_held_value": "USD 2,500",
+    "total_discount_opportunity": "SEK 2,340 (36.7% annualised ROI)"
+  },
+  "invoices": [
+    {
+      "invoice_number": "INV-2024-AS-001",
+      "vendor_name": "Acme Supplies",
+      "vendor_id": "VND-001",
+      "amount": 10000.00,
+      "currency": "USD",
+      "po_number": "PO-2024-1001",
+      "exception_type": "PARTIAL_GRN",
+      "outcome": "partial_approved",
+      "description": "Industrial Fasteners — 20 units billed, 15 received per GRN"
+    },
+    {
+      "invoice_number": "INV-2024-TP-002",
+      "vendor_name": "TechParts GmbH",
+      "vendor_id": "VND-002",
+      "amount": 3900.00,
+      "currency": "EUR",
+      "po_number": "PO-2024-1002",
+      "exception_type": "PRICE_VARIANCE",
+      "outcome": "auto_approved",
+      "description": "Servo Motor — price €195 vs PO €185, covered by amendment"
+    },
+    {
+      "invoice_number": "INV-2024-GOS-003",
+      "vendor_name": "Global Office Solutions",
+      "vendor_id": "VND-003",
+      "amount": 252.75,
+      "currency": "GBP",
+      "po_number": "PO-2024-1003",
+      "exception_type": "VENDOR_TOLERANCE",
+      "outcome": "auto_approved",
+      "description": "Filing Cabinet — 1.5% variance within 3% vendor tolerance policy"
+    },
+    {
+      "invoice_number": "INV-2024-NF-001",
+      "vendor_name": "Nordic Freight AB",
+      "vendor_id": "VND-007",
+      "amount": 133750.00,
+      "currency": "SEK",
+      "po_number": "PO-2024-1007",
+      "exception_type": "PAYMENT_TERMS",
+      "outcome": "payment_priority",
+      "description": "Freight Services — 2/10 Net 45, SEK 2,340 discount expires 2026-04-18"
+    },
+    {
+      "invoice_number": "INV-2024-FAKE-001",
+      "vendor_name": "Fake Acme Supplies",
+      "vendor_id": "VND-UNKNOWN",
+      "amount": 4250.00,
+      "currency": "USD",
+      "po_number": "PO-2024-1001",
+      "exception_type": "FRAUD",
+      "outcome": "fraud_frozen",
+      "description": "Lookalike vendor — bank account changed, domain mismatch"
+    },
+    {
+      "invoice_number": "INV-2024-FAST-001",
+      "vendor_name": "FastPay Solutions LLC",
+      "vendor_id": "VND-FRAUD-001",
+      "amount": 49750.00,
+      "currency": "USD",
+      "po_number": "PO-2024-9999",
+      "exception_type": "FRAUD",
+      "outcome": "fraud_frozen",
+      "description": "Structuring — $49,750 just under $50K approval threshold"
+    }
+  ]
+}
