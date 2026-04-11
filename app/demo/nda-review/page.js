@@ -190,50 +190,93 @@ export default function NDADemoPage() {
         {/* ═══════════════════════════════════════════════════════════════════ */}
         {phase === 'upload' && (
           <>
-            <div style={{ textAlign:'center', marginBottom:'48px' }}>
-              <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', padding:'6px 16px', background:'rgba(99,102,241,0.1)', border:'1px solid rgba(99,102,241,0.3)', borderRadius:'100px', fontSize:'12px', fontWeight:'600', color:'#818cf8', marginBottom:'20px' }}>
-                5 Agents · Mistral OCR · Claude Haiku + Sonnet · CrewAI
+            {/* ── Gradient hero ── */}
+            <div style={{ background:'linear-gradient(180deg,rgba(99,102,241,0.07) 0%,transparent 100%)', border:'1px solid rgba(99,102,241,0.12)', borderRadius:'24px', padding:'clamp(32px,6vw,56px) clamp(24px,5vw,48px)', textAlign:'center', marginBottom:'28px' }}>
+              <div style={{ display:'inline-flex', alignItems:'center', gap:'8px', padding:'5px 14px', background:'rgba(99,102,241,0.12)', border:'1px solid rgba(99,102,241,0.3)', borderRadius:'100px', fontSize:'11px', fontWeight:'700', color:'#818cf8', letterSpacing:'0.06em', marginBottom:'20px' }}>
+                5 AGENTS · MISTRAL OCR · CLAUDE HAIKU + SONNET · CREWAI
               </div>
-              <h1 style={{ fontSize:'clamp(28px,6vw,46px)', fontWeight:'800', marginBottom:'16px', lineHeight:1.1 }}>
+              <h1 style={{ fontSize:'clamp(28px,5.5vw,48px)', fontWeight:'800', marginBottom:'14px', lineHeight:1.08, letterSpacing:'-0.02em' }}>
                 NDA Counterparty Review
               </h1>
-              <p style={{ fontSize:'clamp(14px,2.5vw,17px)', color:'#94a3b8', lineHeight:'1.7', maxWidth:'560px', margin:'0 auto' }}>
-                Upload any NDA PDF. Five AI agents parse the document, extract clauses, compare against your legal playbook, score risk, and route for sign-off.
+              <p style={{ fontSize:'clamp(14px,2.2vw,16px)', color:'#94a3b8', lineHeight:'1.75', maxWidth:'540px', margin:'0 auto 32px' }}>
+                Upload any NDA PDF. Five AI agents parse the document, extract every clause, compare against your legal playbook, score counterparty risk, and route for executive sign-off.
               </p>
+
+              {/* Metrics row */}
+              <div style={{ display:'grid', gridTemplateColumns:'repeat(4,1fr)', gap:'12px', maxWidth:'680px', margin:'0 auto' }}>
+                {[
+                  { val:'10',      unit:'Clauses',    desc:'reviewed per NDA',    icon:'📋' },
+                  { val:'<15s',    unit:'Analysis',   desc:'full pipeline runtime',icon:'⚡' },
+                  { val:'4 Tiers', unit:'Risk Rating', desc:'LOW → CRITICAL',      icon:'⚖️' },
+                  { val:'100%',    unit:'Audit Trail', desc:'clause-by-clause log', icon:'🔍' },
+                ].map(m => (
+                  <div key={m.unit} style={{ padding:'16px 12px', background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:'14px' }}>
+                    <div style={{ fontSize:'20px', marginBottom:'6px' }}>{m.icon}</div>
+                    <div style={{ fontFamily:'JetBrains Mono, monospace', fontSize:'clamp(15px,2.5vw,18px)', fontWeight:'800', color:'#818cf8', marginBottom:'3px' }}>{m.val}</div>
+                    <div style={{ fontSize:'11px', fontWeight:'700', color:'#e2e8f0', marginBottom:'2px' }}>{m.unit}</div>
+                    <div style={{ fontSize:'10px', color:'#475569' }}>{m.desc}</div>
+                  </div>
+                ))}
+              </div>
             </div>
 
-            {/* Drop zone */}
-            <div
-              className="upload-zone"
-              onDragOver={(e)=>{ e.preventDefault(); setIsDragging(true); }}
-              onDragLeave={()=>setIsDragging(false)}
-              onDrop={(e)=>{ e.preventDefault(); setIsDragging(false); handleFile(e.dataTransfer.files[0]); }}
-              onClick={()=>fileInputRef.current?.click()}
-              style={{ border:`2px dashed ${isDragging?'rgba(99,102,241,0.6)':file?'rgba(34,197,94,0.4)':'rgba(255,255,255,0.12)'}`, borderRadius:'16px', padding:'clamp(36px,7vw,56px) 32px', textAlign:'center', cursor:'pointer', background:isDragging?'rgba(99,102,241,0.04)':file?'rgba(34,197,94,0.03)':'rgba(255,255,255,0.02)', marginBottom:'16px', transition:'all 0.2s ease' }}
-            >
-              <input ref={fileInputRef} type="file" accept=".pdf" style={{ display:'none' }} onChange={(e)=>handleFile(e.target.files[0])}/>
-              {file ? (
-                <>
-                  <div style={{ fontSize:'40px', marginBottom:'10px' }}>📄</div>
-                  <div style={{ fontSize:'18px', fontWeight:'700', color:'#22c55e', marginBottom:'5px' }}>{file.name}</div>
-                  <div style={{ fontSize:'13px', color:'#64748b' }}>{(file.size/1024).toFixed(1)} KB · Click to change</div>
-                </>
-              ) : (
-                <>
-                  <Upload size={36} color="#6366f1" style={{ marginBottom:'14px' }}/>
-                  <div style={{ fontSize:'17px', fontWeight:'600', marginBottom:'7px' }}>Drop your NDA PDF here</div>
-                  <div style={{ fontSize:'13px', color:'#64748b' }}>or click to browse · PDF only</div>
-                </>
+            {/* ── Agent preview strip ── */}
+            <div style={{ display:'flex', gap:'8px', marginBottom:'28px', overflowX:'auto', paddingBottom:'4px' }}>
+              {AGENT_STEPS.map((a, i) => (
+                <div key={a.step} style={{ display:'flex', alignItems:'center', gap:'8px', padding:'10px 14px', background:'rgba(255,255,255,0.03)', border:'1px solid rgba(255,255,255,0.07)', borderRadius:'10px', flexShrink:0, minWidth:0 }}>
+                  <span style={{ fontSize:'16px' }}>{a.icon}</span>
+                  <div>
+                    <div style={{ fontSize:'11px', fontWeight:'700', color:'#94a3b8', whiteSpace:'nowrap' }}>{a.agent}</div>
+                    <span style={{ padding:'1px 6px', background:a.model==='Sonnet'?'rgba(139,92,246,0.15)':'rgba(59,130,246,0.15)', border:`1px solid ${a.model==='Sonnet'?'rgba(139,92,246,0.3)':'rgba(59,130,246,0.3)'}`, borderRadius:'4px', fontSize:'9px', fontWeight:'700', color:a.model==='Sonnet'?'#a78bfa':'#60a5fa' }}>{a.model}</span>
+                  </div>
+                  {i < AGENT_STEPS.length - 1 && <span style={{ color:'#334155', fontSize:'14px', marginLeft:'4px' }}>→</span>}
+                </div>
+              ))}
+            </div>
+
+            {/* ── Upload + CTA box ── */}
+            <div style={{ background:'rgba(99,102,241,0.04)', border:'1px solid rgba(99,102,241,0.15)', borderRadius:'20px', padding:'clamp(20px,4vw,32px)', marginBottom:'0' }}>
+              <div style={{ fontSize:'12px', fontWeight:'700', color:'#64748b', letterSpacing:'0.08em', marginBottom:'16px', textAlign:'center' }}>UPLOAD CONTRACT DOCUMENT</div>
+
+              {/* Drop zone */}
+              <div
+                className="upload-zone"
+                onDragOver={(e)=>{ e.preventDefault(); setIsDragging(true); }}
+                onDragLeave={()=>setIsDragging(false)}
+                onDrop={(e)=>{ e.preventDefault(); setIsDragging(false); handleFile(e.dataTransfer.files[0]); }}
+                onClick={()=>fileInputRef.current?.click()}
+                style={{ border:`2px dashed ${isDragging?'rgba(99,102,241,0.6)':file?'rgba(34,197,94,0.4)':'rgba(99,102,241,0.2)'}`, borderRadius:'14px', padding:'clamp(28px,5vw,44px) 24px', textAlign:'center', cursor:'pointer', background:isDragging?'rgba(99,102,241,0.06)':file?'rgba(34,197,94,0.04)':'rgba(99,102,241,0.02)', marginBottom:'16px', transition:'all 0.2s ease' }}
+              >
+                <input ref={fileInputRef} type="file" accept=".pdf" style={{ display:'none' }} onChange={(e)=>handleFile(e.target.files[0])}/>
+                {file ? (
+                  <>
+                    <div style={{ fontSize:'38px', marginBottom:'10px' }}>📄</div>
+                    <div style={{ fontSize:'17px', fontWeight:'700', color:'#22c55e', marginBottom:'5px' }}>{file.name}</div>
+                    <div style={{ fontSize:'13px', color:'#64748b' }}>{(file.size/1024).toFixed(1)} KB · Click to change</div>
+                  </>
+                ) : (
+                  <>
+                    <Upload size={34} color="#6366f1" style={{ marginBottom:'12px' }}/>
+                    <div style={{ fontSize:'16px', fontWeight:'600', marginBottom:'6px' }}>Drop your NDA PDF here</div>
+                    <div style={{ fontSize:'13px', color:'#64748b' }}>or click to browse · PDF files only</div>
+                  </>
+                )}
+              </div>
+
+              <button
+                onClick={runPipeline}
+                disabled={!file}
+                style={{ width:'100%', padding:'16px', borderRadius:'12px', border:'none', cursor:file?'pointer':'not-allowed', background:file?'linear-gradient(135deg,#6366f1,#4f46e5)':'rgba(255,255,255,0.05)', color:file?'white':'#475569', fontSize:'16px', fontWeight:'700', display:'flex', alignItems:'center', justifyContent:'center', gap:'10px', boxShadow:file?'0 8px 32px rgba(99,102,241,0.3)':'none', transition:'all 0.2s ease' }}
+              >
+                <Shield size={20}/>{file ? 'Start 5-Agent Review Pipeline' : 'Upload a PDF to begin'}
+              </button>
+
+              {file && (
+                <p style={{ textAlign:'center', fontSize:'12px', color:'#475569', marginTop:'12px' }}>
+                  Document parser → clause extractor → playbook reviewer → risk scorer → compliance gate
+                </p>
               )}
             </div>
-
-            <button
-              onClick={runPipeline}
-              disabled={!file}
-              style={{ width:'100%', padding:'16px', borderRadius:'12px', border:'none', cursor:file?'pointer':'not-allowed', background:file?'linear-gradient(135deg,#6366f1,#4f46e5)':'rgba(255,255,255,0.05)', color:file?'white':'#475569', fontSize:'16px', fontWeight:'700', display:'flex', alignItems:'center', justifyContent:'center', gap:'10px', boxShadow:file?'0 8px 32px rgba(99,102,241,0.3)':'none', transition:'all 0.2s ease' }}
-            >
-              <Shield size={20}/>{file ? 'Start 5-Agent Review Pipeline' : 'Upload a demo PDF to begin'}
-            </button>
           </>
         )}
 
@@ -435,7 +478,7 @@ export default function NDADemoPage() {
 
             <div style={{ padding:'14px', background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.05)', borderRadius:'10px' }}>
               <p style={{ fontSize:'12px', color:'#475569', lineHeight:'1.6', textAlign:'center' }}>
-                NovaTech Solutions Inc. is a fictional company used for demonstration. This pipeline is built on CrewAI with Claude Haiku and Sonnet — configurable for your own legal playbook and sign-off thresholds.
+                Built on CrewAI with Claude Haiku and Sonnet — configurable for your own legal playbook, clause library, and sign-off thresholds.
               </p>
             </div>
           </div>
