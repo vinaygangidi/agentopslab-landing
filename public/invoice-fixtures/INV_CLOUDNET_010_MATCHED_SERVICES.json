@@ -1,0 +1,62 @@
+{
+  "filename": "INV_CLOUDNET_010_MATCHED_SERVICES.pdf",
+  "invoice_number": "CN-INV-2025-5011",
+  "vendor_name": "CloudNet Technologies Inc.",
+  "vendor_id": "VND-006",
+  "po_reference": "PO-2025-8010",
+  "currency": "USD",
+  "invoice_amount": 10175.0,
+  "payment_terms": "Net 45",
+  "due_date": "2025-03-16",
+  "outcome": "auto_approved",
+  "match_status": "FULL_MATCH",
+  "exception_type": null,
+  "risk_level": "LOW",
+  "risk_score": 6,
+  "action": "AUTO_APPROVE",
+  "summary": "Annual services renewal invoice with full 3-way match. All four service lines (ML Operations, Infrastructure Monitoring, Cloud Security, Backup and DR) match PO-2025-8010 and the Master Services Agreement MSA-2024-CN-0044 exactly. Service period confirmed as 2025-02-01 through 2026-01-31. No tax applies (B2B services exemption). Vendor CloudNet Technologies is a Tier-1 approved supplier with 100% SLA compliance record. Auto-approved for payment by 2025-03-16.",
+  "extraction_results": {
+    "ocr_confidence": 0.99,
+    "fields_extracted": 14,
+    "fields_missing": 0,
+    "language_detected": "English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "EXACT",
+    "grn_match": "EXACT",
+    "price_variance_pct": 0.0,
+    "qty_variance": 0,
+    "line_items_matched": 4,
+    "line_items_total": 4
+  },
+  "exceptions": [],
+  "gl_codes": [
+    {
+      "code": "7301-SAAS",
+      "description": "SaaS Platform Subscriptions",
+      "amount": 5400.0
+    },
+    {
+      "code": "7302-MGMT",
+      "description": "Managed IT Services",
+      "amount": 2800.0
+    },
+    {
+      "code": "7303-SECU",
+      "description": "Cybersecurity Services",
+      "amount": 1800.0
+    },
+    {
+      "code": "7304-BKUP",
+      "description": "Data Backup and Recovery",
+      "amount": 175.0
+    }
+  ],
+  "agent_insights": [
+    "Annual renewal \u2014 matched against MSA-2024-CN-0044 and PO-2025-8010",
+    "No tax: B2B cloud services \u2014 IRS Rev. Rul. 2023-14 exemption applies",
+    "Auto-approved USD 10,175.00 for payment by 2025-03-16",
+    "Contract auto-renewal flag set \u2014 procurement reminded 90 days prior to 2026-01-31"
+  ]
+}

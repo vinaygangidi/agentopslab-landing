@@ -1,0 +1,55 @@
+{
+  "filename": "INV_ACME_011_DUPLICATE.pdf",
+  "invoice_number": "INV-ACME-7301",
+  "vendor_name": "Acme Supplies Corp",
+  "vendor_id": "VND-001",
+  "po_reference": "PO-2025-1001",
+  "currency": "USD",
+  "invoice_amount": 1694.0,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-14",
+  "outcome": "fraud_frozen",
+  "match_status": "DUPLICATE",
+  "exception_type": "DUPLICATE_INVOICE",
+  "risk_level": "HIGH",
+  "risk_score": 78,
+  "action": "REJECT_DUPLICATE",
+  "summary": "DUPLICATE INVOICE DETECTED \u2014 Payment blocked. Invoice number INV-ACME-7301 was previously received and processed on 2025-01-15 (document ID DOC-2025-0441). The current submission is an exact duplicate: same invoice number, same date, same PO reference, same amounts, same line items, and same banking details. Duplicate invoices are a common accounts payable fraud vector \u2014 whether fraudulent or an accidental resubmission. Payment has been frozen. Vendor Acme Supplies Corp has been notified. If this is an accidental resubmission, vendor should confirm in writing; if original payment has not been received, provide trace number from original settlement.",
+  "extraction_results": {
+    "ocr_confidence": 0.99,
+    "fields_extracted": 14,
+    "fields_missing": 0,
+    "language_detected": "English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "DUPLICATE",
+    "grn_match": "ALREADY_PROCESSED",
+    "price_variance_pct": 0.0,
+    "qty_variance": 0,
+    "line_items_matched": 4,
+    "line_items_total": 4
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-DUP-001",
+      "type": "DUPLICATE_INVOICE",
+      "severity": "HIGH",
+      "description": "Invoice INV-ACME-7301 already processed on 2025-01-15. Document ID DOC-2025-0441. Amount USD 1,694.00 paid to Wells Fargo ****3317 on 2025-01-20.",
+      "resolution": "Block payment. Notify vendor with proof of prior payment."
+    }
+  ],
+  "fraud_signals": [
+    "Duplicate invoice number INV-ACME-7301 \u2014 exact match to prior submission",
+    "Prior payment confirmed: USD 1,694.00 settled 2025-01-20 (ACH ref ACH-20250120-4721)",
+    "100% identical line items, amounts, and banking details",
+    "Vendor contacted \u2014 awaiting response to confirm accidental resubmission"
+  ],
+  "gl_codes": [],
+  "agent_insights": [
+    "BLOCK: Do not process \u2014 duplicate of previously paid invoice DOC-2025-0441",
+    "Original payment settled 2025-01-20 via ACH-20250120-4721",
+    "Notify Acme Supplies Corp billing@acmesupplies.com with ACH trace",
+    "Flag vendor account for enhanced duplicate checking on next 90 days of invoices"
+  ]
+}

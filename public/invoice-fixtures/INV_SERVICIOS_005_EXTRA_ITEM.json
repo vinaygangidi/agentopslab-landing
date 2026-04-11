@@ -1,0 +1,72 @@
+{
+  "filename": "INV_SERVICIOS_005_EXTRA_ITEM.pdf",
+  "invoice_number": "SI-FAC-2025-1144",
+  "vendor_name": "Servicios Industriales SA de CV",
+  "vendor_id": "VND-005",
+  "po_reference": "PO-2025-5005",
+  "currency": "MXN",
+  "invoice_amount": 41238.0,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-23",
+  "outcome": "partial_approved",
+  "match_status": "EXTRA_LINE_ITEM",
+  "exception_type": "EXTRA_LINE_ITEM",
+  "risk_level": "MEDIUM",
+  "risk_score": 41,
+  "action": "PARTIAL_APPROVE",
+  "summary": "Extra line item detected. PO-2025-5005 covers three authorised line items (air compressors, maintenance service, pneumatic accessories). Invoice SI-FAC-2025-1144 adds SI-TRN-99 On-site Technical Training (2 days x MXN 3,500 = MXN 7,000) which is not in the original PO. Three PO lines match exactly in price and quantity. Partial approval for PO-authorised lines (MXN 34,238.00 including tax); training line held pending separate change order or approval.",
+  "extraction_results": {
+    "ocr_confidence": 0.97,
+    "fields_extracted": 15,
+    "fields_missing": 0,
+    "language_detected": "Spanish/English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "EXTRA_LINE",
+    "grn_match": "PARTIAL",
+    "price_variance_pct": 0.0,
+    "qty_variance": 0,
+    "line_items_matched": 3,
+    "line_items_total": 4
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-SI-001",
+      "type": "EXTRA_LINE_ITEM",
+      "severity": "MEDIUM",
+      "description": "SI-TRN-99 (On-site Technical Training 2 days x MXN 3,500 = MXN 7,000 + IVA) is not authorised by PO-2025-5005",
+      "resolution": "Hold MXN 9,240.00 (training + IVA). Approve remaining MXN 31,998.00."
+    }
+  ],
+  "approve_amount": 31998.0,
+  "hold_amount": 9240.0,
+  "gl_codes": [
+    {
+      "code": "6301-EQUIP",
+      "description": "Industrial Equipment",
+      "amount": 14550.0
+    },
+    {
+      "code": "6302-MAINT",
+      "description": "Maintenance Services",
+      "amount": 7800.0
+    },
+    {
+      "code": "6303-TOOLS",
+      "description": "Tools and Accessories",
+      "amount": 6200.0
+    },
+    {
+      "code": "2401-IVA",
+      "description": "IVA Input Tax 16%",
+      "amount": 5688.0
+    }
+  ],
+  "agent_insights": [
+    "3 PO-authorised lines match exactly \u2014 partial approve MXN 31,998.00",
+    "Training line SI-TRN-99 requires change order or separate PO",
+    "GRN-5005-A confirms delivery of equipment and maintenance service",
+    "Vendor instructed to issue credit note or separate PO for training"
+  ]
+}

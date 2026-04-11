@@ -1,0 +1,74 @@
+{
+  "filename": "INV_GLOBALOFFICE_003_QTY_OVERAGE.pdf",
+  "invoice_number": "GOS-INV-2025-0831",
+  "vendor_name": "Global Office Solutions Ltd",
+  "vendor_id": "VND-003",
+  "po_reference": "PO-2025-3003",
+  "currency": "GBP",
+  "invoice_amount": 12062.4,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-19",
+  "outcome": "partial_approved",
+  "match_status": "QTY_OVERAGE",
+  "exception_type": "QTY_OVERAGE",
+  "risk_level": "MEDIUM",
+  "risk_score": 44,
+  "action": "PARTIAL_APPROVE",
+  "summary": "Quantity overage on two line items. PO-2025-3003 authorised 10 desks (GOS-DSK) and 10 chairs (GOS-CHR); invoice bills 12 of each. GRN-3003-A confirms receipt of all 12 units per item but PO only covers 10. Overages of 2 units per line (GBP 570.00 desks + GBP 357.00 chairs = GBP 927.00 above PO). Monitors (GOS-MON) match exactly. Partial approval for 10 units per authorised line; 2-unit overage held pending supplemental PO or vendor credit note.",
+  "extraction_results": {
+    "ocr_confidence": 0.98,
+    "fields_extracted": 14,
+    "fields_missing": 0,
+    "language_detected": "English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "QTY_OVERAGE",
+    "grn_match": "EXACT",
+    "price_variance_pct": 0.0,
+    "qty_variance": 4,
+    "line_items_matched": 1,
+    "line_items_total": 3
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-GOS-001",
+      "type": "QTY_OVERAGE",
+      "severity": "MEDIUM",
+      "description": "GOS-DSK: Billed 12 units, PO authorises 10. Overage 2 units x GBP 285.00 = GBP 570.00",
+      "resolution": "Approve 10 units (GBP 2,850.00). Hold 2 units pending supplemental PO."
+    },
+    {
+      "exception_id": "EXC-2025-GOS-002",
+      "type": "QTY_OVERAGE",
+      "severity": "MEDIUM",
+      "description": "GOS-CHR: Billed 12 units, PO authorises 10. Overage 2 units x GBP 178.50 = GBP 357.00",
+      "resolution": "Approve 10 units (GBP 1,785.00). Hold 2 units pending supplemental PO."
+    }
+  ],
+  "approve_amount": 11135.4,
+  "hold_amount": 927.0,
+  "gl_codes": [
+    {
+      "code": "7101-FURN",
+      "description": "Office Furniture & Equipment",
+      "amount": 9135.0
+    },
+    {
+      "code": "7201-IT",
+      "description": "IT Hardware & Peripherals",
+      "amount": 4490.0
+    },
+    {
+      "code": "2202-VAT",
+      "description": "Input VAT 20%",
+      "amount": 2012.4
+    }
+  ],
+  "agent_insights": [
+    "Partial approval: GBP 11,135.40 approved for immediate payment",
+    "GBP 927.00 held \u2014 requires supplemental PO or vendor credit note",
+    "GRN-3003-A confirms physical receipt of all 12 units per line",
+    "Monitor line GOS-MON exact match \u2014 no exception on monitors"
+  ]
+}

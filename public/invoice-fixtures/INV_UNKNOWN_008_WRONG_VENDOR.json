@@ -1,0 +1,63 @@
+{
+  "filename": "INV_UNKNOWN_008_WRONG_VENDOR.pdf",
+  "invoice_number": "UV-2025-INV-0019",
+  "vendor_name": "Unknown Vendor LLC",
+  "vendor_id": "VND-UNKNOWN",
+  "po_reference": "PO-2025-1001",
+  "currency": "USD",
+  "invoice_amount": 1694.0,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-27",
+  "outcome": "fraud_frozen",
+  "match_status": "WRONG_VENDOR",
+  "exception_type": "FRAUD_RISK",
+  "risk_level": "CRITICAL",
+  "risk_score": 91,
+  "action": "FRAUD_FREEZE",
+  "summary": "CRITICAL FRAUD ALERT \u2014 Payment frozen. Invoice UV-2025-INV-0019 references PO-2025-1001 which is a legitimate PO issued to approved vendor Acme Supplies Corp (VND-001). However, this invoice is submitted by Unknown Vendor LLC \u2014 an entity with no record in the vendor master file. The invoice line items, amounts, and quantities are an exact copy of INV-ACME-7301 (previously processed). Multiple fraud signals: (1) unregistered vendor, (2) PO hijacking \u2014 referencing a real PO, (3) new banking details to Chase account ****9934 not in vendor master, (4) identical line items to a legitimate invoice already processed. This pattern matches a known vendor impersonation / business email compromise (BEC) attack vector. Payment frozen. Escalated to Finance Director and Security team.",
+  "extraction_results": {
+    "ocr_confidence": 0.98,
+    "fields_extracted": 14,
+    "fields_missing": 0,
+    "language_detected": "English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "WRONG_VENDOR",
+    "grn_match": "NO_MATCH",
+    "price_variance_pct": 0.0,
+    "qty_variance": 0,
+    "line_items_matched": 0,
+    "line_items_total": 4
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-FR-001",
+      "type": "FRAUD_RISK",
+      "severity": "CRITICAL",
+      "description": "Vendor 'Unknown Vendor LLC' is not registered in vendor master file. PO-2025-1001 is assigned to Acme Supplies Corp (VND-001).",
+      "resolution": "FREEZE payment. Escalate to Finance Director and Security."
+    },
+    {
+      "exception_id": "EXC-2025-FR-002",
+      "type": "BEC_INDICATOR",
+      "severity": "CRITICAL",
+      "description": "New banking details (Chase ****9934) submitted by unregistered entity. Matches BEC attack pattern \u2014 PO hijacking with spoofed invoice.",
+      "resolution": "Block payment. Verify with original vendor Acme Supplies Corp directly."
+    }
+  ],
+  "fraud_signals": [
+    "Unregistered vendor \u2014 no record in approved vendor master",
+    "PO hijacking \u2014 PO-2025-1001 belongs to Acme Supplies Corp",
+    "Exact line item duplication from previously processed INV-ACME-7301",
+    "New banking details from unverified entity \u2014 BEC attack pattern",
+    "Email domain unknownvendor.biz registered 14 days ago"
+  ],
+  "gl_codes": [],
+  "agent_insights": [
+    "FREEZE: Do not process payment under any circumstances",
+    "Contact Acme Supplies Corp billing@acmesupplies.com to verify",
+    "File incident report \u2014 suspected BEC / vendor impersonation attack",
+    "Review all recent invoices referencing PO-2025-1001"
+  ]
+}

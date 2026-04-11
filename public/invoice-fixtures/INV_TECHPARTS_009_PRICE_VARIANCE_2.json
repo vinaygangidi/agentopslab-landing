@@ -1,0 +1,60 @@
+{
+  "filename": "INV_TECHPARTS_009_PRICE_VARIANCE_2.pdf",
+  "invoice_number": "RE-2025-TG-4501",
+  "vendor_name": "TechParts GmbH",
+  "vendor_id": "VND-002",
+  "po_reference": "PO-2025-2009",
+  "currency": "EUR",
+  "invoice_amount": 2557.01,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-28",
+  "outcome": "auto_approved",
+  "match_status": "PRICE_VARIANCE_WITHIN_TOLERANCE",
+  "exception_type": "PRICE_VARIANCE",
+  "risk_level": "LOW",
+  "risk_score": 18,
+  "action": "AUTO_APPROVE",
+  "summary": "Minor price variance within vendor tolerance band. PO-2025-2009 locked prices under the 2024 contract. Invoice RE-2025-TG-4501 reflects a 2.1% raw material surcharge per updated vendor contract VC-2025-TG-001 (now countersigned). Variances: TP-C210 +2.67%, TP-B445 +1.36%, TP-S119 -1.36% \u2014 all within the 5% auto-approval tolerance threshold agreed in the master supply agreement. GRN-2009-A confirms full quantity receipt. Invoice auto-approved. Finance notified of updated contract unit prices for future PO issuance.",
+  "extraction_results": {
+    "ocr_confidence": 0.97,
+    "fields_extracted": 13,
+    "fields_missing": 0,
+    "language_detected": "German/English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "WITHIN_TOLERANCE",
+    "grn_match": "EXACT",
+    "price_variance_pct": 2.67,
+    "qty_variance": 0,
+    "line_items_matched": 3,
+    "line_items_total": 3
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-TG-010",
+      "type": "PRICE_VARIANCE",
+      "severity": "INFO",
+      "description": "All line items within 5% tolerance band per MSA clause 7.3. Variance driven by countersigned raw material surcharge (VC-2025-TG-001).",
+      "resolution": "Auto-approved. Update PO template prices for future orders."
+    }
+  ],
+  "gl_codes": [
+    {
+      "code": "6101-PARTS",
+      "description": "Machined Parts and Components",
+      "amount": 2148.75
+    },
+    {
+      "code": "2201-VAT",
+      "description": "Input VAT 19%",
+      "amount": 408.26
+    }
+  ],
+  "agent_insights": [
+    "Contract VC-2025-TG-001 now countersigned \u2014 variance within tolerance",
+    "Max variance 2.67% on TP-C210 \u2014 below 5% auto-approval threshold",
+    "Auto-approved EUR 2,557.01 for payment by 2025-02-28",
+    "Procurement notified to update PO unit prices for next order cycle"
+  ]
+}

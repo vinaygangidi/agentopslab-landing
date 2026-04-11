@@ -1,0 +1,57 @@
+{
+  "filename": "INV_ACME_001_MATCHED.pdf",
+  "invoice_number": "INV-ACME-7301",
+  "vendor_name": "Acme Supplies Corp",
+  "vendor_id": "VND-001",
+  "po_reference": "PO-2025-1001",
+  "currency": "USD",
+  "invoice_amount": 1694.0,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-14",
+  "outcome": "auto_approved",
+  "match_status": "FULL_MATCH",
+  "exception_type": null,
+  "risk_level": "LOW",
+  "risk_score": 4,
+  "action": "AUTO_APPROVE",
+  "summary": "Clean 3-way match. Invoice quantities, unit prices, and line items align exactly with PO-2025-1001 and GRN confirmation. Vendor Acme Supplies Corp (VND-001) is an approved supplier in good standing with 98.2% on-time delivery rate. No exceptions raised. Routed to automated payment queue for settlement by 2025-02-14.",
+  "extraction_results": {
+    "ocr_confidence": 0.99,
+    "fields_extracted": 14,
+    "fields_missing": 0,
+    "language_detected": "English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "EXACT",
+    "grn_match": "EXACT",
+    "price_variance_pct": 0.0,
+    "qty_variance": 0,
+    "line_items_matched": 4,
+    "line_items_total": 4
+  },
+  "exceptions": [],
+  "gl_codes": [
+    {
+      "code": "5101-SUPPLY",
+      "description": "Operating Supplies",
+      "amount": 1085.0
+    },
+    {
+      "code": "5201-SAFETY",
+      "description": "Safety Equipment",
+      "amount": 455.0
+    },
+    {
+      "code": "2101-TAX",
+      "description": "Input Tax Payable",
+      "amount": 154.0
+    }
+  ],
+  "agent_insights": [
+    "Vendor compliance score: 98.2% \u2014 approved for auto-payment up to USD 25,000",
+    "3-way match confirmed: Invoice vs PO-2025-1001 vs GRN-1001-A",
+    "Payment scheduled: ACH to Wells Fargo account ****3317 by 2025-02-14",
+    "No fraud signals detected \u2014 banking details match vendor master file"
+  ]
+}

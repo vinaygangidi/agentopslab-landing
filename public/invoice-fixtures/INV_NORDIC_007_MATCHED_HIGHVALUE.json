@@ -1,0 +1,77 @@
+{
+  "filename": "INV_NORDIC_007_MATCHED_HIGHVALUE.pdf",
+  "invoice_number": "NF-SE-2025-0072",
+  "vendor_name": "Nordic Freight AB",
+  "vendor_id": "VND-007",
+  "po_reference": "PO-2025-7007",
+  "currency": "SEK",
+  "invoice_amount": 147125.0,
+  "payment_terms": "Net 15",
+  "due_date": "2025-02-10",
+  "outcome": "payment_priority",
+  "match_status": "FULL_MATCH",
+  "exception_type": "EARLY_PAYMENT_DISCOUNT",
+  "risk_level": "LOW",
+  "risk_score": 8,
+  "action": "PAYMENT_PRIORITY",
+  "summary": "Full 3-way match on high-value freight invoice. All four lines match PO-2025-7007 and GRN-7007-A exactly. Critical alert: invoice offers 2% early payment discount (SEK 2,942.50 savings) if paid within 5 business days by 2025-01-31. At today's EUR/SEK rate, discount is worth approximately USD 260. Annualised discount rate is 36.5% \u2014 financially compelling. Recommending immediate payment priority escalation to capture discount. Full payment SEK 147,125.00 due 2025-02-10 if discount window missed.",
+  "extraction_results": {
+    "ocr_confidence": 0.98,
+    "fields_extracted": 15,
+    "fields_missing": 0,
+    "language_detected": "Swedish/English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "EXACT",
+    "grn_match": "EXACT",
+    "price_variance_pct": 0.0,
+    "qty_variance": 0,
+    "line_items_matched": 4,
+    "line_items_total": 4
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-NF-001",
+      "type": "EARLY_PAYMENT_DISCOUNT",
+      "severity": "OPPORTUNITY",
+      "description": "2% discount (SEK 2,942.50) available if paid by 2025-01-31. Annualised rate: 36.5%",
+      "resolution": "Escalate to AP Manager for priority payment approval before 2025-01-31"
+    }
+  ],
+  "discount_available": 2942.5,
+  "discount_deadline": "2025-01-31",
+  "gl_codes": [
+    {
+      "code": "8101-FRTG",
+      "description": "International Freight",
+      "amount": 78500.0
+    },
+    {
+      "code": "8102-CUST",
+      "description": "Customs and Clearance",
+      "amount": 12400.0
+    },
+    {
+      "code": "8103-WHSE",
+      "description": "Warehousing and Storage",
+      "amount": 8800.0
+    },
+    {
+      "code": "8104-INS",
+      "description": "Cargo Insurance",
+      "amount": 18000.0
+    },
+    {
+      "code": "2501-VAT",
+      "description": "Input VAT 25%",
+      "amount": 29425.0
+    }
+  ],
+  "agent_insights": [
+    "PRIORITY: 2% early payment discount SEK 2,942.50 \u2014 deadline 2025-01-31",
+    "Full 3-way match confirmed \u2014 no exceptions on line items",
+    "High-value invoice SEK 147,125.00 \u2014 dual-approval required per policy",
+    "Vendor Nordic Freight AB: 99.1% on-time delivery, A-rated compliance"
+  ]
+}

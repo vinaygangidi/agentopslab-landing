@@ -1,0 +1,60 @@
+{
+  "filename": "INV_CLOUDNET_006_QTY_UNDERAGE.pdf",
+  "invoice_number": "CN-INV-2025-4892",
+  "vendor_name": "CloudNet Technologies Inc.",
+  "vendor_id": "VND-006",
+  "po_reference": "PO-2025-6006",
+  "currency": "USD",
+  "invoice_amount": 5220.0,
+  "payment_terms": "Net 45",
+  "due_date": "2025-02-24",
+  "outcome": "auto_approved",
+  "match_status": "QTY_UNDERAGE",
+  "exception_type": "QTY_UNDERAGE",
+  "risk_level": "LOW",
+  "risk_score": 15,
+  "action": "AUTO_APPROVE",
+  "summary": "Quantity underage noted but invoice approved. PO-2025-6006 authorised 5x CN-SRV-E2 cloud compute instances; invoice bills 3. GRN-6006-A confirms partial delivery \u2014 2 remaining instances scheduled for next billing cycle per vendor communication. Unit prices, bandwidth, support lines match PO exactly. Underage is expected and documented. Invoice amount USD 5,220.00 is for authorised delivered services only. Auto-approved within vendor's Net 45 terms.",
+  "extraction_results": {
+    "ocr_confidence": 0.99,
+    "fields_extracted": 13,
+    "fields_missing": 0,
+    "language_detected": "English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "QTY_UNDERAGE",
+    "grn_match": "EXACT",
+    "price_variance_pct": 0.0,
+    "qty_variance": -2,
+    "line_items_matched": 4,
+    "line_items_total": 4
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-CN-001",
+      "type": "QTY_UNDERAGE",
+      "severity": "INFO",
+      "description": "CN-SRV-E2: PO authorises 5 instances, invoice bills 3. Underage of 2 units = USD 1,160.00 unbilled",
+      "resolution": "Documented partial delivery. Remaining 2 units expected on next invoice cycle."
+    }
+  ],
+  "gl_codes": [
+    {
+      "code": "7301-CLOUD",
+      "description": "Cloud Infrastructure Services",
+      "amount": 4470.0
+    },
+    {
+      "code": "7302-SUPP",
+      "description": "IT Support Services",
+      "amount": 750.0
+    }
+  ],
+  "agent_insights": [
+    "Underage is informational \u2014 vendor confirmed partial delivery via email",
+    "All billed lines match PO price exactly \u2014 no price variance",
+    "Open PO balance: USD 1,160.00 remaining for 2x CN-SRV-E2 instances",
+    "Auto-approved USD 5,220.00 for payment by 2025-02-24"
+  ]
+}

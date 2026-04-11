@@ -1,0 +1,60 @@
+{
+  "filename": "INV_NIPPON_004_MISSING_ITEM.pdf",
+  "invoice_number": "NE-2025-INV-00184",
+  "vendor_name": "Nippon Electronics Ltd",
+  "vendor_id": "VND-004",
+  "po_reference": "PO-2025-4004",
+  "currency": "JPY",
+  "invoice_amount": 129580,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-21",
+  "outcome": "hold_for_review",
+  "match_status": "MISSING_LINE_ITEM",
+  "exception_type": "MISSING_LINE_ITEM",
+  "risk_level": "MEDIUM",
+  "risk_score": 38,
+  "action": "HOLD_AND_NOTIFY",
+  "summary": "Missing line item exception. PO-2025-4004 included four line items; invoice NE-2025-INV-00184 bills only three. Item NE-PCB-88 (Printed Circuit Board, 5 units x JPY 4,200 = JPY 21,000) is absent from the invoice. Two possible scenarios: (1) item not yet shipped and will appear on a subsequent invoice, or (2) item was shipped but omitted from billing in error. Invoiced amount JPY 129,580 covers the three billed lines accurately. Recommend approving billed lines and issuing a hold notice to vendor requesting shipment/billing status for NE-PCB-88.",
+  "extraction_results": {
+    "ocr_confidence": 0.96,
+    "fields_extracted": 13,
+    "fields_missing": 0,
+    "language_detected": "Japanese/English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "PARTIAL_MATCH",
+    "grn_match": "PARTIAL",
+    "price_variance_pct": 0.0,
+    "qty_variance": 0,
+    "line_items_matched": 3,
+    "line_items_total": 4
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-NE-001",
+      "type": "MISSING_LINE_ITEM",
+      "severity": "LOW",
+      "description": "NE-PCB-88 (Printed Circuit Board 5 units x JPY 4,200 = JPY 21,000) present in PO-2025-4004 but absent from invoice NE-2025-INV-00184",
+      "resolution": "Contact vendor for shipment/billing status. Approve billed amount JPY 129,580."
+    }
+  ],
+  "gl_codes": [
+    {
+      "code": "6201-ELEC",
+      "description": "Electronic Components",
+      "amount": 117800
+    },
+    {
+      "code": "2301-TAX",
+      "description": "Consumption Tax 10%",
+      "amount": 11780
+    }
+  ],
+  "agent_insights": [
+    "3 of 4 PO lines billed accurately \u2014 approve JPY 129,580",
+    "NE-PCB-88 missing \u2014 vendor notification generated for shipment status",
+    "GRN-4004-A shows partial receipt \u2014 PCB line not confirmed received",
+    "No fraud signals \u2014 established vendor, consistent banking details"
+  ]
+}

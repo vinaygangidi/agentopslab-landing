@@ -1,0 +1,67 @@
+{
+  "filename": "INV_TECHPARTS_002_PRICE_VARIANCE.pdf",
+  "invoice_number": "RE-2025-TG-4412",
+  "vendor_name": "TechParts GmbH",
+  "vendor_id": "VND-002",
+  "po_reference": "PO-2025-2002",
+  "currency": "EUR",
+  "invoice_amount": 4777.26,
+  "payment_terms": "Net 30",
+  "due_date": "2025-02-17",
+  "outcome": "hold_for_review",
+  "match_status": "PRICE_VARIANCE",
+  "exception_type": "PRICE_VARIANCE",
+  "risk_level": "MEDIUM",
+  "risk_score": 52,
+  "action": "HOLD_FOR_REVIEW",
+  "summary": "Price variance detected across all 4 line items. PO-2025-2002 locked prices at EUR 45.00/unit for TP-C210; invoice bills EUR 48.90 \u2014 a 8.67% increase. Similar overages on TP-B445 (+2.9%), TP-S119 (-0.5%). Total overbilling vs PO: EUR 183.80. Variance exceeds the 5% auto-approval tolerance threshold. Vendor has a pending contract amendment citing a raw material surcharge \u2014 amendment is not yet countersigned. Routing to Procurement for variance resolution before payment.",
+  "extraction_results": {
+    "ocr_confidence": 0.97,
+    "fields_extracted": 15,
+    "fields_missing": 0,
+    "language_detected": "German/English",
+    "document_type": "INVOICE"
+  },
+  "match_results": {
+    "po_match": "PRICE_VARIANCE",
+    "grn_match": "EXACT",
+    "price_variance_pct": 8.67,
+    "qty_variance": 0,
+    "line_items_matched": 3,
+    "line_items_total": 4
+  },
+  "exceptions": [
+    {
+      "exception_id": "EXC-2025-TG-001",
+      "type": "PRICE_VARIANCE",
+      "severity": "MEDIUM",
+      "description": "TP-C210: Invoiced EUR 48.90 vs PO EUR 45.00 \u2014 variance +8.67% (EUR 195.00 total overage on 50 units)",
+      "resolution": "Pending countersigned contract amendment VC-2025-TG-001"
+    },
+    {
+      "exception_id": "EXC-2025-TG-002",
+      "type": "PRICE_VARIANCE",
+      "severity": "LOW",
+      "description": "TP-B445: Invoiced EUR 22.75 vs PO EUR 22.10 \u2014 variance +2.94% (EUR 19.50 total overage on 30 units)",
+      "resolution": "Within acceptable range if contract amendment is countersigned"
+    }
+  ],
+  "gl_codes": [
+    {
+      "code": "6101-PARTS",
+      "description": "Machined Parts & Components",
+      "amount": 4014.5
+    },
+    {
+      "code": "2201-VAT",
+      "description": "Input VAT 19%",
+      "amount": 762.76
+    }
+  ],
+  "agent_insights": [
+    "Price variance 8.67% on TP-C210 exceeds 5% auto-approval threshold",
+    "Procurement review required: unsigned contract amendment VC-2025-TG-001 on file",
+    "GRN-2002-A confirms full quantity receipt \u2014 only price is disputed",
+    "Recommended: approve EUR 4,593.46 (PO price) and dispute EUR 183.80 overage"
+  ]
+}
