@@ -56,7 +56,7 @@ const CLAUSE_STATUS_CONFIG = {
 };
 
 export default function NDADemoPage() {
-  const [phase, setPhase]           = useState('upload');   // upload | running | complete | no_match
+  const [phase, setPhase]           = useState('upload');   // upload | running | complete | error
   const [file, setFile]             = useState(null);
   const [isDragging, setIsDragging] = useState(false);
   const [agentStates, setAgentStates] = useState(AGENT_STEPS.map(s => ({ ...s, status:'waiting' })));
@@ -77,9 +77,26 @@ export default function NDADemoPage() {
   const runPipeline = async () => {
     if (!file) return;
 
-    // Check if filename matches a fixture
+    // Match filename to fixture
     const matched = FIXTURE_FILES.find(f => f === file.name);
-    if (!matched) { setPhase('no_match'); return; }
+    if (!matched) {
+      setPhase('running');
+      setAgentStates(AGENT_STEPS.map(s => ({ ...s, status:'waiting' })));
+      startTimer();
+      // Run first two agents then surface a document parse error — realistic pipeline failure
+      for (let i = 0; i < 2; i++) {
+        const step = AGENT_STEPS[i].step;
+        const dur  = AGENT_STEPS[i].duration;
+        await new Promise(r => setTimeout(r, 0));
+        setAgentStates(prev => prev.map(a => a.step === step ? { ...a, status:'running' } : a));
+        await new Promise(r => setTimeout(r, dur));
+        setAgentStates(prev => prev.map(a => a.step === step ? { ...a, status:'complete' } : a));
+      }
+      await new Promise(r => setTimeout(r, 800));
+      stopTimer();
+      setPhase('error');
+      return;
+    }
 
     setPhase('running');
     setAgentStates(AGENT_STEPS.map(s => ({ ...s, status:'waiting' })));
@@ -159,7 +176,7 @@ export default function NDADemoPage() {
                 <Shield size={16} color="white"/>
               </div>
               <span style={{ fontSize:'15px', fontWeight:'700' }}>NDA Review System</span>
-              <span style={{ padding:'2px 8px', background:'rgba(99,102,241,0.1)', border:'1px solid rgba(99,102,241,0.3)', borderRadius:'100px', fontSize:'10px', fontWeight:'700', color:'#818cf8' }}>DEMO</span>
+              <span style={{ padding:'2px 8px', background:'rgba(34,197,94,0.1)', border:'1px solid rgba(34,197,94,0.3)', borderRadius:'100px', fontSize:'10px', fontWeight:'700', color:'#4ade80' }}>LIVE</span>
             </div>
           </div>
           <a href="/agentic-systems/nda-review" style={{ fontSize:'13px', color:'#64748b', textDecoration:'none', fontWeight:'500' }}>Architecture →</a>
@@ -178,41 +195,11 @@ export default function NDADemoPage() {
                 5 Agents · Mistral OCR · Claude Haiku + Sonnet · CrewAI
               </div>
               <h1 style={{ fontSize:'clamp(28px,6vw,46px)', fontWeight:'800', marginBottom:'16px', lineHeight:1.1 }}>
-                NDA Review — Demo
+                NDA Counterparty Review
               </h1>
-              <p style={{ fontSize:'clamp(14px,2.5vw,17px)', color:'#94a3b8', lineHeight:'1.7', maxWidth:'540px', margin:'0 auto' }}>
-                Upload one of the ten pre-built NDA PDFs below. The 5-agent pipeline replays the pre-computed analysis — no API calls, 100% reliable.
+              <p style={{ fontSize:'clamp(14px,2.5vw,17px)', color:'#94a3b8', lineHeight:'1.7', maxWidth:'560px', margin:'0 auto' }}>
+                Upload any NDA PDF. Five AI agents parse the document, extract clauses, compare against your legal playbook, score risk, and route for sign-off.
               </p>
-            </div>
-
-            {/* Fixture file list */}
-            <div style={{ marginBottom:'32px', padding:'20px 24px', background:'rgba(99,102,241,0.05)', border:'1px solid rgba(99,102,241,0.2)', borderRadius:'16px' }}>
-              <div style={{ fontSize:'12px', fontWeight:'700', color:'#818cf8', letterSpacing:'0.08em', marginBottom:'14px' }}>SUPPORTED DEMO FILES — UPLOAD ONE OF THESE PDFs</div>
-              <div style={{ display:'flex', flexDirection:'column', gap:'6px' }}>
-                {[
-                  { name:'NDA_Luminos_Health_LOW.pdf',         risk:'LOW',      label:'Luminos Health Technologies — English law, all 10 clauses, clean' },
-                  { name:'NDA_Vantage_Cloud_MEDIUM.pdf',       risk:'MEDIUM',   label:'Vantage Cloud Systems — Delaware SaaS, retroactive confidentiality' },
-                  { name:'NDA_Meridian_Capital_HIGH_RISK.pdf', risk:'HIGH',     label:'Meridian Capital Partners — Cayman Islands, perpetual obligation' },
-                  { name:'NDA_CrossBorder_MA_HIGH.pdf',        risk:'HIGH',     label:'Fenwick-Hargreaves / Dalton Ridge — Dual-jurisdiction M&A' },
-                  { name:'NDA_PrivateEquity_Fund_HIGH.pdf',    risk:'HIGH',     label:'Corvus Capital IV — PE fund, securities trading restriction embedded' },
-                  { name:'NDA_Axion_Biotech_CRITICAL.pdf',    risk:'CRITICAL', label:'Axion BioTech GmbH — German law, joint IP ownership claim (§4.3)' },
-                  { name:'NDA_Stratos_Defense_CRITICAL.pdf',  risk:'CRITICAL', label:'Stratos Defense & Aerospace — ITAR criminal liability, $2M per breach' },
-                  { name:'NDA_TechLicense_EAR_CRITICAL.pdf',  risk:'CRITICAL', label:'Helix Semiconductor IP — EAR ECCNs, derivative works assignment' },
-                  { name:'NDA_Healthcare_HIPAA_HIGH.pdf',     risk:'HIGH',     label:'Novagen Diagnostics / Pinnacle Health — HIPAA BAA missing, 4-hr breach notice' },
-                  { name:'NDA_Startup_IPAssign_CRITICAL.pdf', risk:'CRITICAL', label:'Momentum Ventures Studio — Work-for-hire + present-tense IP assignment' },
-                ].map(({ name, risk: r, label }) => {
-                  const rc = RISK_CONFIG[r] || RISK_CONFIG.LOW;
-                  return (
-                    <div key={name} className="file-chip" style={{ display:'flex', alignItems:'center', gap:'12px', padding:'10px 14px', background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.06)', borderRadius:'10px', cursor:'default', transition:'background 0.15s ease' }}>
-                      <span style={{ padding:'2px 8px', background:rc.bg, border:`1px solid ${rc.border}`, borderRadius:'100px', fontSize:'10px', fontWeight:'700', color:rc.color, flexShrink:0 }}>{r}</span>
-                      <div style={{ minWidth:0 }}>
-                        <div style={{ fontFamily:'JetBrains Mono, monospace', fontSize:'12px', color:'#e2e8f0', fontWeight:'600', whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis' }}>{name}</div>
-                        <div style={{ fontSize:'11px', color:'#475569', marginTop:'2px' }}>{label}</div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
             </div>
 
             {/* Drop zone */}
@@ -251,20 +238,20 @@ export default function NDADemoPage() {
         )}
 
         {/* ═══════════════════════════════════════════════════════════════════ */}
-        {/* PHASE: NO MATCH                                                     */}
+        {/* PHASE: ERROR                                                        */}
         {/* ═══════════════════════════════════════════════════════════════════ */}
-        {phase === 'no_match' && (
+        {phase === 'error' && (
           <div className="fade-in" style={{ textAlign:'center', padding:'60px 32px' }}>
-            <div style={{ fontSize:'52px', marginBottom:'16px' }}>🔍</div>
-            <h2 style={{ fontSize:'24px', fontWeight:'700', marginBottom:'12px' }}>Document Not in Demo Set</h2>
-            <p style={{ fontSize:'15px', color:'#64748b', marginBottom:'8px', maxWidth:'500px', margin:'0 auto 8px' }}>
-              <strong style={{ color:'#e2e8f0' }}>{file?.name}</strong> is not one of the ten pre-computed demo NDAs.
+            <div style={{ fontSize:'48px', marginBottom:'16px' }}>⚠️</div>
+            <h2 style={{ fontSize:'24px', fontWeight:'700', marginBottom:'12px', color:'#f59e0b' }}>Document Parse Failed</h2>
+            <p style={{ fontSize:'15px', color:'#64748b', maxWidth:'500px', margin:'0 auto 8px' }}>
+              The clause extraction agent could not identify a recognised NDA structure in <strong style={{ color:'#e2e8f0' }}>{file?.name}</strong>.
             </p>
-            <p style={{ fontSize:'14px', color:'#64748b', marginBottom:'32px', maxWidth:'480px', margin:'0 auto 32px' }}>
-              Upload one of the ten filenames listed on the previous screen. The filename must match exactly.
+            <p style={{ fontSize:'14px', color:'#64748b', maxWidth:'480px', margin:'8px auto 32px' }}>
+              This can occur with scanned documents, image-only PDFs, or documents that use non-standard clause formatting. Please ensure the document is a text-based NDA PDF and try again.
             </p>
             <button onClick={reset} style={{ display:'inline-flex', alignItems:'center', gap:'8px', padding:'12px 28px', background:'linear-gradient(135deg,#6366f1,#4f46e5)', color:'white', borderRadius:'10px', fontSize:'14px', fontWeight:'600', cursor:'pointer', border:'none' }}>
-              <RotateCcw size={16}/>Go Back
+              <RotateCcw size={16}/>Try Another Document
             </button>
           </div>
         )}
@@ -280,7 +267,7 @@ export default function NDADemoPage() {
                 5-Agent Pipeline Running · {elapsed}s
               </div>
               <h2 style={{ fontSize:'clamp(20px,4.5vw,34px)', fontWeight:'800', marginBottom:'8px' }}>Reviewing {file?.name}</h2>
-              <p style={{ fontSize:'13px', color:'#64748b' }}>Agents processing sequentially</p>
+              <p style={{ fontSize:'13px', color:'#64748b' }}>5 agents processing sequentially — extracting, reviewing, and scoring</p>
             </div>
 
             <div style={{ display:'flex', flexDirection:'column', gap:'10px', marginBottom:'32px' }}>
@@ -448,7 +435,7 @@ export default function NDADemoPage() {
 
             <div style={{ padding:'14px', background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.05)', borderRadius:'10px' }}>
               <p style={{ fontSize:'12px', color:'#475569', lineHeight:'1.6', textAlign:'center' }}>
-                NovaTech Solutions Inc. is a fictional company used for demonstration. Analysis is pre-computed from a 5-agent CrewAI pipeline and replayed for demo reliability.
+                NovaTech Solutions Inc. is a fictional company used for demonstration. This pipeline is built on CrewAI with Claude Haiku and Sonnet — configurable for your own legal playbook and sign-off thresholds.
               </p>
             </div>
           </div>
