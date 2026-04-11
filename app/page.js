@@ -275,6 +275,9 @@ export default function AgentOpsLab() {
                   ))}
                 </div>
                 <div className="agentic-btns" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  <a href="/demo/ap-invoice-processing" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: '#34d399', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
+                    <Zap size={14} />Live Demo
+                  </a>
                   <a href="/agentic-systems/ap-invoice-processing" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'linear-gradient(135deg,#10b981,#059669)', color: 'white', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
                     <ExternalLink size={14} />View Architecture
                   </a>
