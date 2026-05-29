@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { Zap } from 'lucide-react';
 
 export default function FinanceMap() {
   const [modal, setModal] = useState(null);
@@ -16,9 +17,20 @@ export default function FinanceMap() {
 
   const cycles = [
     {
-      label: 'O2C — Order-to-Cash',
-      bg: '#E1F5EE', color: '#085041',
-      steps: [
+      id: 'o2c',
+      label: 'O2C',
+      full: 'Order-to-Cash',
+      subtitle: 'Revenue cycle',
+      color: '#4ade80',
+      border: 'rgba(74,222,128,0.25)',
+      bg: 'rgba(74,222,128,0.07)',
+      headerBg: 'rgba(74,222,128,0.1)',
+      departments: ['Sales Ops', 'Order Mgmt', 'AR', 'Collections'],
+      steps: ['Customer master', 'CPQ / quote', 'Order entry', 'Credit check', 'Fulfillment', 'Billing', 'AR posting', 'Cash app', 'Collections'],
+      output: 'RevRec → GL',
+      kpis: ['DSO', 'Order cycle time', 'Billing accuracy', 'Revenue leakage'],
+      systems: ['Salesforce CPQ', 'SAP SD', 'Snowflake', 'HighRadius'],
+      vendorSteps: [
         { name: 'CPQ / quoting', vendors: [{ label: 'Salesforce Agentforce', type: 'native' }, { label: 'SAP Joule', type: 'native' }, { label: 'DealHub', type: 'specialist' }] },
         { name: 'Order management', vendors: [{ label: 'Salesforce Agentforce', type: 'native' }, { label: 'Azure OpenAI', type: 'cloud' }, { label: 'Blue Yonder', type: 'specialist' }] },
         { name: 'Credit & risk', vendors: [{ label: 'HighRadius', type: 'specialist' }, { label: 'Billtrust', type: 'specialist' }, { label: 'Cross-system gap', type: 'gap' }] },
@@ -30,9 +42,20 @@ export default function FinanceMap() {
       ],
     },
     {
-      label: 'I2C — Invoice-to-Cash',
-      bg: '#E6F1FB', color: '#0C447C',
-      steps: [
+      id: 'i2c',
+      label: 'I2C',
+      full: 'Invoice-to-Cash',
+      subtitle: 'Back half of O2C',
+      color: '#60a5fa',
+      border: 'rgba(96,165,250,0.25)',
+      bg: 'rgba(96,165,250,0.07)',
+      headerBg: 'rgba(96,165,250,0.1)',
+      departments: ['AR', 'Collections', 'Cash Ops'],
+      steps: ['Invoice issuance', 'E-invoice delivery', 'AR aging', 'Cash matching', 'Dispute mgmt', 'Dunning'],
+      output: 'AR close → GL',
+      kpis: ['CEI', 'Unapplied cash', 'Aging buckets', 'Dispute rate'],
+      systems: ['HighRadius', 'Billtrust', 'Sidetrade', 'GetPaid'],
+      vendorSteps: [
         { name: 'Invoice delivery', vendors: [{ label: 'Billtrust', type: 'specialist' }, { label: 'Esker', type: 'specialist' }, { label: 'SAP Joule', type: 'native' }] },
         { name: 'Cash application', vendors: [{ label: 'HighRadius', type: 'specialist' }, { label: 'Versapay', type: 'specialist' }, { label: 'Azure OpenAI', type: 'cloud' }] },
         { name: 'Dispute resolution', vendors: [{ label: 'HighRadius', type: 'specialist' }, { label: 'Sidetrade', type: 'specialist' }, { label: 'Cross-system gap', type: 'gap' }] },
@@ -42,9 +65,20 @@ export default function FinanceMap() {
       ],
     },
     {
-      label: 'P2P — Procure-to-Pay',
-      bg: '#FAECE7', color: '#712B13',
-      steps: [
+      id: 'p2p',
+      label: 'P2P',
+      full: 'Procure-to-Pay',
+      subtitle: 'Spend cycle',
+      color: '#f87171',
+      border: 'rgba(248,113,113,0.25)',
+      bg: 'rgba(248,113,113,0.07)',
+      headerBg: 'rgba(248,113,113,0.1)',
+      departments: ['Procurement', 'Accounts Payable', 'Finance Ops'],
+      steps: ['Sourcing', 'Requisition', 'PO issue', 'Goods receipt', 'Invoice receipt', '3-way match', 'Approval', 'AP posting', 'Payment run'],
+      output: 'Recon → GL',
+      kpis: ['DPO', 'On-time payment', 'Match rate', 'Duplicate invoices'],
+      systems: ['SAP MM', 'Coupa', 'Ariba', 'Basware', 'Tipalti'],
+      vendorSteps: [
         { name: 'Sourcing / RFQ', vendors: [{ label: 'Coupa', type: 'specialist' }, { label: 'Ariba', type: 'specialist' }, { label: 'Azure OpenAI', type: 'cloud' }] },
         { name: 'PO creation', vendors: [{ label: 'SAP Joule', type: 'native' }, { label: 'Coupa', type: 'specialist' }, { label: 'UiPath + Doc Intel', type: 'cloud' }] },
         { name: '3-way match', vendors: [{ label: 'SAP Joule', type: 'native' }, { label: 'Basware', type: 'specialist' }, { label: 'Tipalti', type: 'specialist' }] },
@@ -57,9 +91,20 @@ export default function FinanceMap() {
       ],
     },
     {
-      label: 'H2R — Hire-to-Retire',
-      bg: '#EEEDFE', color: '#3C3489',
-      steps: [
+      id: 'h2r',
+      label: 'H2R',
+      full: 'Hire-to-Retire',
+      subtitle: 'People & payroll',
+      color: '#a78bfa',
+      border: 'rgba(167,139,250,0.25)',
+      bg: 'rgba(167,139,250,0.07)',
+      headerBg: 'rgba(167,139,250,0.1)',
+      departments: ['HR', 'Payroll', 'Total Rewards', 'HRIS'],
+      steps: ['Recruit', 'Onboard', 'Payroll run', 'Benefits', 'Time & expense', 'Comp / equity', 'Performance', 'Offboard'],
+      output: 'Payroll → GL',
+      kpis: ['Cost per hire', 'Retention rate', 'Payroll accuracy', 'T&E compliance'],
+      systems: ['Workday', 'SAP SuccessFactors', 'ADP', 'Ceridian'],
+      vendorSteps: [
         { name: 'Recruiting', vendors: [{ label: 'Workday AI', type: 'native' }, { label: 'HireVue', type: 'specialist' }, { label: 'Eightfold AI', type: 'specialist' }] },
         { name: 'Onboarding', vendors: [{ label: 'Workday AI', type: 'native' }, { label: 'ServiceNow AI', type: 'native' }, { label: 'Azure OpenAI', type: 'cloud' }] },
         { name: 'Payroll run', vendors: [{ label: 'Workday AI', type: 'native' }, { label: 'ADP', type: 'specialist' }, { label: 'Ceridian', type: 'specialist' }] },
@@ -68,13 +113,24 @@ export default function FinanceMap() {
       ],
       gaps: [
         { name: 'Payroll to GL handoff', desc: 'Payroll journal from ADP/Workday must map to correct GL cost centers in SAP/Oracle — mapping logic often manual or brittle. IA agent with GL master data context closes this.' },
-        { name: 'Commissions to RevRec', desc: "Sales commission (Xactly) ties to ARR booked in Salesforce + ASC 606 treatment in RevRec. Three systems, no native agent orchestrates the chain." },
+        { name: 'Commissions to RevRec', desc: 'Sales commission (Xactly) ties to ARR booked in Salesforce + ASC 606 treatment in RevRec. Three systems, no native agent orchestrates the chain.' },
       ],
     },
     {
-      label: 'R2R — Record-to-Report',
-      bg: '#FAEEDA', color: '#633806',
-      steps: [
+      id: 'r2r',
+      label: 'R2R',
+      full: 'Record-to-Report',
+      subtitle: 'Close & reporting',
+      color: '#fbbf24',
+      border: 'rgba(251,191,36,0.25)',
+      bg: 'rgba(251,191,36,0.07)',
+      headerBg: 'rgba(251,191,36,0.1)',
+      departments: ['Controllership', 'FP&A', 'Corporate Accounting', 'Audit'],
+      steps: ['Sub-ledger close', 'Journal entries', 'Reconciliation', 'Intercompany', 'Allocations', 'Consolidation', 'Variance review', 'Mgmt reporting'],
+      output: 'Statutory / audit',
+      kpis: ['Days-to-close', 'Recon rate', 'Audit findings', 'Adjustment volume'],
+      systems: ['SAP S/4HANA', 'BlackLine', 'OneStream', 'Workiva', 'Trintech'],
+      vendorSteps: [
         { name: 'Journal entries', vendors: [{ label: 'SAP Joule', type: 'native' }, { label: 'BlackLine', type: 'specialist' }, { label: 'Trintech', type: 'specialist' }] },
         { name: 'Reconciliation', vendors: [{ label: 'BlackLine', type: 'specialist' }, { label: 'Trintech', type: 'specialist' }, { label: 'Azure OpenAI', type: 'cloud' }] },
         { name: 'Consolidation', vendors: [{ label: 'OneStream', type: 'specialist' }, { label: 'Workiva', type: 'specialist' }, { label: 'SAP Joule', type: 'native' }] },
@@ -89,122 +145,234 @@ export default function FinanceMap() {
   ];
 
   const vendorStyles = {
-    native:     { background: '#EEEDFE', color: '#3C3489', border: '0.5px solid #AFA9EC' },
-    cloud:      { background: '#E6F1FB', color: '#0C447C', border: '0.5px solid #85B7EB' },
-    specialist: { background: '#E1F5EE', color: '#085041', border: '0.5px solid #5DCAA5' },
-    gap:        { background: '#FAECE7', color: '#712B13', border: '0.5px solid #F0997B' },
+    native:     { background: 'rgba(99,102,241,0.15)', color: '#a78bfa', border: '0.5px solid rgba(99,102,241,0.35)' },
+    cloud:      { background: 'rgba(59,130,246,0.12)', color: '#60a5fa', border: '0.5px solid rgba(59,130,246,0.35)' },
+    specialist: { background: 'rgba(16,185,129,0.10)', color: '#34d399', border: '0.5px solid rgba(16,185,129,0.35)' },
+    gap:        { background: 'rgba(239,68,68,0.10)',  color: '#f87171', border: '0.5px solid rgba(239,68,68,0.35)' },
   };
 
   return (
-    <main style={{ maxWidth: 900, margin: '0 auto', padding: '40px 24px', fontFamily: 'system-ui, -apple-system, sans-serif', background: '#fff', minHeight: '100vh' }}>
+    <div style={{ fontFamily: 'Inter, system-ui, sans-serif', background: '#0a0a0a', color: '#fff', minHeight: '100vh' }}>
+      <style jsx global>{`
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0a0a0a; }
+        .step-scroll { display: flex; align-items: center; overflow-x: auto; padding-bottom: 6px; gap: 0; }
+        .step-scroll::-webkit-scrollbar { height: 3px; }
+        .step-scroll::-webkit-scrollbar-track { background: rgba(255,255,255,0.04); border-radius: 2px; }
+        .step-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+        .fm-chip-btn:hover { opacity: 0.85; }
+      `}</style>
 
-      {/* Back link */}
-      <a href="/" style={{ fontSize: 13, color: '#7F77DD', textDecoration: 'none', display: 'inline-block', marginBottom: 28 }}>
-        ← Back to AgentOpsLab
-      </a>
+      {/* ── NAV ── */}
+      <nav style={{ position: 'sticky', top: 0, background: 'rgba(10,10,10,0.94)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.07)', zIndex: 100 }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 clamp(16px,4vw,32px)', height: '66px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+            <div style={{ width: '32px', height: '32px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Zap size={15} color="white" />
+            </div>
+            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>AgentOpsLab</span>
+          </a>
+          <a href="/" style={{ fontSize: '13px', color: '#64748b', textDecoration: 'none', fontWeight: '500' }}>← Back to home</a>
+        </div>
+      </nav>
 
-      {/* Header */}
-      <h1 style={{ fontSize: 24, fontWeight: 500, margin: '0 0 8px', color: '#111' }}>
-        Finance Cycle Intelligence Map
-      </h1>
-      <p style={{ fontSize: 14, color: '#666', margin: '0 0 32px' }}>
-        Dominant agentic vendors and IA orchestration gaps across O2C, I2C, P2P, H2R, and R2R
-      </p>
+      {/* ── HEADER ── */}
+      <section style={{ padding: 'clamp(48px,8vw,80px) clamp(16px,5vw,32px) clamp(32px,5vw,48px)', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'linear-gradient(160deg,rgba(99,102,241,0.07) 0%,rgba(10,10,10,0) 60%)' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+          <p style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Intelligence Map</p>
+          <h1 style={{ fontSize: 'clamp(26px,5vw,48px)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '14px' }}>Finance Cycle Intelligence Map</h1>
+          <p style={{ fontSize: 'clamp(14px,2vw,17px)', color: '#94a3b8', lineHeight: '1.75', maxWidth: '640px', marginBottom: '32px' }}>
+            Sub-process flows, dominant agentic vendors, and IA orchestration gaps across O2C, I2C, P2P, H2R, and R2R — where no native vendor closes the loop.
+          </p>
 
-      {/* Legend */}
-      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 24, padding: '12px 16px', borderRadius: 8, border: '0.5px solid #e5e7eb', background: '#f9f9f9' }}>
-        {[
-          { dot: '#7F77DD', label: 'Native SaaS agent' },
-          { dot: '#378ADD', label: 'Cloud AI platform' },
-          { dot: '#1D9E75', label: 'Specialist / point solution' },
-          { dot: '#D85A30', label: 'IA orchestration gap' },
-        ].map(({ dot, label }) => (
-          <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#555' }}>
-            <div style={{ width: 10, height: 10, borderRadius: '50%', background: dot, flexShrink: 0 }} />
-            {label}
-          </div>
-        ))}
-      </div>
-
-      {/* Cycles */}
-      {cycles.map((cycle) => (
-        <div key={cycle.label} style={{ marginBottom: 20, borderRadius: 12, border: '0.5px solid #e5e7eb', overflow: 'hidden' }}>
-
-          {/* Cycle header */}
-          <div style={{ padding: '12px 18px', background: cycle.bg }}>
-            <span style={{ fontSize: 11, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase', padding: '4px 12px', borderRadius: 20, background: cycle.bg, color: cycle.color, border: `0.5px solid ${cycle.color}33` }}>
-              {cycle.label}
-            </span>
-          </div>
-
-          {/* Step rows */}
-          <div style={{ padding: '10px 14px', display: 'flex', flexDirection: 'column', gap: 6 }}>
-            {cycle.steps.map((step) => (
-              <div key={step.name} style={{ display: 'flex', alignItems: 'stretch', borderRadius: 8, overflow: 'hidden', border: '0.5px solid #e5e7eb' }}>
-                <div style={{ fontSize: 12, fontWeight: 500, padding: '8px 12px', minWidth: 140, flexShrink: 0, background: cycle.bg, color: cycle.color, display: 'flex', alignItems: 'center', borderRight: '0.5px solid #e5e7eb' }}>
-                  {step.name}
-                </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 5, padding: '7px 10px', flex: 1, alignItems: 'center', background: '#fff' }}>
-                  {step.vendors.map((v) => (
-                    <span key={v.label} style={{ fontSize: 11, padding: '3px 9px', borderRadius: 12, fontWeight: 500, whiteSpace: 'nowrap', ...vendorStyles[v.type] }}>
-                      {v.label}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-
-            {/* Gap rows */}
-            {cycle.gaps.map((gap) => (
-              <div key={gap.name} style={{ display: 'flex', alignItems: 'stretch', borderRadius: 8, overflow: 'hidden', border: '1.5px solid #F0997B' }}>
-                <div style={{ fontSize: 12, fontWeight: 500, padding: '8px 12px', minWidth: 140, flexShrink: 0, background: '#FAECE7', color: '#712B13', display: 'flex', alignItems: 'center', borderRight: '1px solid #F0997B' }}>
-                  ⚠ {gap.name}
-                </div>
-                <div style={{ fontSize: 11, padding: '8px 12px', flex: 1, color: '#993C1D', display: 'flex', alignItems: 'center', background: '#FFF8F6', lineHeight: 1.5 }}>
-                  {gap.desc}
-                </div>
+          {/* Legend */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', padding: '14px 18px', borderRadius: '10px', border: '1px solid rgba(255,255,255,0.07)', background: 'rgba(255,255,255,0.02)' }}>
+            {[
+              { dot: '#a78bfa', label: 'Native SaaS agent' },
+              { dot: '#60a5fa', label: 'Cloud AI platform' },
+              { dot: '#34d399', label: 'Specialist / point solution' },
+              { dot: '#f87171', label: 'IA orchestration gap' },
+            ].map(({ dot, label }) => (
+              <div key={label} style={{ display: 'flex', alignItems: 'center', gap: '7px', fontSize: '12px', color: '#94a3b8' }}>
+                <div style={{ width: '9px', height: '9px', borderRadius: '50%', background: dot, flexShrink: 0 }} />
+                {label}
               </div>
             ))}
           </div>
         </div>
-      ))}
+      </section>
 
-      {/* Divider */}
-      <div style={{ height: 1, background: '#e5e7eb', margin: '24px 0' }} />
+      {/* ── CYCLES ── */}
+      <div style={{ maxWidth: '1100px', margin: '0 auto', padding: 'clamp(32px,5vw,56px) clamp(16px,5vw,32px)' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+          {cycles.map((cycle) => (
+            <div key={cycle.id} style={{ borderRadius: '16px', border: `1px solid ${cycle.border}`, overflow: 'hidden' }}>
 
-      {/* IA Banner */}
-      <div style={{ borderRadius: 12, border: '2px solid #AFA9EC', padding: '16px 20px', background: '#EEEDFE' }}>
-        <div style={{ fontSize: 13, fontWeight: 500, color: '#3C3489', marginBottom: 10 }}>
-          IA orchestration layer — where AgentOpsLab earns its keep
-        </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          {chips.map((chip) => (
-            <button
-              key={chip.label}
-              onClick={() => setModal(chip)}
-              style={{ fontSize: 11, padding: '5px 14px', borderRadius: 20, background: '#CECBF6', color: '#26215C', border: '0.5px solid #AFA9EC', cursor: 'pointer', fontFamily: 'inherit' }}
-            >
-              {chip.label}
-            </button>
+              {/* Cycle header */}
+              <div style={{ padding: '16px 22px', background: cycle.headerBg, borderBottom: `1px solid ${cycle.border}`, display: 'flex', flexWrap: 'wrap', gap: '12px', alignItems: 'flex-start', justifyContent: 'space-between' }}>
+                <div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '8px' }}>
+                    <span style={{ fontSize: '13px', fontWeight: '800', color: cycle.color, background: cycle.bg, border: `1px solid ${cycle.border}`, padding: '3px 10px', borderRadius: '20px', letterSpacing: '0.04em' }}>{cycle.label}</span>
+                    <span style={{ fontSize: '16px', fontWeight: '700', color: '#e2e8f0' }}>{cycle.full}</span>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>·</span>
+                    <span style={{ fontSize: '12px', color: '#64748b' }}>{cycle.subtitle}</span>
+                  </div>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                    {cycle.departments.map(d => (
+                      <span key={d} style={{ fontSize: '11px', color: '#64748b', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', padding: '2px 8px', borderRadius: '5px' }}>{d}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '18px' }}>
+
+                {/* Sub-process flow */}
+                <div>
+                  <p style={{ fontSize: '11px', fontWeight: '600', color: '#475569', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: '10px' }}>Process flow</p>
+                  <div className="step-scroll">
+                    {cycle.steps.map((step, i) => (
+                      <div key={step} style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                          <div style={{ width: '20px', height: '20px', borderRadius: '50%', background: cycle.bg, border: `1px solid ${cycle.border}`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '9px', fontWeight: '700', color: cycle.color, flexShrink: 0 }}>{i + 1}</div>
+                          <div style={{ fontSize: '11px', color: '#94a3b8', fontWeight: '500', whiteSpace: 'nowrap', textAlign: 'center', maxWidth: '80px', lineHeight: 1.3 }}>{step}</div>
+                        </div>
+                        {i < cycle.steps.length - 1 && (
+                          <div style={{ width: '28px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '18px' }}>
+                            <div style={{ width: '20px', height: '1px', background: `${cycle.color}40` }} />
+                            <div style={{ width: 0, height: 0, borderTop: '3px solid transparent', borderBottom: '3px solid transparent', borderLeft: `5px solid ${cycle.color}40`, marginLeft: '-1px' }} />
+                          </div>
+                        )}
+                      </div>
+                    ))}
+                    {/* Output node */}
+                    <div style={{ display: 'flex', alignItems: 'center', flexShrink: 0 }}>
+                      <div style={{ width: '28px', flexShrink: 0, display: 'flex', alignItems: 'center', justifyContent: 'center', paddingBottom: '18px' }}>
+                        <div style={{ width: '20px', height: '1px', background: `${cycle.color}40` }} />
+                        <div style={{ width: 0, height: 0, borderTop: '3px solid transparent', borderBottom: '3px solid transparent', borderLeft: `5px solid ${cycle.color}40`, marginLeft: '-1px' }} />
+                      </div>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
+                        <div style={{ padding: '3px 8px', borderRadius: '6px', background: cycle.bg, border: `1px solid ${cycle.border}`, fontSize: '10px', fontWeight: '700', color: cycle.color, whiteSpace: 'nowrap' }}>GL</div>
+                        <div style={{ fontSize: '10px', color: '#64748b', whiteSpace: 'nowrap', fontWeight: '500' }}>{cycle.output}</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* KPIs + Systems row */}
+                <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+                  <div style={{ flex: 1, minWidth: '200px' }}>
+                    <p style={{ fontSize: '11px', fontWeight: '600', color: '#475569', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: '8px' }}>Key metrics</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {cycle.kpis.map(k => (
+                        <span key={k} style={{ fontSize: '11px', color: cycle.color, background: cycle.bg, border: `1px solid ${cycle.border}`, padding: '3px 9px', borderRadius: '6px', fontWeight: '500' }}>{k}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div style={{ flex: 1, minWidth: '200px' }}>
+                    <p style={{ fontSize: '11px', fontWeight: '600', color: '#475569', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: '8px' }}>Core systems</p>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+                      {cycle.systems.map(s => (
+                        <span key={s} style={{ fontSize: '11px', color: '#94a3b8', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', padding: '3px 9px', borderRadius: '6px' }}>{s}</span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Divider */}
+                <div style={{ height: '1px', background: 'rgba(255,255,255,0.06)' }} />
+
+                {/* Vendor coverage */}
+                <div>
+                  <p style={{ fontSize: '11px', fontWeight: '600', color: '#475569', letterSpacing: '0.07em', textTransform: 'uppercase', marginBottom: '10px' }}>Agentic vendor coverage</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
+                    {cycle.vendorSteps.map((step) => (
+                      <div key={step.name} style={{ display: 'flex', alignItems: 'stretch', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.07)' }}>
+                        <div style={{ fontSize: '12px', fontWeight: '500', padding: '8px 12px', minWidth: '140px', flexShrink: 0, background: cycle.bg, color: cycle.color, display: 'flex', alignItems: 'center', borderRight: `1px solid ${cycle.border}` }}>
+                          {step.name}
+                        </div>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '5px', padding: '7px 10px', flex: 1, alignItems: 'center', background: 'rgba(255,255,255,0.02)' }}>
+                          {step.vendors.map((v) => (
+                            <span key={v.label} style={{ fontSize: '11px', padding: '3px 9px', borderRadius: '12px', fontWeight: '500', whiteSpace: 'nowrap', ...vendorStyles[v.type] }}>
+                              {v.label}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+
+                    {/* Gap rows */}
+                    {cycle.gaps.map((gap) => (
+                      <div key={gap.name} style={{ display: 'flex', alignItems: 'stretch', borderRadius: '8px', overflow: 'hidden', border: '1.5px solid rgba(239,68,68,0.4)' }}>
+                        <div style={{ fontSize: '12px', fontWeight: '500', padding: '8px 12px', minWidth: '140px', flexShrink: 0, background: 'rgba(239,68,68,0.10)', color: '#f87171', display: 'flex', alignItems: 'center', borderRight: '1px solid rgba(239,68,68,0.3)' }}>
+                          ⚠ {gap.name}
+                        </div>
+                        <div style={{ fontSize: '11px', padding: '8px 12px', flex: 1, color: '#fca5a5', display: 'flex', alignItems: 'center', background: 'rgba(239,68,68,0.05)', lineHeight: 1.5 }}>
+                          {gap.desc}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            </div>
           ))}
         </div>
+
+        {/* ── IA BANNER ── */}
+        <div style={{ marginTop: '32px', borderRadius: '16px', border: '1px solid rgba(99,102,241,0.35)', padding: '20px 24px', background: 'rgba(99,102,241,0.07)' }}>
+          <p style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>IA Orchestration Layer</p>
+          <div style={{ fontSize: '14px', fontWeight: '600', color: '#e2e8f0', marginBottom: '14px' }}>
+            Where AgentOpsLab earns its keep — cross-cycle workflows no native vendor closes
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            {chips.map((chip) => (
+              <button
+                key={chip.label}
+                className="fm-chip-btn"
+                onClick={() => setModal(chip)}
+                style={{ fontSize: '12px', padding: '6px 14px', borderRadius: '20px', background: 'rgba(99,102,241,0.15)', color: '#a78bfa', border: '1px solid rgba(99,102,241,0.3)', cursor: 'pointer', fontFamily: 'inherit', transition: 'opacity 0.15s' }}
+              >
+                {chip.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
       </div>
 
-      {/* Modal */}
+      {/* ── FOOTER ── */}
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: 'clamp(24px,4vw,36px) clamp(16px,5vw,32px)', marginTop: '0' }}>
+        <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ width: '26px', height: '26px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Zap size={13} color="white" />
+            </div>
+            <span style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>AgentOpsLab</span>
+            <span style={{ color: '#334155', fontSize: '13px', marginLeft: '6px' }}>© 2026</span>
+          </div>
+          <a href="/" style={{ fontSize: '12px', color: '#475569', textDecoration: 'none' }}>← Back to home</a>
+        </div>
+      </footer>
+
+      {/* ── MODAL ── */}
       {modal && (
         <div
           onClick={() => setModal(null)}
-          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: 24 }}
+          style={{ position: 'fixed', inset: 0, background: 'rgba(0,0,0,0.65)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 50, padding: 24, backdropFilter: 'blur(4px)' }}
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            style={{ background: '#fff', borderRadius: 14, padding: 28, maxWidth: 440, width: '100%', border: '1px solid #AFA9EC' }}
+            style={{ background: '#111827', borderRadius: '16px', padding: '28px', maxWidth: '460px', width: '100%', border: '1px solid rgba(99,102,241,0.35)' }}
           >
-            <div style={{ fontSize: 14, fontWeight: 500, color: '#3C3489', marginBottom: 10 }}>{modal.label}</div>
-            <div style={{ fontSize: 13, color: '#555', lineHeight: 1.6 }}>{modal.desc}</div>
+            <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '10px' }}>IA Orchestration Use Case</div>
+            <div style={{ fontSize: '16px', fontWeight: '600', color: '#e2e8f0', marginBottom: '12px' }}>{modal.label}</div>
+            <div style={{ fontSize: '14px', color: '#94a3b8', lineHeight: 1.7 }}>{modal.desc}</div>
             <button
               onClick={() => setModal(null)}
-              style={{ marginTop: 20, fontSize: 12, padding: '6px 16px', borderRadius: 8, background: '#EEEDFE', color: '#3C3489', border: '0.5px solid #AFA9EC', cursor: 'pointer', fontFamily: 'inherit' }}
+              style={{ marginTop: '22px', fontSize: '12px', padding: '7px 18px', borderRadius: '8px', background: 'rgba(99,102,241,0.15)', color: '#a78bfa', border: '1px solid rgba(99,102,241,0.3)', cursor: 'pointer', fontFamily: 'inherit' }}
             >
               Close
             </button>
@@ -212,6 +380,6 @@ export default function FinanceMap() {
         </div>
       )}
 
-    </main>
+    </div>
   );
 }
