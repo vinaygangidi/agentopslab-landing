@@ -1,490 +1,492 @@
 'use client';
 
-import { Zap, Mail, ArrowRight, Github, Code, Activity, Shield, ExternalLink, Clock, DollarSign, CheckCircle2, ChevronRight, AlertTriangle } from 'lucide-react';
-import { categories, getAgentsByCategory, getTotalAgentCount } from '../lib/agentsData';
-import AgentCard from '../components/AgentCard';
+import { useState, useEffect } from 'react';
+import { Zap, ArrowRight, Shield, DollarSign, AlertTriangle, Lock, ChevronRight, ExternalLink, Menu, X } from 'lucide-react';
 
-export default function AgentOpsLab() {
-  const totalAgents = getTotalAgentCount();
+const PIPELINE_STEPS = [
+  { label: 'Document Parser',    model: 'Haiku',  color: '#3b82f6' },
+  { label: 'Clause Extractor',   model: 'Haiku',  color: '#3b82f6' },
+  { label: 'Playbook Reviewer',  model: 'Sonnet', color: '#8b5cf6' },
+  { label: 'Risk Scorer',        model: 'Sonnet', color: '#8b5cf6' },
+  { label: 'Compliance Officer', model: 'Haiku',  color: '#3b82f6' },
+];
+
+const SOLUTIONS = [
+  {
+    icon: Shield,
+    name: 'NDA Counterparty Review',
+    domain: 'Legal Operations',
+    color: '#6366f1',
+    border: 'rgba(99,102,241,0.3)',
+    glow: 'rgba(99,102,241,0.08)',
+    badge: '5-AGENT',
+    badgeColor: '#818cf8',
+    badgeBg: 'rgba(99,102,241,0.15)',
+    badgeBorder: 'rgba(99,102,241,0.4)',
+    desc: 'Reviews counterparty-originated NDAs against your legal playbook — the 60–70% of NDAs that arrive as someone else\'s PDF. Flags high-risk clauses, scores overall risk, routes to the right sign-off, and produces a structured legal memo in under 6 minutes.',
+    tags: ['Mistral OCR', 'Claude Haiku', 'Claude Sonnet', 'CrewAI', 'ReportLab'],
+    stats: [{ val: '97%', label: 'Faster' }, { val: '6 min', label: 'Per doc' }, { val: '$0.30', label: 'Cost' }],
+    pipeline: [
+      { num: '1', label: 'Document Parser',    model: 'Haiku',  color: '#3b82f6' },
+      { num: '2', label: 'Clause Extractor',   model: 'Haiku',  color: '#3b82f6' },
+      { num: '3', label: 'Playbook Reviewer',  model: 'Sonnet', color: '#8b5cf6' },
+      { num: '4', label: 'Risk Scorer',        model: 'Sonnet', color: '#8b5cf6' },
+      { num: '5', label: 'Compliance Officer', model: 'Haiku',  color: '#3b82f6' },
+    ],
+    archUrl: '/agentic-systems/nda-review',
+    demoUrl: '/demo/nda-review',
+  },
+  {
+    icon: DollarSign,
+    name: 'AP Invoice Processing',
+    domain: 'Enterprise Finance · Accounts Payable',
+    color: '#10b981',
+    border: 'rgba(16,185,129,0.3)',
+    glow: 'rgba(16,185,129,0.08)',
+    badge: 'MULTI-AGENT',
+    badgeColor: '#10b981',
+    badgeBg: 'rgba(16,185,129,0.15)',
+    badgeBorder: 'rgba(16,185,129,0.4)',
+    desc: 'A 5-agent pipeline that reads vendor emails, runs OCR on PDF invoices, extracts structured line-item data, reconciles every item against the PO database, and outputs a full exception report — 100% automated, zero manual touchpoints.',
+    tags: ['Mistral OCR', 'Claude Sonnet', 'CrewAI', 'Gmail API', 'SQLite'],
+    stats: [{ val: '100%', label: 'Automated' }, { val: '5', label: 'Agents' }, { val: '$0.02', label: '/invoice' }],
+    pipeline: [
+      { num: '1', label: 'Email Triage Agent',    model: 'Sonnet',  color: '#3b82f6' },
+      { num: '2', label: 'Document Intelligence', model: 'Mistral', color: '#8b5cf6' },
+      { num: '3', label: 'Invoice Extractor',     model: 'Sonnet',  color: '#f59e0b' },
+      { num: '4', label: 'PO Reconciliation',     model: 'Sonnet',  color: '#10b981' },
+      { num: '5', label: 'Reporting Agent',       model: 'Sonnet',  color: '#ec4899' },
+    ],
+    archUrl: '/agentic-systems/ap-invoice-processing',
+    demoUrl: '/demo/ap-invoice-processing',
+  },
+  {
+    icon: AlertTriangle,
+    name: 'AP Exception Resolution',
+    domain: 'Enterprise Finance · Exception Queue',
+    color: '#f59e0b',
+    border: 'rgba(245,158,11,0.3)',
+    glow: 'rgba(245,158,11,0.06)',
+    badge: '6-AGENT',
+    badgeColor: '#f59e0b',
+    badgeBg: 'rgba(245,158,11,0.15)',
+    badgeBorder: 'rgba(245,158,11,0.4)',
+    desc: 'Resolves the 20–30% of invoices that fail automated matching in SAP or Oracle — partial GRN approvals, PO amendment cross-referencing, per-vendor tolerance policies, early payment discount capture, and BEC fraud detection.',
+    tags: ['CrewAI', 'Claude Opus', '3-Way Match', 'Fraud Detection', 'SQLite'],
+    stats: [{ val: '25%', label: 'Exception Queue' }, { val: '6', label: 'Agents' }, { val: '7', label: 'Fraud Signals' }],
+    pipeline: [
+      { num: '1', label: 'Vendor Compliance',  model: 'Opus', color: '#f59e0b' },
+      { num: '2', label: 'Three-Way Match',    model: 'Opus', color: '#f59e0b' },
+      { num: '3', label: 'Exception Intel',   model: 'Opus', color: '#f59e0b' },
+      { num: '4', label: 'Payment Optimizer', model: 'Opus', color: '#10b981' },
+      { num: '5', label: 'Fraud Detector',    model: 'Opus', color: '#ef4444' },
+      { num: '6', label: 'Resolution Report', model: 'Opus', color: '#8b5cf6' },
+    ],
+    archUrl: '/agentic-systems/ap-exception-resolution',
+    demoUrl: '/demo/ap-exception-resolution',
+  },
+];
+
+function AnimatedPipeline() {
+  const [active, setActive] = useState(0);
+  useEffect(() => {
+    const t = setInterval(() => setActive(a => (a + 1) % PIPELINE_STEPS.length), 1200);
+    return () => clearInterval(t);
+  }, []);
+  return (
+    <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '16px', padding: '20px', minWidth: '220px' }}>
+      <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>Live Agent Pipeline</div>
+      {PIPELINE_STEPS.map((step, i) => (
+        <div key={i}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 10px', borderRadius: '8px', background: active === i ? 'rgba(99,102,241,0.12)' : 'rgba(255,255,255,0.02)', border: `1px solid ${active === i ? 'rgba(99,102,241,0.4)' : 'rgba(255,255,255,0.06)'}`, transition: 'all 0.4s ease' }}>
+            <div style={{ width: '20px', height: '20px', borderRadius: '5px', background: active === i ? step.color : 'rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700', color: active === i ? '#fff' : '#475569', transition: 'all 0.4s', flexShrink: 0 }}>{i + 1}</div>
+            <div style={{ flex: 1, fontSize: '12px', color: active === i ? '#e2e8f0' : '#64748b', fontWeight: active === i ? '600' : '400', transition: 'all 0.4s' }}>{step.label}</div>
+            <div style={{ fontSize: '10px', fontWeight: '600', color: active === i ? step.color : '#334155', padding: '2px 5px', background: active === i ? step.color + '20' : 'transparent', borderRadius: '4px', transition: 'all 0.4s' }}>{step.model}</div>
+          </div>
+          {i < PIPELINE_STEPS.length - 1 && (
+            <div style={{ display: 'flex', justifyContent: 'center', padding: '2px 0' }}>
+              <div style={{ width: '1px', height: '10px', background: i < active ? '#6366f1' : 'rgba(255,255,255,0.08)', transition: 'background 0.4s' }} />
+            </div>
+          )}
+        </div>
+      ))}
+      <div style={{ marginTop: '14px', padding: '10px', background: 'rgba(74,222,128,0.06)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+        <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#4ade80' }} />
+        <span style={{ fontSize: '12px', color: '#4ade80', fontWeight: '600' }}>Result ready in 6 min</span>
+      </div>
+    </div>
+  );
+}
+
+function SolutionCard({ s }) {
+  const Icon = s.icon;
+  return (
+    <div style={{ background: 'rgba(255,255,255,0.02)', border: `1px solid ${s.border}`, borderRadius: '20px', padding: 'clamp(24px,4vw,40px)', boxShadow: `0 4px 40px ${s.glow}` }}>
+      {/* Header */}
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '20px', flexWrap: 'wrap' }}>
+        <div style={{ width: '48px', height: '48px', background: `linear-gradient(135deg,${s.color},${s.color}99)`, borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: `0 0 20px ${s.color}40` }}>
+          <Icon size={24} color="white" />
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
+            <span style={{ fontSize: 'clamp(17px,3vw,21px)', fontWeight: '700', color: '#fff' }}>{s.name}</span>
+            <span style={{ padding: '3px 10px', background: s.badgeBg, border: `1px solid ${s.badgeBorder}`, borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: s.badgeColor }}>{s.badge}</span>
+            <span style={{ padding: '3px 10px', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: '#4ade80' }}>LIVE</span>
+          </div>
+          <div style={{ fontSize: '13px', color: s.color, fontWeight: '500' }}>{s.domain}</div>
+        </div>
+      </div>
+
+      {/* Body: description + pipeline side by side */}
+      <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
+        <div style={{ flex: 1, minWidth: '240px' }}>
+          <p style={{ fontSize: 'clamp(13px,2vw,15px)', color: '#94a3b8', lineHeight: '1.75', marginBottom: '20px' }}>{s.desc}</p>
+          {/* Tech tags */}
+          <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
+            {s.tags.map(t => (
+              <span key={t} style={{ padding: '4px 10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', fontSize: '12px', color: '#94a3b8' }}>{t}</span>
+            ))}
+          </div>
+          {/* Stats */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '24px' }}>
+            {s.stats.map(st => (
+              <div key={st.label} style={{ padding: '10px 16px', background: `${s.color}10`, border: `1px solid ${s.color}25`, borderRadius: '10px', textAlign: 'center', minWidth: '72px' }}>
+                <div style={{ fontSize: '18px', fontWeight: '800', color: s.color }}>{st.val}</div>
+                <div style={{ fontSize: '11px', color: '#64748b', fontWeight: '500' }}>{st.label}</div>
+              </div>
+            ))}
+          </div>
+          {/* Buttons */}
+          <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+            <a href={s.demoUrl} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 18px', background: `${s.color}18`, border: `1px solid ${s.color}40`, color: s.color, borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>
+              <Zap size={14} />Live Demo
+            </a>
+            <a href={s.archUrl} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 18px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', color: '#94a3b8', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
+              <ExternalLink size={14} />Architecture
+            </a>
+          </div>
+        </div>
+
+        {/* Pipeline */}
+        <div style={{ minWidth: '200px', width: 'clamp(200px,28%,260px)', flexShrink: 0 }}>
+          <div style={{ fontSize: '11px', fontWeight: '700', color: s.color, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>{s.pipeline.length}-Agent Pipeline</div>
+          {s.pipeline.map((step, i, arr) => (
+            <div key={i}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '8px 10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '8px' }}>
+                <div style={{ width: '20px', height: '20px', borderRadius: '5px', background: step.color + '20', border: '1px solid ' + step.color + '40', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', fontWeight: '700', color: step.color, flexShrink: 0 }}>{step.num}</div>
+                <div style={{ flex: 1, fontSize: '11px', color: '#e2e8f0', fontWeight: '500', minWidth: 0 }}>{step.label}</div>
+                <div style={{ fontSize: '10px', fontWeight: '600', color: step.color, padding: '2px 5px', background: step.color + '18', borderRadius: '4px', flexShrink: 0 }}>{step.model}</div>
+              </div>
+              {i < arr.length - 1 && <div style={{ display: 'flex', justifyContent: 'center', padding: '2px 0' }}><div style={{ width: '1px', height: '8px', background: s.color + '40' }} /></div>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function HomePage() {
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', background: '#0a0a0a', color: '#fff' }}>
+    <div style={{ fontFamily: 'Inter, sans-serif', background: '#0a0a0a', color: '#fff', overflowX: 'hidden' }}>
       <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: #0a0a0a; overflow-x: hidden; }
-        .agent-card { transition: all 0.3s ease; text-decoration: none; color: inherit; display: block; }
-        .agent-card:hover { transform: translateY(-4px); border-color: rgba(59,130,246,0.5) !important; }
-        .agentic-card { transition: all 0.3s ease; cursor: pointer; }
-        .agentic-card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.6) !important; box-shadow: 0 20px 60px rgba(99,102,241,0.15) !important; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
-        .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; }
-        .hero-title { font-size: clamp(32px,6vw,64px); font-weight:800; line-height:1.1; margin-bottom:24px; background:linear-gradient(to right,#fff,#a3a3a3); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .section-heading { font-size: clamp(26px,5vw,42px); font-weight:800; }
-        .section-description { font-size: clamp(14px,2.5vw,17px); }
-        @media (max-width: 640px) {
-          .nav-demo-btn { display: none !important; }
-          .hero-badge { font-size: 11px !important; padding: 5px 10px !important; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 90vw; }
-          .agentic-btns { flex-direction: column !important; }
-          .agentic-btns a { width: 100% !important; justify-content: center !important; }
-          .grid-3, .grid-4 { grid-template-columns: 1fr; gap: 16px; }
-          .hero-btns { flex-direction: column; align-items: stretch; }
-          .hero-btns a { justify-content: center; }
-          .impact-grid { grid-template-columns: repeat(2,1fr) !important; }
-          .agentic-body { flex-direction: column !important; }
-          .agentic-pipeline { width: 100% !important; min-width: 0 !important; }
-          .nav-links { display: none !important; }
+        body { background: #0a0a0a; overflow-x: hidden; }
+        .hover-lift { transition: all 0.3s ease; }
+        .hover-lift:hover { transform: translateY(-3px); }
+        .nav-link { transition: color 0.2s; }
+        .nav-link:hover { color: #fff !important; }
+        .cta-primary { transition: all 0.2s; }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(99,102,241,0.4) !important; }
+        .step-card { transition: all 0.3s; }
+        .step-card:hover { border-color: rgba(99,102,241,0.4) !important; background: rgba(99,102,241,0.06) !important; }
+
+        @media (max-width: 768px) {
+          .hero-layout { flex-direction: column !important; }
+          .pipeline-preview { display: none !important; }
+          .problems-grid { grid-template-columns: 1fr !important; }
+          .steps-grid { grid-template-columns: 1fr !important; }
+          .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .clouds-strip { flex-wrap: wrap !important; gap: 12px !important; }
+          .solution-body { flex-direction: column !important; }
+          .solution-pipeline { width: 100% !important; }
+          .hero-btns { flex-direction: column !important; }
+          .hero-btns a { width: 100%; justify-content: center !important; }
+          .footer-links { flex-direction: column !important; gap: 16px !important; }
+          .nav-desktop { display: none !important; }
+          .nav-mobile-btn { display: flex !important; }
         }
-        @media (min-width: 641px) and (max-width: 768px) {
-          .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); gap: 18px; }
+        @media (min-width: 769px) {
+          .nav-mobile-btn { display: none !important; }
+          .mobile-menu { display: none !important; }
         }
         @media (min-width: 769px) and (max-width: 1024px) {
-          .grid-3, .grid-4 { grid-template-columns: repeat(2,1fr); gap: 20px; }
-        }
-        @media (min-width: 1025px) {
-          .grid-3 { grid-template-columns: repeat(3,1fr); }
-          .grid-4 { grid-template-columns: repeat(4,1fr); }
+          .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
         }
       `}</style>
 
-      {/* Nav */}
-      <nav style={{ position: 'sticky', top: 0, background: 'rgba(10,10,10,0.9)', backdropFilter: 'blur(12px)', borderBottom: '1px solid rgba(255,255,255,0.08)', zIndex: 50 }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 clamp(16px,4vw,32px)', height: '72px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <div style={{ width: '38px', height: '38px', background: 'linear-gradient(135deg,#3b82f6,#2563eb)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Zap size={20} color="white" />
-              </div>
-              <span style={{ fontSize: '20px', fontWeight: '700' }}>AgentOpsLab</span>
+      {/* ── NAV ── */}
+      <nav style={{ position: 'sticky', top: 0, background: 'rgba(10,10,10,0.92)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.07)', zIndex: 100 }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(16px,4vw,32px)', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          {/* Logo */}
+          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
+            <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Zap size={18} color="white" />
             </div>
-            <div className="nav-links" style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
-              <a href="#agentic-systems" style={{ fontSize: '14px', color: '#818cf8', textDecoration: 'none', fontWeight: '600' }}>Agentic Systems</a>
-              <a href="#agents" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Agents</a>
-              <a href="/governance" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Governance</a>
-            </div>
+            <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff', letterSpacing: '-0.01em' }}>AgentOpsLab</span>
+          </a>
+
+          {/* Desktop Nav */}
+          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
+            <a href="/solutions" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Solutions</a>
+            <a href="#how-it-works" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>How it Works</a>
+            <a href="/developers" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Developers</a>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <a href="/demo/nda-review" target="_blank" rel="noopener noreferrer" className="nav-demo-btn" style={{ display: 'flex', alignItems: 'center', gap: '6px', padding: '8px 14px', background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)', color: '#818cf8', borderRadius: '8px', fontWeight: '600', textDecoration: 'none', fontSize: '13px' }}>
-              <Zap size={14} />Live Demo
+
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+            <a href="/access" className="nav-desktop cta-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none', boxShadow: '0 4px 20px rgba(99,102,241,0.3)' }}>
+              Request Demo <ArrowRight size={13} />
             </a>
+            {/* Mobile menu toggle */}
+            <button className="nav-mobile-btn" onClick={() => setMenuOpen(o => !o)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '4px' }}>
+              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
+
+        {/* Mobile menu */}
+        {menuOpen && (
+          <div className="mobile-menu" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '16px clamp(16px,4vw,32px)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Developers', '/developers']].map(([label, href]) => (
+              <a key={label} href={href} onClick={() => setMenuOpen(false)} style={{ fontSize: '16px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>{label}</a>
+            ))}
+            <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '12px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '15px', fontWeight: '700', textDecoration: 'none' }}>
+              Request Demo <ArrowRight size={15} />
+            </a>
+          </div>
+        )}
       </nav>
 
-      {/* Hero */}
-      <section style={{ background: 'linear-gradient(180deg,rgba(59,130,246,0.06) 0%,rgba(10,10,10,0) 100%)', padding: 'clamp(72px,12vw,140px) clamp(16px,5vw,32px) clamp(60px,10vw,100px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
+      {/* ── HERO ── */}
+      <section style={{ background: 'linear-gradient(180deg,rgba(99,102,241,0.07) 0%,rgba(10,10,10,0) 60%)', padding: 'clamp(80px,14vw,140px) clamp(16px,5vw,32px) clamp(72px,12vw,120px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div className="hero-layout" style={{ display: 'flex', alignItems: 'center', gap: '60px', justifyContent: 'space-between' }}>
 
-          {/* Live proof point */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '8px 18px', background: 'rgba(34,197,94,0.08)', border: '1px solid rgba(34,197,94,0.25)', borderRadius: '100px', marginBottom: '32px', flexWrap: 'wrap' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#4ade80' }} />
-              <span style={{ fontSize: '13px', fontWeight: '700', color: '#4ade80' }}>IN PRODUCTION</span>
-            </div>
-            <span style={{ fontSize: '13px', color: '#94a3b8', fontWeight: '500' }}>NDA Review System · 97% faster than manual review</span>
-            <a href="/agentic-systems/nda-review" style={{ fontSize: '12px', color: '#4ade80', textDecoration: 'none', fontWeight: '700', display: 'flex', alignItems: 'center', gap: '4px' }}>
-              See how →
-            </a>
-          </div>
-
-          {/* Headline */}
-          <h1 className="hero-title">
-            AI Agents for<br />Enterprise Operations
-          </h1>
-
-          <p style={{ fontSize: 'clamp(16px,3vw,20px)', color: '#94a3b8', lineHeight: '1.8', marginBottom: '20px', maxWidth: '680px' }}>
-            Purpose-built multi-agent systems for Financial Services, Legal, HR, and Sales — each agent specialised, coordinated, and production-ready.
-          </p>
-          <p style={{ fontSize: 'clamp(14px,2.5vw,17px)', color: '#64748b', lineHeight: '1.7', marginBottom: '44px', maxWidth: '620px' }}>
-            Inspect the architecture. Run it on your data. Deploy it in your stack. Every system is fully documented with zero black boxes.
-          </p>
-
-          {/* CTAs */}
-          <div className="hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', marginBottom: '72px' }}>
-            <a href="#agentic-systems" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: 'clamp(13px,2.5vw,16px) clamp(22px,4vw,32px)', background: 'linear-gradient(135deg,#3b82f6,#2563eb)', color: 'white', borderRadius: '10px', fontSize: 'clamp(14px,2.5vw,16px)', fontWeight: '600', textDecoration: 'none', boxShadow: '0 8px 32px rgba(59,130,246,0.3)' }}>
-              <Shield size={18} />Explore Agentic Systems
-            </a>
-            <a href="/demo/nda-review" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: 'clamp(13px,2.5vw,16px) clamp(22px,4vw,32px)', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#e2e8f0', borderRadius: '10px', fontSize: 'clamp(14px,2.5vw,16px)', fontWeight: '600', textDecoration: 'none' }}>
-              <Zap size={18} />Live Demo
-            </a>
-          </div>
-
-          {/* Industry Verticals */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,220px),1fr))', gap: '12px' }}>
-            {[
-              {
-                icon: '🏦',
-                title: 'Financial Services & Banking',
-                color: '#10b981',
-                border: 'rgba(16,185,129,0.2)',
-                bg: 'rgba(16,185,129,0.04)',
-                agents: ['Loan Underwriting', 'AML Monitoring', 'Credit Risk Scoring', 'Fraud Detection'],
-              },
-              {
-                icon: '⚖️',
-                title: 'Legal Operations',
-                color: '#6366f1',
-                border: 'rgba(99,102,241,0.2)',
-                bg: 'rgba(99,102,241,0.04)',
-                agents: ['NDA Review ✦ Live', 'Contract Lifecycle', 'Compliance Checker', 'Legal Research'],
-              },
-              {
-                icon: '👥',
-                title: 'HR & Workforce',
-                color: '#f59e0b',
-                border: 'rgba(245,158,11,0.2)',
-                bg: 'rgba(245,158,11,0.04)',
-                agents: ['Resume Screening', 'Onboarding Workflow', 'Performance Review', 'Benefits Enrollment'],
-              },
-              {
-                icon: '📈',
-                title: 'Sales & Revenue Ops',
-                color: '#3b82f6',
-                border: 'rgba(59,130,246,0.2)',
-                bg: 'rgba(59,130,246,0.04)',
-                agents: ['Pipeline Orchestrator', 'Deal Intelligence', 'Churn Detection', 'CPQ Agent'],
-              },
-            ].map(v => (
-              <div key={v.title} style={{ padding: 'clamp(18px,3vw,24px)', background: v.bg, border: '1px solid ' + v.border, borderRadius: '16px' }}>
-                <div style={{ fontSize: '24px', marginBottom: '10px' }}>{v.icon}</div>
-                <div style={{ fontSize: 'clamp(13px,2.5vw,15px)', fontWeight: '700', color: '#e2e8f0', marginBottom: '14px' }}>{v.title}</div>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
-                  {v.agents.map(a => (
-                    <div key={a} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                      <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: v.color, flexShrink: 0 }} />
-                      <span style={{ fontSize: 'clamp(11px,2vw,13px)', color: a.includes('✦') ? v.color : '#94a3b8', fontWeight: a.includes('✦') ? '600' : '400' }}>{a}</span>
-                    </div>
-                  ))}
-                </div>
+            {/* Left — copy */}
+            <div style={{ flex: 1, minWidth: 0 }}>
+              {/* Live badge */}
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '100px', marginBottom: '28px' }}>
+                <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#4ade80' }} />
+                <span style={{ fontSize: '12px', fontWeight: '700', color: '#4ade80' }}>LIVE IN PRODUCTION</span>
+                <span style={{ fontSize: '12px', color: '#64748b' }}>NDA Review · 97% faster</span>
               </div>
-            ))}
-          </div>
 
+              <h1 style={{ fontSize: 'clamp(36px,6vw,68px)', fontWeight: '900', lineHeight: '1.08', letterSpacing: '-0.03em', marginBottom: '24px', background: 'linear-gradient(135deg,#fff 40%,#94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                The AI Agent Platform<br />for Enterprise<br />Document Workflows.
+              </h1>
+
+              <p style={{ fontSize: 'clamp(15px,2.5vw,19px)', color: '#94a3b8', lineHeight: '1.75', maxWidth: '560px', marginBottom: '40px' }}>
+                Replace slow, expensive manual review with coordinated multi-agent systems that reason, decide, and deliver structured results — in minutes, not hours.
+              </p>
+
+              <div className="hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
+                <a href="/access" className="cta-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: 'clamp(13px,2vw,16px) clamp(24px,4vw,32px)', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '10px', fontSize: 'clamp(14px,2vw,16px)', fontWeight: '700', textDecoration: 'none', boxShadow: '0 8px 32px rgba(99,102,241,0.35)' }}>
+                  Request Demo <ArrowRight size={16} />
+                </a>
+                <a href="/solutions" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: 'clamp(13px,2vw,16px) clamp(24px,4vw,32px)', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.12)', color: '#e2e8f0', borderRadius: '10px', fontSize: 'clamp(14px,2vw,16px)', fontWeight: '600', textDecoration: 'none' }}>
+                  View Solutions <ChevronRight size={16} />
+                </a>
+              </div>
+            </div>
+
+            {/* Right — animated pipeline */}
+            <div className="pipeline-preview" style={{ flexShrink: 0, width: '260px' }}>
+              <AnimatedPipeline />
+            </div>
+
+          </div>
         </div>
       </section>
 
-      {/* Agentic Systems */}      {/* Agentic Systems */}
-      <section id="agentic-systems" style={{ padding: 'clamp(60px,8vw,100px) clamp(16px,5vw,32px)', background: 'rgba(99,102,241,0.02)', borderBottom: '1px solid rgba(99,102,241,0.12)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: '40px' }}>
+      {/* ── PROBLEM ── */}
+      <section style={{ padding: 'clamp(72px,10vw,100px) clamp(16px,5vw,32px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '48px' }}>
+            <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>The Problem</p>
+            <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.15 }}>Manual review doesn't scale.</h2>
+          </div>
+          <div className="problems-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px' }}>
+            {[
+              { icon: '📋', title: 'Hours per document', desc: 'Legal teams spend 2–4 hours reviewing a single NDA. AP clerks manually key-enter invoice line items from PDFs. This doesn\'t scale.' },
+              { icon: '💸', title: 'Expensive and error-prone', desc: 'Senior lawyer time costs $400–800/hour. Manual data entry has a 1–4% error rate — a $0.50 mistake that costs thousands downstream.' },
+              { icon: '🚫', title: 'No structured output', desc: 'A PDF review leaves no machine-readable trail. Downstream systems — ERP, CLM, DMS — can\'t consume a Word document with comments.' },
+            ].map(p => (
+              <div key={p.title} className="step-card" style={{ padding: 'clamp(24px,3vw,32px)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px' }}>
+                <div style={{ fontSize: '32px', marginBottom: '16px' }}>{p.icon}</div>
+                <h3 style={{ fontSize: 'clamp(15px,2vw,18px)', fontWeight: '700', marginBottom: '10px', color: '#e2e8f0' }}>{p.title}</h3>
+                <p style={{ fontSize: 'clamp(13px,1.8vw,15px)', color: '#64748b', lineHeight: '1.7' }}>{p.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── HOW IT WORKS ── */}
+      <section id="how-it-works" style={{ padding: 'clamp(72px,10vw,100px) clamp(16px,5vw,32px)', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(99,102,241,0.02)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>How it Works</p>
+            <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: '16px' }}>From document to decision in three steps.</h2>
+            <p style={{ color: '#64748b', fontSize: 'clamp(14px,2vw,17px)', maxWidth: '540px', margin: '0 auto' }}>No integrations to build. No models to fine-tune. Submit and stream.</p>
+          </div>
+          <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
+            {[
+              { num: '01', title: 'Submit', icon: '📤', desc: 'Upload a PDF or send an invoice batch via the demo UI or REST API. Authenticated with your API key.', detail: 'Supports PDF, JSON batch, or direct API POST.' },
+              { num: '02', title: 'Agents Reason', icon: '🧠', desc: 'A coordinated pipeline of 5–6 specialized agents runs sequentially. Each reads the prior agent\'s output and reasons on top of it.', detail: 'Watch each step via SSE streaming — no black boxes.' },
+              { num: '03', title: 'Structured Output', icon: '✅', desc: 'Receive a JSON result with risk scores, GL codes, redline suggestions, exception classifications, and an audit trail.', detail: 'Delivered via API response or HMAC-signed webhook.' },
+            ].map((step, i) => (
+              <div key={i} className="step-card" style={{ padding: 'clamp(24px,3vw,36px)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', position: 'relative' }}>
+                <div style={{ fontSize: '12px', fontWeight: '800', color: '#6366f1', letterSpacing: '0.1em', marginBottom: '16px' }}>{step.num}</div>
+                <div style={{ fontSize: '36px', marginBottom: '16px' }}>{step.icon}</div>
+                <h3 style={{ fontSize: 'clamp(17px,2.5vw,22px)', fontWeight: '800', marginBottom: '12px', color: '#fff' }}>{step.title}</h3>
+                <p style={{ fontSize: 'clamp(13px,1.8vw,15px)', color: '#94a3b8', lineHeight: '1.7', marginBottom: '14px' }}>{step.desc}</p>
+                <p style={{ fontSize: '12px', color: '#475569', fontStyle: 'italic' }}>{step.detail}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SOLUTIONS ── */}
+      <section style={{ padding: 'clamp(72px,10vw,100px) clamp(16px,5vw,32px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '16px', marginBottom: '40px' }}>
             <div>
-              <div style={{ display: 'inline-block', padding: '5px 14px', background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.35)', borderRadius: '100px', fontSize: '12px', fontWeight: '700', color: '#818cf8', marginBottom: '14px', letterSpacing: '0.06em' }}>AGENTIC SYSTEMS</div>
-              <h2 className="section-heading" style={{ marginBottom: '12px' }}>Multi-Agent Pipelines</h2>
-              <p className="section-description" style={{ color: '#94a3b8', maxWidth: '600px' }}>Coordinated agent networks where each specialist hands off structured output to the next — no human in the loop.</p>
+              <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Flagship Solutions</p>
+              <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.15 }}>Production-ready systems,<br />deployed today.</h2>
             </div>
-          </div>
-
-          <div
-            className="agentic-card"
-            onClick={() => window.location.href = '/agentic-systems/nda-review'}
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '20px', padding: 'clamp(24px,4vw,40px)', marginBottom: '16px', boxShadow: '0 4px 40px rgba(99,102,241,0.08)' }}
-          >
-            <div className="agentic-body" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '32px' }}>
-              <div style={{ flex: '1', minWidth: '0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                  <div style={{ width: '48px', height: '48px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 20px rgba(99,102,241,0.4)' }}>
-                    <Shield size={24} color="white" />
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                      <span style={{ fontSize: 'clamp(18px,3.5vw,22px)', fontWeight: '700', color: '#fff' }}>NDA Counterparty Paper Review Agent</span>
-                      <span style={{ padding: '3px 10px', background: 'rgba(99,102,241,0.15)', border: '1px solid rgba(99,102,241,0.4)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: '#818cf8' }}>5-AGENT</span>
-                      <span style={{ padding: '3px 10px', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: '#4ade80' }}>LIVE</span>
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#6366f1', fontWeight: '500' }}>Legal Operations · Counterparty Paper Review</div>
-                  </div>
-                </div>
-                <p style={{ fontSize: 'clamp(14px,2.5vw,16px)', color: '#94a3b8', lineHeight: '1.7', marginBottom: '20px' }}>
-                  Reviews counterparty-originated NDAs against your playbook — the 60–70% of NDAs that arrive as someone else's PDF, not your template. Icertis manages contracts you control; this handles the review before you decide to proceed.
-                </p>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  {['Mistral OCR','Claude Haiku','Claude Sonnet','CrewAI','Python 3.13','ReportLab'].map(tag => (
-                    <span key={tag} style={{ padding: '4px 10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', fontSize: '12px', color: '#94a3b8' }}>{tag}</span>
-                  ))}
-                </div>
-                <div className="agentic-btns" style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
-                  <a href="/agentic-systems/nda-review" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: 'white', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
-                    <ExternalLink size={14} />View Architecture
-                  </a>
-                  <a href="/demo/nda-review" target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: '#34d399', borderRadius: '8px', fontSize: '14px', fontWeight: '600', textDecoration: 'none' }}>
-                    <Zap size={14} />Live Demo
-                  </a>
-                </div>
-              </div>
-              <div className="agentic-pipeline" style={{ minWidth: '0', width: 'clamp(220px,30%,280px)', flexShrink: 0 }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>5-Agent Pipeline</div>
-                {[
-                  { num: '1', label: 'Document Parser', model: 'Haiku', color: '#3b82f6' },
-                  { num: '2', label: 'Clause Extractor', model: 'Haiku', color: '#3b82f6' },
-                  { num: '3', label: 'Playbook Reviewer', model: 'Sonnet', color: '#8b5cf6' },
-                  { num: '4', label: 'Risk Scorer', model: 'Sonnet', color: '#8b5cf6' },
-                  { num: '5', label: 'Compliance Officer', model: 'Haiku', color: '#3b82f6' },
-                ].map((step, i, arr) => (
-                  <div key={step.num}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '8px' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '5px', background: step.color + '20', border: '1px solid ' + step.color + '40', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '700', color: step.color, flexShrink: 0 }}>{step.num}</div>
-                      <div style={{ flex: 1, fontSize: '12px', color: '#e2e8f0', fontWeight: '500', minWidth: 0 }}>{step.label}</div>
-                      <div style={{ fontSize: '10px', fontWeight: '600', color: step.color, padding: '2px 5px', background: step.color + '18', borderRadius: '4px', flexShrink: 0 }}>{step.model}</div>
-                    </div>
-                    {i < arr.length - 1 && (
-                      <div style={{ display: 'flex', justifyContent: 'center', padding: '2px 0' }}>
-                        <div style={{ width: '1px', height: '10px', background: 'rgba(99,102,241,0.3)' }} />
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '6px', marginTop: '14px' }}>
-                  {[{ val: '97%', label: 'Faster' }, { val: '6 min', label: 'Per doc' }, { val: '$0.30', label: 'Cost' }].map(s => (
-                    <div key={s.label} style={{ textAlign: 'center', padding: '8px 4px', background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.15)', borderRadius: '8px' }}>
-                      <div style={{ fontSize: '13px', fontWeight: '700', color: '#818cf8' }}>{s.val}</div>
-                      <div style={{ fontSize: '9px', color: '#64748b', marginTop: '1px' }}>{s.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* AP Invoice Processing Card */}
-          <div
-            className="agentic-card"
-            onClick={() => window.location.href = '/agentic-systems/ap-invoice-processing'}
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(16,185,129,0.3)', borderRadius: '20px', padding: 'clamp(24px,4vw,40px)', marginBottom: '16px', boxShadow: '0 4px 40px rgba(16,185,129,0.08)' }}
-          >
-            <div className="agentic-body" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '32px' }}>
-              <div style={{ flex: '1', minWidth: '0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                  <div style={{ width: '48px', height: '48px', background: 'linear-gradient(135deg,#10b981,#059669)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 20px rgba(16,185,129,0.4)' }}>
-                    <DollarSign size={24} color="white" />
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                      <span style={{ fontSize: 'clamp(18px,3.5vw,22px)', fontWeight: '700', color: '#fff' }}>AP Invoice Processing System</span>
-                      <span style={{ padding: '3px 10px', background: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.4)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: '#10b981' }}>MULTI-AGENT</span>
-                      <span style={{ padding: '3px 10px', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: '#4ade80' }}>LIVE</span>
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#10b981', fontWeight: '500' }}>Enterprise Finance · Accounts Payable Automation</div>
-                  </div>
-                </div>
-                <p style={{ fontSize: 'clamp(14px,2.5vw,16px)', color: '#94a3b8', lineHeight: '1.7', marginBottom: '20px' }}>
-                  A 5-agent CrewAI pipeline that reads vendor emails from Gmail, runs Mistral OCR on PDF invoices, extracts structured data, reconciles every line item against a PO database, and outputs an Excel report with full decision trail — 100% automated.
-                </p>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  {['Mistral OCR','Claude Sonnet','CrewAI','Gmail API','SQLite','openpyxl'].map(tag => (
-                    <span key={tag} style={{ padding: '4px 10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', fontSize: '12px', color: '#94a3b8' }}>{tag}</span>
-                  ))}
-                </div>
-                <div className="agentic-btns" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  <a href="/demo/ap-invoice-processing" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'rgba(16,185,129,0.1)', border: '1px solid rgba(16,185,129,0.3)', color: '#34d399', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
-                    <Zap size={14} />Live Demo
-                  </a>
-                  <a href="/agentic-systems/ap-invoice-processing" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'linear-gradient(135deg,#10b981,#059669)', color: 'white', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
-                    <ExternalLink size={14} />View Architecture
-                  </a>
-                </div>
-              </div>
-              <div className="agentic-pipeline" style={{ minWidth: '0', width: 'clamp(220px,30%,280px)', flexShrink: 0 }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', color: '#10b981', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>5-Agent Pipeline</div>
-                {[
-                  { num: '1', label: 'Email Triage Agent', model: 'Sonnet', color: '#3b82f6' },
-                  { num: '2', label: 'Document Intelligence', model: 'Mistral', color: '#8b5cf6' },
-                  { num: '3', label: 'Invoice Extractor', model: 'Sonnet', color: '#f59e0b' },
-                  { num: '4', label: 'PO Reconciliation', model: 'Sonnet', color: '#10b981' },
-                  { num: '5', label: 'Reporting Agent', model: 'Sonnet', color: '#ec4899' },
-                ].map((step, i, arr) => (
-                  <div key={step.num}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '8px' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '5px', background: step.color + '20', border: '1px solid ' + step.color + '40', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '700', color: step.color, flexShrink: 0 }}>{step.num}</div>
-                      <div style={{ flex: 1, fontSize: '12px', color: '#e2e8f0', fontWeight: '500', minWidth: 0 }}>{step.label}</div>
-                      <div style={{ fontSize: '10px', fontWeight: '600', color: step.color, padding: '2px 5px', background: step.color + '18', borderRadius: '4px', flexShrink: 0 }}>{step.model}</div>
-                    </div>
-                    {i < arr.length - 1 && (
-                      <div style={{ display: 'flex', justifyContent: 'center', padding: '2px 0' }}>
-                        <div style={{ width: '1px', height: '10px', background: 'rgba(16,185,129,0.3)' }} />
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '6px', marginTop: '14px' }}>
-                  {[{ val: '100%', label: 'Automated' }, { val: '5', label: 'Agents' }, { val: '$0.02', label: '/invoice' }].map(s => (
-                    <div key={s.label} style={{ textAlign: 'center', padding: '8px 4px', background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.15)', borderRadius: '8px' }}>
-                      <div style={{ fontSize: '13px', fontWeight: '700', color: '#10b981' }}>{s.val}</div>
-                      <div style={{ fontSize: '9px', color: '#64748b', marginTop: '1px' }}>{s.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* AP Exception Resolution Card */}
-          <div
-            className="agentic-card"
-            onClick={() => window.location.href = '/agentic-systems/ap-exception-resolution'}
-            style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(245,158,11,0.3)', borderRadius: '20px', padding: 'clamp(24px,4vw,40px)', marginBottom: '16px', boxShadow: '0 4px 40px rgba(245,158,11,0.06)', cursor: 'pointer' }}
-          >
-            <div className="agentic-body" style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '32px' }}>
-              <div style={{ flex: '1', minWidth: '0' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
-                  <div style={{ width: '48px', height: '48px', background: 'linear-gradient(135deg,#f59e0b,#d97706)', borderRadius: '12px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, boxShadow: '0 0 20px rgba(245,158,11,0.35)' }}>
-                    <AlertTriangle size={24} color="white" />
-                  </div>
-                  <div>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '4px' }}>
-                      <span style={{ fontSize: 'clamp(18px,3.5vw,22px)', fontWeight: '700', color: '#fff' }}>AP Exception Resolution Agent</span>
-                      <span style={{ padding: '3px 10px', background: 'rgba(245,158,11,0.15)', border: '1px solid rgba(245,158,11,0.4)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: '#f59e0b' }}>6-AGENT</span>
-                      <span style={{ padding: '3px 10px', background: 'rgba(34,197,94,0.1)', border: '1px solid rgba(34,197,94,0.3)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: '#4ade80' }}>LIVE</span>
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#f59e0b', fontWeight: '500' }}>Enterprise Finance · Exception Queue Automation</div>
-                  </div>
-                </div>
-                <p style={{ fontSize: 'clamp(14px,2.5vw,16px)', color: '#94a3b8', lineHeight: '1.7', marginBottom: '20px' }}>
-                  Resolves the 20–30% of invoices that fail automated matching in SAP or Oracle — partial GRN approvals, PO amendment cross-referencing, per-vendor tolerance policies, early payment discount capture, and BEC fraud detection. Sits downstream of ERP blocking, not in place of it.
-                </p>
-                <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginBottom: '24px' }}>
-                  {['CrewAI','Claude Opus','3-Way Match','Fraud Detection','Data Privacy','SQLite'].map(tag => (
-                    <span key={tag} style={{ padding: '4px 10px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '6px', fontSize: '12px', color: '#94a3b8' }}>{tag}</span>
-                  ))}
-                </div>
-                <div className="agentic-btns" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
-                  <a href="/agentic-systems/ap-exception-resolution" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'linear-gradient(135deg,#f59e0b,#d97706)', color: 'white', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
-                    <ExternalLink size={14} />View Documentation
-                  </a>
-                  <a href="/demo/ap-exception-resolution" onClick={e => e.stopPropagation()} style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 16px', background: 'rgba(245,158,11,0.1)', border: '1px solid rgba(245,158,11,0.3)', color: '#f59e0b', borderRadius: '8px', fontSize: '13px', fontWeight: '600', textDecoration: 'none' }}>
-                    <Zap size={14} />Live Demo
-                  </a>
-                </div>
-              </div>
-              <div className="agentic-pipeline" style={{ minWidth: '0', width: 'clamp(220px,30%,280px)', flexShrink: 0 }}>
-                <div style={{ fontSize: '11px', fontWeight: '700', color: '#f59e0b', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>6-Agent Pipeline</div>
-                {[
-                  { num: '1', label: 'Vendor Compliance Officer', model: 'Opus', color: '#f59e0b' },
-                  { num: '2', label: 'Three-Way Match Specialist', model: 'Opus', color: '#f59e0b' },
-                  { num: '3', label: 'Exception Intelligence', model: 'Opus', color: '#f59e0b' },
-                  { num: '4', label: 'Payment Terms Optimizer', model: 'Opus', color: '#10b981' },
-                  { num: '5', label: 'Fraud Detector', model: 'Opus', color: '#ef4444' },
-                  { num: '6', label: 'Resolution Reporter', model: 'Opus', color: '#8b5cf6' },
-                ].map((step, i, arr) => (
-                  <div key={step.num}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '9px 10px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '8px' }}>
-                      <div style={{ width: '22px', height: '22px', borderRadius: '5px', background: step.color + '20', border: '1px solid ' + step.color + '40', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '11px', fontWeight: '700', color: step.color, flexShrink: 0 }}>{step.num}</div>
-                      <div style={{ flex: 1, fontSize: '12px', color: '#e2e8f0', fontWeight: '500', minWidth: 0 }}>{step.label}</div>
-                      <div style={{ fontSize: '10px', fontWeight: '600', color: step.color, padding: '2px 5px', background: step.color + '18', borderRadius: '4px', flexShrink: 0 }}>{step.model}</div>
-                    </div>
-                    {i < arr.length - 1 && (
-                      <div style={{ display: 'flex', justifyContent: 'center', padding: '2px 0' }}>
-                        <div style={{ width: '1px', height: '10px', background: 'rgba(245,158,11,0.3)' }} />
-                      </div>
-                    )}
-                  </div>
-                ))}
-                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '6px', marginTop: '14px' }}>
-                  {[{ val: '25%', label: 'Exception Queue' }, { val: '6', label: 'Agents' }, { val: '7', label: 'Fraud Signals' }].map(s => (
-                    <div key={s.label} style={{ textAlign: 'center', padding: '8px 4px', background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.15)', borderRadius: '8px' }}>
-                      <div style={{ fontSize: '13px', fontWeight: '700', color: '#f59e0b' }}>{s.val}</div>
-                      <div style={{ fontSize: '9px', color: '#64748b', marginTop: '1px' }}>{s.label}</div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(100%,240px),1fr))', gap: '14px' }}>
-            {[
-              { icon: '📄', title: 'Contract Lifecycle Manager', desc: 'End-to-end contract creation, redlining, negotiation tracking, and renewal orchestration.' },
-              { icon: '🏦', title: 'Loan Origination Pipeline', desc: 'Application intake, credit scoring, AML screening, compliance check, and underwriting decision.' },
-              { icon: '👤', title: 'HR Onboarding Orchestrator', desc: 'Multi-agent onboarding that coordinates IT, payroll, legal, and manager workflows automatically.' },
-            ].map(card => (
-              <div key={card.title} style={{ padding: '22px', background: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(255,255,255,0.08)', borderRadius: '14px', opacity: 0.65 }}>
-                <div style={{ fontSize: '26px', marginBottom: '10px' }}>{card.icon}</div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '8px', flexWrap: 'wrap' }}>
-                  <span style={{ fontSize: '14px', fontWeight: '600', color: '#d4d4d4' }}>{card.title}</span>
-                  <span style={{ padding: '2px 8px', background: 'rgba(255,255,255,0.06)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '100px', fontSize: '10px', fontWeight: '600', color: '#64748b' }}>COMING SOON</span>
-                </div>
-                <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.6' }}>{card.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section style={{ padding: 'clamp(60px,8vw,100px) clamp(16px,5vw,32px)' }}>
-        <div style={{ maxWidth: '1280px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 className="section-heading" style={{ marginBottom: '12px' }}>Full Agent Catalog</h2>
-          <p className="section-description" style={{ color: '#64748b', marginBottom: '48px' }}>Individual agents across every enterprise domain</p>
-          <div className="grid-4">
-            {[
-              { value: `${totalAgents}+`, label: 'Production Agents', sub: 'Ready to deploy' },
-              { value: '6', label: 'Domains', sub: 'Sales · Banking · HR · Legal · RevOps · Finance' },
-              { value: '100%', label: 'Documented', sub: 'Architecture + source' },
-              { value: 'Claude', label: 'Powered by Anthropic', sub: 'Sonnet 4 + Haiku 4.5' },
-            ].map((stat, idx) => (
-              <div key={idx} style={{ padding: 'clamp(20px,3vw,36px)', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px' }}>
-                <div style={{ fontSize: 'clamp(28px,5vw,42px)', fontWeight: '800', background: 'linear-gradient(135deg,#3b82f6,#6366f1)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '8px' }}>{stat.value}</div>
-                <div style={{ fontWeight: '700', color: '#fff', fontSize: 'clamp(13px,2vw,15px)', marginBottom: '4px' }}>{stat.label}</div>
-                <div style={{ fontSize: 'clamp(11px,1.8vw,12px)', color: '#64748b' }}>{stat.sub}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Agent Categories */}
-      <div id="agents">
-        {Object.entries(categories).map(([catId, cat], idx) => {
-          const catAgents = getAgentsByCategory(catId);
-          const isEven = idx % 2 === 0;
-          return (
-            <section key={catId} style={{ padding: 'clamp(60px,8vw,100px) clamp(16px,5vw,32px)', background: isEven ? 'rgba(255,255,255,0.02)' : 'transparent' }}>
-              <div style={{ maxWidth: '1280px', margin: '0 auto' }}>
-                <div style={{ marginBottom: '40px' }}>
-                  <div style={{ display: 'inline-block', padding: '5px 14px', background: cat.badgeBg, border: `1px solid ${cat.badgeBorder}`, borderRadius: '100px', fontSize: '12px', fontWeight: '700', color: cat.badgeColor, marginBottom: '14px', letterSpacing: '0.05em' }}>{cat.badge}</div>
-                  <h2 className="section-heading" style={{ marginBottom: '12px' }}>{cat.title}</h2>
-                  <p className="section-description" style={{ color: '#94a3b8' }}>{cat.description}</p>
-                </div>
-                <div className="grid-3">
-                  {catAgents.map((agent, agentIdx) => (
-                    <AgentCard key={agentIdx} agent={agent} />
-                  ))}
-                </div>
-              </div>
-            </section>
-          );
-        })}
-      </div>
-
-      {/* CTA */}
-      <section style={{ padding: 'clamp(60px,8vw,100px) clamp(16px,5vw,32px)', background: 'rgba(99,102,241,0.03)', borderTop: '1px solid rgba(99,102,241,0.12)' }}>
-        <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 className="section-heading" style={{ marginBottom: '16px' }}>Ready to evaluate for your enterprise?</h2>
-          <p style={{ fontSize: 'clamp(15px,3vw,18px)', color: '#94a3b8', marginBottom: '36px', lineHeight: '1.7' }}>All source code is open. Clone the repo, run the NDA review pipeline on your own contracts, and see the results in under 6 minutes.</p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <a href="/demo/nda-review" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: 'clamp(12px,2.5vw,16px) clamp(20px,4vw,32px)', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: 'white', borderRadius: '10px', fontSize: 'clamp(14px,2.5vw,16px)', fontWeight: '600', textDecoration: 'none', boxShadow: '0 8px 32px rgba(99,102,241,0.3)' }}>
-              <Zap size={18} />Try Live Demo
+            <a href="/solutions" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', fontSize: '14px', color: '#6366f1', textDecoration: 'none', fontWeight: '600', flexShrink: 0 }}>
+              View all solutions <ArrowRight size={14} />
             </a>
           </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            {SOLUTIONS.map(s => <SolutionCard key={s.name} s={s} />)}
+          </div>
         </div>
       </section>
 
-      {/* Contact */}
-      <section id="contact" style={{ padding: 'clamp(60px,8vw,100px) clamp(16px,5vw,32px)' }}>
-        <div style={{ maxWidth: '600px', margin: '0 auto', textAlign: 'center' }}>
-          <h2 className="section-heading" style={{ marginBottom: '16px' }}>Get in touch</h2>
-          <p style={{ fontSize: 'clamp(14px,2.5vw,17px)', color: '#94a3b8', marginBottom: '36px' }}>Questions about the architecture or want to collaborate?</p>
-          <a href="mailto:vinay.gangidi@gmail.com" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px', padding: 'clamp(14px,3vw,18px)', background: 'linear-gradient(135deg,#3b82f6,#2563eb)', color: 'white', borderRadius: '12px', fontSize: 'clamp(14px,3vw,17px)', fontWeight: '600', textDecoration: 'none', boxShadow: '0 8px 32px rgba(59,130,246,0.3)' }}>
-            <Mail size={20} />vinay.gangidi@gmail.com
+      {/* ── RESULTS ── */}
+      <section style={{ padding: 'clamp(72px,10vw,100px) clamp(16px,5vw,32px)', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.01)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center' }}>
+          <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>Results</p>
+          <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '56px' }}>Numbers that move the needle.</h2>
+          <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '20px' }}>
+            {[
+              { val: '97%', label: 'Faster than manual review', sub: 'NDA reviewed in 6 min vs 2–4 hrs' },
+              { val: '$0.30', label: 'Per NDA review', sub: 'vs $400–800/hr lawyer time' },
+              { val: '100%', label: 'Structured output', sub: 'JSON result, ready for ERP/CLM/DMS' },
+              { val: '<90s', label: 'Invoice batch turnaround', sub: 'End-to-end with full exception report' },
+            ].map(s => (
+              <div key={s.label} className="hover-lift" style={{ padding: 'clamp(24px,3vw,36px)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px' }}>
+                <div style={{ fontSize: 'clamp(32px,5vw,52px)', fontWeight: '900', letterSpacing: '-0.03em', background: 'linear-gradient(135deg,#6366f1,#818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginBottom: '10px' }}>{s.val}</div>
+                <div style={{ fontSize: 'clamp(13px,1.8vw,15px)', fontWeight: '700', color: '#e2e8f0', marginBottom: '6px' }}>{s.label}</div>
+                <div style={{ fontSize: 'clamp(11px,1.5vw,12px)', color: '#475569' }}>{s.sub}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECURITY ── */}
+      <section style={{ padding: 'clamp(72px,10vw,100px) clamp(16px,5vw,32px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ background: 'linear-gradient(135deg,rgba(99,102,241,0.06),rgba(16,185,129,0.04))', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '20px', padding: 'clamp(32px,5vw,56px)' }}>
+            <div style={{ display: 'flex', gap: '40px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <div style={{ flex: 1, minWidth: '260px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '20px' }}>
+                  <div style={{ width: '40px', height: '40px', background: 'rgba(99,102,241,0.12)', border: '1px solid rgba(99,102,241,0.3)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Lock size={18} color="#818cf8" />
+                  </div>
+                  <p style={{ fontSize: '13px', fontWeight: '700', color: '#818cf8', letterSpacing: '0.08em', textTransform: 'uppercase' }}>Enterprise Security</p>
+                </div>
+                <h2 style={{ fontSize: 'clamp(22px,4vw,36px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: '16px' }}>Your data never leaves your boundary.</h2>
+                <p style={{ color: '#94a3b8', fontSize: 'clamp(14px,2vw,16px)', lineHeight: '1.75', marginBottom: '24px' }}>
+                  Every enterprise deployment uses private network endpoints. Document content stays inside your cloud account and never reaches the model provider's network.
+                </p>
+                <div className="clouds-strip" style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+                  {['AWS PrivateLink', 'Azure Private Endpoint', 'GCP VPC Controls', 'On-prem Air-gap'].map(c => (
+                    <span key={c} style={{ padding: '6px 12px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px', fontSize: '12px', color: '#94a3b8', fontWeight: '500' }}>{c}</span>
+                  ))}
+                </div>
+              </div>
+              <div style={{ flex: 1, minWidth: '220px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
+                {[
+                  { icon: '🔐', title: 'Private LLM endpoints only', desc: 'AWS Bedrock · Azure OpenAI · GCP Vertex — all via private network, zero public transit' },
+                  { icon: '🏢', title: 'Deploy in your cloud', desc: 'Same container image runs on AWS ECS, Azure Container Apps, GCP Cloud Run, or on-prem Kubernetes' },
+                  { icon: '📋', title: 'Full audit trail', desc: 'Every agent decision logged with reasoning — satisfies SOX, GDPR, ISO 27001 audit requirements' },
+                ].map(f => (
+                  <div key={f.title} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}>
+                    <span style={{ fontSize: '20px', flexShrink: 0 }}>{f.icon}</span>
+                    <div>
+                      <div style={{ fontSize: '14px', fontWeight: '700', color: '#e2e8f0', marginBottom: '4px' }}>{f.title}</div>
+                      <div style={{ fontSize: '12px', color: '#64748b', lineHeight: '1.6' }}>{f.desc}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FINANCE MAP CARD ── */}
+      <section style={{ padding: '0 clamp(16px,5vw,32px) clamp(40px,6vw,60px)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <a href="/finance-map" style={{ textDecoration: 'none', display: 'block' }}>
+            <div style={{ border: '1px solid #AFA9EC', borderRadius: 14, padding: '20px 28px', background: 'linear-gradient(135deg,#EEEDFE,#f5f4ff)', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+              <div>
+                <div style={{ fontSize: 13, fontWeight: 700, color: '#3C3489', marginBottom: 6 }}>Finance Cycle Intelligence Map</div>
+                <div style={{ fontSize: 12, color: '#534AB7', lineHeight: 1.6 }}>Vendor coverage + IA orchestration gaps across O2C, I2C, P2P, H2R, and R2R — where no native agent closes the loop.</div>
+              </div>
+              <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', whiteSpace: 'nowrap' }}>Explore map →</div>
+            </div>
           </a>
         </div>
       </section>
 
-      {/* Footer */}
-      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.08)', padding: 'clamp(28px,5vw,40px) clamp(16px,5vw,32px)' }}>
-        <div style={{ maxWidth: '900px', margin: '0 auto' }}>
-          <div style={{ textAlign: 'center', color: '#475569' }}>
-            <p style={{ fontWeight: '600', color: '#94a3b8', marginBottom: '4px', fontSize: 'clamp(12px,2vw,14px)' }}>AgentOpsLab — Enterprise AI Agent Systems</p>
-            <p style={{ fontSize: 'clamp(11px,1.8vw,13px)' }}>© 2026 Vinay Gangidi</p>
+      {/* ── CTA ── */}
+      <section style={{ padding: 'clamp(80px,12vw,120px) clamp(16px,5vw,32px)' }}>
+        <div style={{ maxWidth: '680px', margin: '0 auto', textAlign: 'center' }}>
+          <h2 style={{ fontSize: 'clamp(28px,5vw,52px)', fontWeight: '900', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '20px' }}>
+            See it run on<br />your documents.
+          </h2>
+          <p style={{ color: '#64748b', fontSize: 'clamp(15px,2.5vw,18px)', lineHeight: '1.75', marginBottom: '40px' }}>
+            Request demo access and we'll walk you through a live run on your NDA or invoice batch. Results in under 90 seconds. No setup required.
+          </p>
+          <a href="/access" className="cta-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: 'clamp(16px,3vw,20px) clamp(32px,5vw,48px)', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '12px', fontSize: 'clamp(16px,2.5vw,18px)', fontWeight: '800', textDecoration: 'none', boxShadow: '0 12px 40px rgba(99,102,241,0.4)' }}>
+            Request Demo Access <ArrowRight size={18} />
+          </a>
+          <p style={{ marginTop: '20px', fontSize: '13px', color: '#334155' }}>No credit card. No sales call. Access link sent within 24 hours.</p>
+        </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: 'clamp(32px,5vw,48px) clamp(16px,5vw,32px)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '24px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <Zap size={14} color="white" />
+            </div>
+            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>AgentOpsLab</span>
+            <span style={{ color: '#334155', fontSize: '14px', marginLeft: '8px' }}>© 2026</span>
+          </div>
+          <div className="footer-links" style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
+            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Developers', '/developers'], ['Request Demo', '/access']].map(([label, href]) => (
+              <a key={label} href={href} className="nav-link" style={{ fontSize: '13px', color: '#475569', textDecoration: 'none', fontWeight: '500' }}>{label}</a>
+            ))}
           </div>
         </div>
       </footer>
