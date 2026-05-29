@@ -321,6 +321,131 @@ export default function FinanceMap() {
           ))}
         </div>
 
+        {/* ── O2C AGENT OPPORTUNITIES ── */}
+        <div style={{ marginTop: '32px', marginBottom: '28px' }}>
+          <div style={{ marginBottom: '20px' }}>
+            <p style={{ fontSize: '11px', fontWeight: '700', color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>O2C — Order-to-Cash</p>
+            <h2 style={{ fontSize: 'clamp(18px,3vw,26px)', fontWeight: '800', letterSpacing: '-0.02em', color: '#e2e8f0', marginBottom: '8px' }}>
+              Build-Ready Agentic Automation Opportunities
+            </h2>
+            <p style={{ fontSize: '14px', color: '#64748b', lineHeight: 1.6, maxWidth: '640px' }}>
+              High-signal, scoped use cases across the O2C cycle — each solvable with a focused multi-agent pipeline in 2–4 weeks.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '14px' }}>
+            {[
+              {
+                name: 'Order Validation Agent',
+                step: 'Order entry',
+                what: 'Validates incoming orders against pricing rules, contract terms, and inventory before ERP entry. Flags mismatches and routes exceptions instantly.',
+                inputs: ['Salesforce CPQ', 'SAP inventory', 'Icertis contracts'],
+                output: 'Approved order or routed exception',
+                build: '2 weeks',
+                complexity: 'Low',
+              },
+              {
+                name: 'Credit Decision Agent',
+                step: 'Credit check',
+                what: 'Pulls D&B credit score, internal payment history, and current AR aging to auto-approve or hold new orders within defined risk thresholds.',
+                inputs: ['D&B API', 'AR aging report', 'ERP payment history'],
+                output: 'Credit decision + risk memo',
+                build: '2–3 weeks',
+                complexity: 'Medium',
+              },
+              {
+                name: 'Invoice Generation Agent',
+                step: 'Billing',
+                what: 'Auto-generates invoices from fulfilled order data, maps line items to contract terms, validates tax treatment, and queues for e-invoice delivery.',
+                inputs: ['ERP order', 'Contract terms', 'Tax rules'],
+                output: 'Validated invoice ready for delivery',
+                build: '2 weeks',
+                complexity: 'Low',
+              },
+              {
+                name: 'Cash Application Agent',
+                step: 'Cash app',
+                what: 'Matches incoming payments to open AR items using remittance advice, bank statements, and email parsing. Auto-posts matches, flags exceptions.',
+                inputs: ['Bank feed', 'Remittance emails', 'Open AR'],
+                output: 'Posted receipts + unapplied cash queue',
+                build: '3 weeks',
+                complexity: 'Medium',
+              },
+              {
+                name: 'Collections Prioritization Agent',
+                step: 'Collections',
+                what: 'Scores overdue accounts by risk, payment history, and days outstanding. Drafts personalized outreach emails and routes high-risk accounts to collectors.',
+                inputs: ['AR aging', 'Payment history', 'Customer profile'],
+                output: 'Prioritized worklist + drafted emails',
+                build: '2 weeks',
+                complexity: 'Low',
+              },
+              {
+                name: 'Dispute Resolution Agent',
+                step: 'AR posting',
+                what: 'Pulls invoice, PO, delivery proof, and contract to auto-resolve deductions or generate a structured dispute recommendation with full audit trail.',
+                inputs: ['HighRadius dispute', 'Icertis contract', 'POD document'],
+                output: 'Resolution decision or escalation memo',
+                build: '3–4 weeks',
+                complexity: 'Medium',
+              },
+              {
+                name: 'Revenue Leakage Detection Agent',
+                step: 'Billing',
+                what: 'Compares billed amounts vs. contracted rates across all invoices. Flags under-billing, missed escalation clauses, and expired pricing — before close.',
+                inputs: ['Invoice data', 'Contract pricing', 'ERP billing records'],
+                output: 'Leakage report with $ impact',
+                build: '2–3 weeks',
+                complexity: 'Low',
+              },
+              {
+                name: 'CPQ-to-Fulfillment Orchestrator',
+                step: 'CPQ / quote → Fulfillment',
+                what: 'Bridges the gap between Salesforce CPQ, SAP inventory, and Icertis contract terms — validates configuration, availability, and contract compliance in one pass.',
+                inputs: ['Salesforce CPQ', 'SAP inventory', 'Icertis'],
+                output: 'Fulfillment-ready order or blocker report',
+                build: '3–4 weeks',
+                complexity: 'High',
+              },
+            ].map((opp) => (
+              <div key={opp.name} style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(74,222,128,0.15)', borderRadius: '14px', padding: '18px 20px', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {/* Header */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '8px', flexWrap: 'wrap' }}>
+                  <div>
+                    <div style={{ fontSize: '14px', fontWeight: '700', color: '#e2e8f0', marginBottom: '4px' }}>{opp.name}</div>
+                    <div style={{ fontSize: '11px', color: '#4ade80', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', padding: '2px 8px', borderRadius: '20px', display: 'inline-block', fontWeight: '500' }}>{opp.step}</div>
+                  </div>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px', flexShrink: 0 }}>
+                    <span style={{ fontSize: '10px', fontWeight: '700', color: opp.complexity === 'Low' ? '#34d399' : opp.complexity === 'Medium' ? '#fbbf24' : '#f87171', background: opp.complexity === 'Low' ? 'rgba(16,185,129,0.1)' : opp.complexity === 'Medium' ? 'rgba(251,191,36,0.1)' : 'rgba(239,68,68,0.1)', border: `1px solid ${opp.complexity === 'Low' ? 'rgba(16,185,129,0.25)' : opp.complexity === 'Medium' ? 'rgba(251,191,36,0.25)' : 'rgba(239,68,68,0.25)'}`, padding: '2px 8px', borderRadius: '20px' }}>
+                      {opp.complexity}
+                    </span>
+                    <span style={{ fontSize: '10px', color: '#475569' }}>{opp.build}</span>
+                  </div>
+                </div>
+
+                {/* Description */}
+                <p style={{ fontSize: '12px', color: '#94a3b8', lineHeight: 1.65 }}>{opp.what}</p>
+
+                {/* Inputs */}
+                <div>
+                  <p style={{ fontSize: '10px', fontWeight: '600', color: '#475569', letterSpacing: '0.06em', textTransform: 'uppercase', marginBottom: '5px' }}>Inputs</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+                    {opp.inputs.map(inp => (
+                      <span key={inp} style={{ fontSize: '10px', color: '#64748b', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', padding: '2px 7px', borderRadius: '5px' }}>{inp}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Output */}
+                <div style={{ paddingTop: '6px', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: '#4ade80', flexShrink: 0 }} />
+                  <span style={{ fontSize: '11px', color: '#64748b' }}><span style={{ color: '#94a3b8', fontWeight: '500' }}>Output:</span> {opp.output}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
         {/* ── IA BANNER ── */}
         <div style={{ marginTop: '32px', borderRadius: '16px', border: '1px solid rgba(99,102,241,0.35)', padding: '20px 24px', background: 'rgba(99,102,241,0.07)' }}>
           <p style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>IA Orchestration Layer</p>
