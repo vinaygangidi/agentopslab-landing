@@ -243,6 +243,7 @@ export default function HomePage() {
           <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <a href="/solutions" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Solutions</a>
             <a href="#how-it-works" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>How it Works</a>
+            <a href="/enterprise-ai-strategy" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Enterprise AI</a>
             <a href="/developers" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Developers</a>
           </div>
 
@@ -260,7 +261,7 @@ export default function HomePage() {
         {/* Mobile menu */}
         {menuOpen && (
           <div className="mobile-menu" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '16px clamp(16px,4vw,32px)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Developers', '/developers']].map(([label, href]) => (
+            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Enterprise AI', '/enterprise-ai-strategy'], ['Developers', '/developers']].map(([label, href]) => (
               <a key={label} href={href} onClick={() => setMenuOpen(false)} style={{ fontSize: '16px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>{label}</a>
             ))}
             <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '12px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '15px', fontWeight: '700', textDecoration: 'none' }}>
