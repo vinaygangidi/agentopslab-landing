@@ -202,7 +202,7 @@ export default function HomePage() {
           .hero-layout { flex-direction: column !important; }
           .pipeline-preview { display: none !important; }
           .problems-grid { grid-template-columns: 1fr !important; }
-          .steps-grid { grid-template-columns: 1fr !important; }
+          .steps-grid { grid-template-columns: repeat(2,1fr) !important; }
           .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
           .clouds-strip { flex-wrap: wrap !important; gap: 12px !important; }
           .hero-btns { flex-direction: column !important; }
@@ -217,6 +217,7 @@ export default function HomePage() {
         }
         @media (min-width: 769px) and (max-width: 1024px) {
           .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .steps-grid { grid-template-columns: repeat(2,1fr) !important; }
         }
       `}</style>
 
@@ -318,26 +319,26 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── HOW IT WORKS ── */}
+      {/* ── HOW I BUILD ── */}
       <section id="how-it-works" style={{ padding: 'clamp(72px,10vw,100px) clamp(16px,5vw,32px)', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'rgba(99,102,241,0.02)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
-            <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>How it Works</p>
-            <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: '16px' }}>From document to decision in three steps.</h2>
-            <p style={{ color: '#64748b', fontSize: 'clamp(14px,2vw,17px)', maxWidth: '540px', margin: '0 auto' }}>No integrations to build. No models to fine-tune. Submit and stream.</p>
+            <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>How I Build</p>
+            <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.15, marginBottom: '16px' }}>Four layers. Built in order. No shortcuts.</h2>
+            <p style={{ color: '#64748b', fontSize: 'clamp(14px,2vw,17px)', maxWidth: '560px', margin: '0 auto', lineHeight: '1.7' }}>The biggest mistake in enterprise AI is reaching for the agent before the data and rules layers are solid. Every system I build follows the same sequence.</p>
           </div>
-          <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
+          <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: '16px' }}>
             {[
-              { num: '01', title: 'Submit', icon: '📤', desc: 'Upload a PDF or send an invoice batch via the demo UI or REST API. Authenticated with your API key.', detail: 'Supports PDF, JSON batch, or direct API POST.' },
-              { num: '02', title: 'Agents Reason', icon: '🧠', desc: 'A coordinated pipeline of 5–6 specialized agents runs sequentially. Each reads the prior agent\'s output and reasons on top of it.', detail: 'Watch each step via SSE streaming - no black boxes.' },
-              { num: '03', title: 'Structured Output', icon: '✅', desc: 'Receive a JSON result with risk scores, GL codes, redline suggestions, exception classifications, and an audit trail.', detail: 'Delivered via API response or HMAC-signed webhook.' },
+              { num: 'L1', title: 'Integration', color: '#0891B2', desc: 'Connect every system to a shared data layer. SAP, Salesforce, Workday, NetSuite - all feeding Snowflake. No agent can reason across systems it cannot read.', detail: 'Snowflake · MCP · REST APIs · Snowpipe' },
+              { num: 'L2', title: 'Rules', color: '#059669', desc: 'Encode business logic as deterministic rules before any AI touches it. Tolerance policies, approval thresholds, compliance constraints. These do not belong inside a model.', detail: 'Policy engine · Workflow automation · UiPath' },
+              { num: 'L3', title: 'AI Agents', color: '#6366f1', desc: 'Now deploy agents - but only on the cases that genuinely require judgment. The routine 80% is already handled by L1 and L2. Agents handle ambiguity, exceptions, and cross-system reasoning.', detail: 'CrewAI · n8n · Claude · Agentforce · AI Foundry' },
+              { num: 'L4', title: 'Experience', color: '#7C3AED', desc: 'Surface intelligence where people work - Copilot Studio in Teams and Outlook, dashboards in Snowflake, alerts in Slack. The agent\'s output is only as good as where it lands.', detail: 'Copilot Studio · Teams · Snowflake dashboards' },
             ].map((step, i) => (
-              <div key={i} className="step-card" style={{ padding: 'clamp(24px,3vw,36px)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', position: 'relative' }}>
-                <div style={{ fontSize: '12px', fontWeight: '800', color: '#6366f1', letterSpacing: '0.1em', marginBottom: '16px' }}>{step.num}</div>
-                <div style={{ fontSize: '36px', marginBottom: '16px' }}>{step.icon}</div>
-                <h3 style={{ fontSize: 'clamp(17px,2.5vw,22px)', fontWeight: '800', marginBottom: '12px', color: '#fff' }}>{step.title}</h3>
-                <p style={{ fontSize: 'clamp(13px,1.8vw,15px)', color: '#94a3b8', lineHeight: '1.7', marginBottom: '14px' }}>{step.desc}</p>
-                <p style={{ fontSize: '12px', color: '#475569', fontStyle: 'italic' }}>{step.detail}</p>
+              <div key={i} className="step-card" style={{ padding: 'clamp(20px,2.5vw,32px)', background: 'var(--bg-surface)', border: `1px solid ${step.color}28`, borderRadius: '14px', position: 'relative' }}>
+                <div style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', width: '36px', height: '36px', borderRadius: '9px', background: `${step.color}18`, border: `1px solid ${step.color}35`, fontSize: '12px', fontWeight: '800', color: step.color, marginBottom: '16px', fontFamily: 'var(--font-mono)' }}>{step.num}</div>
+                <h3 style={{ fontSize: 'clamp(15px,2vw,19px)', fontWeight: '800', marginBottom: '10px', color: 'var(--text-primary)' }}>{step.title}</h3>
+                <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.7', marginBottom: '14px' }}>{step.desc}</p>
+                <p style={{ fontSize: '11px', color: step.color, fontFamily: 'var(--font-mono)', fontWeight: '600' }}>{step.detail}</p>
               </div>
             ))}
           </div>
