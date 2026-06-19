@@ -265,15 +265,15 @@ export default function HomePage() {
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '100px', marginBottom: '28px' }}>
                 <div style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#4ade80' }} />
                 <span style={{ fontSize: '12px', fontWeight: '700', color: '#4ade80' }}>LIVE IN PRODUCTION</span>
-                <span style={{ fontSize: '12px', color: '#64748b' }}>NDA Review · 97% faster</span>
+                <span style={{ fontSize: '12px', color: '#64748b' }}>3 multi-agent demos running today</span>
               </div>
 
               <h1 style={{ fontSize: 'clamp(36px,6vw,68px)', fontWeight: '900', lineHeight: '1.08', letterSpacing: '-0.03em', marginBottom: '24px', background: 'linear-gradient(135deg,#fff 40%,#94a3b8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
-                The AI Agent Platform<br />for Enterprise<br />Document Workflows.
+                Agentic Automation<br />across every enterprise<br />function.
               </h1>
 
               <p style={{ fontSize: 'clamp(15px,2.5vw,19px)', color: '#94a3b8', lineHeight: '1.75', maxWidth: '560px', marginBottom: '40px' }}>
-                Replace slow, expensive manual review with coordinated multi-agent systems that reason, decide, and deliver structured results - in minutes, not hours.
+                40+ agents built across GTM, Finance, HR, and Legal - on Microsoft AI Foundry, Salesforce Agentforce, n8n, Python/CrewAI, and Claude. Platform-agnostic by design.
               </p>
 
               <div className="hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -300,13 +300,13 @@ export default function HomePage() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: '48px' }}>
             <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '14px' }}>The Problem</p>
-            <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.15 }}>Manual review doesn't scale.</h2>
+            <h2 style={{ fontSize: 'clamp(26px,5vw,44px)', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.15 }}>Enterprise operations still run on manual work.</h2>
           </div>
           <div className="problems-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px' }}>
             {[
-              { icon: '📋', title: 'Hours per document', desc: 'Legal teams spend 2–4 hours reviewing a single NDA. AP clerks manually key-enter invoice line items from PDFs. This doesn\'t scale.' },
-              { icon: '💸', title: 'Expensive and error-prone', desc: 'Senior lawyer time costs $400–800/hour. Manual data entry has a 1–4% error rate - a $0.50 mistake that costs thousands downstream.' },
-              { icon: '🚫', title: 'No structured output', desc: 'A PDF review leaves no machine-readable trail. Downstream systems - ERP, CLM, DMS - can\'t consume a Word document with comments.' },
+              { icon: '⏱️', title: 'High-volume, low-judgment work', desc: 'Invoice coding, contract review, lead scoring, onboarding checklists - most of this is routine. An agent can handle 80% of it without a human in the loop.' },
+              { icon: '💸', title: 'Expensive specialists on routine tasks', desc: 'Senior lawyers review boilerplate NDAs. AP teams manually key-enter invoice data. RevOps analysts build the same pipeline health report every Monday.' },
+              { icon: '🔗', title: 'No single system has the full picture', desc: 'Finance lives in SAP. GTM lives in Salesforce. HR lives in Workday. An agent that reads from Snowflake can reason across all three at once.' },
             ].map(p => (
               <div key={p.title} className="step-card" style={{ padding: 'clamp(24px,3vw,32px)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px' }}>
                 <div style={{ fontSize: '32px', marginBottom: '16px' }}>{p.icon}</div>

@@ -40,7 +40,7 @@ const journey = [
     color: '#4F46E5',
     bg: '#EEF2FF',
     border: '#C7D2FE',
-    title: 'From RPA to agentic AI - and what I learned building both',
+    title: 'From automation to agentic AI - and what I learned building both',
     body: "The most important shift in my career happened around 2022 when I moved from orchestrating bots to orchestrating AI agents. I built LangChain-based agentic workflows on n8n for Accounts Receivable and HR, deployed GPT-4 document intelligence across the Procure-to-Pay cycle, and designed an AI governance framework that allowed us to scale responsibly. I also learned where the new failure modes live: an AI agent can return a confident, well-formed answer that is simply wrong for the situation - no error thrown, nothing in the logs. That drove how I now think about governance, observability, and the non-negotiable role of the human in the loop.",
     tech: ['Azure AI Foundry', 'LangChain', 'GPT-4', 'n8n', 'Azure Document Intelligence', 'Snowflake', 'UiPath'],
   },

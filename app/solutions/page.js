@@ -1,9 +1,11 @@
 'use client';
 
-import { Zap, ArrowRight, Menu, X } from 'lucide-react';
+import { Zap, ArrowRight, Menu, X, ExternalLink, Play, FileCheck, DollarSign, AlertTriangle } from 'lucide-react';
 import { useState } from 'react';
-import { categories, getAgentsByCategory, getTotalAgentCount } from '../../lib/agentsData';
+import { multiAgentSystems, businessFunctions, platforms, getTotalAgentCount, techBadges } from '../../lib/agentsData';
 import AgentCard from '../../components/AgentCard';
+
+const multiAgentIcons = { DollarSign, AlertTriangle, FileCheck };
 
 export default function SolutionsPage() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -12,16 +14,20 @@ export default function SolutionsPage() {
   return (
     <div style={{ fontFamily: 'var(--font-sans)', background: 'var(--bg-base)', color: 'var(--text-primary)', minHeight: '100vh' }}>
       <style jsx>{`
-        .agent-card { transition: all 0.3s ease; text-decoration: none; color: inherit; display: block; }
-        .agent-card:hover { transform: translateY(-4px); border-color: var(--accent-border) !important; }
-        .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 16px; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; }
+        .agent-card:hover { transform: translateY(-3px); border-color: var(--border-strong) !important; }
+        .mas-card:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.3) !important; }
+        .mas-card { transition: all 0.25s ease; }
+        @media (max-width: 900px) {
+          .grid-4 { grid-template-columns: repeat(2,1fr); }
+          .grid-3 { grid-template-columns: repeat(2,1fr); }
+        }
         @media (max-width: 640px) {
-          .grid-3 { grid-template-columns: 1fr; gap: 14px; }
+          .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
           .nav-desktop { display: none !important; }
           .nav-mobile-btn { display: flex !important; }
-        }
-        @media (min-width: 641px) and (max-width: 900px) {
-          .grid-3 { grid-template-columns: repeat(2,1fr); }
         }
         @media (min-width: 769px) {
           .nav-mobile-btn { display: none !important; }
@@ -62,28 +68,31 @@ export default function SolutionsPage() {
         )}
       </nav>
 
-      {/* Header */}
-      <section style={{ padding: 'clamp(60px,10vw,100px) clamp(16px,5vw,32px) clamp(48px,8vw,80px)', borderBottom: '1px solid rgba(255,255,255,0.06)', background: 'linear-gradient(180deg,rgba(99,102,241,0.05) 0%,transparent 100%)' }}>
+      {/* Hero */}
+      <section style={{ padding: 'clamp(60px,10vw,96px) clamp(16px,5vw,32px) clamp(48px,8vw,72px)', borderBottom: '1px solid var(--border-subtle)', background: 'linear-gradient(180deg,var(--accent-subtle) 0%,transparent 100%)' }}>
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <p style={{ fontSize: '13px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '16px' }}>All Solutions</p>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '24px' }}>
-            <div>
-              <h1 style={{ fontSize: 'clamp(30px,6vw,56px)', fontWeight: '900', letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: '16px' }}>
-                {totalAgents}+ production-ready<br />AI agents.
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '4px 12px', background: 'var(--accent-subtle)', border: '1px solid var(--accent-border)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: 'var(--accent-bright)', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '20px', fontFamily: 'var(--font-mono)' }}>
+            Agentic Automation Portfolio
+          </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '28px' }}>
+            <div style={{ maxWidth: '680px' }}>
+              <h1 style={{ fontSize: 'clamp(30px,5.5vw,54px)', fontWeight: '900', letterSpacing: '-0.03em', lineHeight: 1.08, marginBottom: '20px' }}>
+                {totalAgents}+ agents built across<br />every enterprise function.
               </h1>
-              <p style={{ fontSize: 'clamp(14px,2.5vw,18px)', color: '#94a3b8', maxWidth: '560px', lineHeight: '1.7' }}>
-                Every agent is documented, tested, and deployable. Browse by domain or filter to what your team needs today.
+              <p style={{ fontSize: 'clamp(14px,2vw,17px)', color: 'var(--text-secondary)', lineHeight: '1.75' }}>
+                Multi-agent systems, n8n workflow agents, Python/CrewAI agents, and Claude agent specs - built across GTM, Finance, HR, and Legal on the platforms enterprises actually run.
               </p>
             </div>
             <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
               {[
-                { val: totalAgents + '+', label: 'Agents' },
-                { val: '6', label: 'Domains' },
-                { val: '100%', label: 'Documented' },
+                { val: totalAgents + '+', label: 'Agents built' },
+                { val: '3',             label: 'Live demos'   },
+                { val: '4',             label: 'Functions'    },
+                { val: '8',             label: 'Platforms'    },
               ].map(s => (
-                <div key={s.label} style={{ padding: '16px 20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', textAlign: 'center', minWidth: '80px' }}>
-                  <div style={{ fontSize: 'clamp(20px,3vw,28px)', fontWeight: '900', color: '#818cf8', marginBottom: '4px' }}>{s.val}</div>
-                  <div style={{ fontSize: '11px', color: '#475569', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{s.label}</div>
+                <div key={s.label} style={{ padding: '14px 18px', background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: '12px', textAlign: 'center', minWidth: '76px' }}>
+                  <div style={{ fontSize: 'clamp(20px,3vw,26px)', fontWeight: '900', color: 'var(--accent-bright)', marginBottom: '3px' }}>{s.val}</div>
+                  <div style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: '600', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--font-mono)' }}>{s.label}</div>
                 </div>
               ))}
             </div>
@@ -91,32 +100,134 @@ export default function SolutionsPage() {
         </div>
       </section>
 
-      {/* Agent categories */}
-      {Object.entries(categories).map(([catId, cat], idx) => {
-        const agents = getAgentsByCategory(catId);
-        return (
-          <section key={catId} style={{ padding: 'clamp(56px,8vw,88px) clamp(16px,5vw,32px)', borderBottom: '1px solid rgba(255,255,255,0.06)', background: idx % 2 === 0 ? 'transparent' : 'rgba(255,255,255,0.01)' }}>
-            <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-              <div style={{ marginBottom: '36px' }}>
-                <div style={{ display: 'inline-block', padding: '4px 12px', background: cat.badgeBg, border: `1px solid ${cat.badgeBorder}`, borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: cat.badgeColor, marginBottom: '12px', letterSpacing: '0.06em' }}>{cat.badge}</div>
-                <h2 style={{ fontSize: 'clamp(22px,4vw,34px)', fontWeight: '800', marginBottom: '8px', letterSpacing: '-0.02em' }}>{cat.title}</h2>
-                <p style={{ fontSize: 'clamp(13px,2vw,16px)', color: '#94a3b8' }}>{cat.description}</p>
-              </div>
-              <div className="grid-3">
-                {agents.map((agent, i) => <AgentCard key={i} agent={agent} />)}
-              </div>
+      {/* Platform strip */}
+      <section style={{ padding: '24px clamp(16px,5vw,32px)', borderBottom: '1px solid var(--border-subtle)', background: 'var(--bg-surface)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '12px', flexWrap: 'wrap' }}>
+            <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', letterSpacing: '0.10em', textTransform: 'uppercase', flexShrink: 0 }}>Built on</span>
+            {platforms.map(p => (
+              <span key={p.name} style={{ fontSize: '12px', fontWeight: '600', color: p.color, padding: '4px 10px', background: `${p.color}12`, border: `1px solid ${p.color}28`, borderRadius: '6px' }}>
+                {p.name}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 1: Multi-Agent Systems ── */}
+      <section style={{ padding: 'clamp(56px,8vw,80px) clamp(16px,5vw,32px)', borderBottom: '1px solid var(--border-subtle)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+          <div style={{ marginBottom: '36px' }}>
+            <div style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '4px 12px', background: 'var(--green-subtle)', border: '1px solid var(--green-border)', borderRadius: '100px', fontSize: '11px', fontWeight: '700', color: 'var(--green)', marginBottom: '14px', fontFamily: 'var(--font-mono)', letterSpacing: '0.08em' }}>
+              LIVE DEMOS
             </div>
-          </section>
-        );
-      })}
+            <h2 style={{ fontSize: 'clamp(22px,3.5vw,36px)', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '10px' }}>
+              Multi-Agent Systems
+            </h2>
+            <p style={{ fontSize: '15px', color: 'var(--text-secondary)', maxWidth: '600px', lineHeight: '1.7' }}>
+              Coordinated pipelines where 5-6 specialized agents run in sequence - each reading the prior agent's output and reasoning on top of it. Live and runnable today.
+            </p>
+          </div>
+
+          <div className="grid-3">
+            {multiAgentSystems.map(sys => {
+              const Icon = multiAgentIcons[sys.icon];
+              return (
+                <div key={sys.name} className="mas-card" style={{ background: 'var(--bg-surface)', border: `1px solid ${sys.color}28`, borderRadius: '16px', padding: '28px', display: 'flex', flexDirection: 'column', gap: '0' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: '18px' }}>
+                    <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: `${sys.color}18`, border: `1px solid ${sys.color}35`, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      {Icon && <Icon size={22} color={sys.color} />}
+                    </div>
+                    <span style={{ fontSize: '10px', fontWeight: '700', color: 'var(--green)', background: 'var(--green-subtle)', border: '1px solid var(--green-border)', borderRadius: '100px', padding: '3px 9px', fontFamily: 'var(--font-mono)', letterSpacing: '0.06em' }}>LIVE</span>
+                  </div>
+                  <h3 style={{ fontSize: '17px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-0.01em' }}>{sys.name}</h3>
+                  <p style={{ fontSize: '13px', color: 'var(--text-secondary)', lineHeight: '1.65', marginBottom: '20px', flex: 1 }}>{sys.desc}</p>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginBottom: '20px' }}>
+                    {sys.platforms.map(p => (
+                      <span key={p} style={{ fontSize: '10px', fontWeight: '700', color: 'var(--text-muted)', background: 'var(--bg-raised)', border: '1px solid var(--border-default)', borderRadius: '6px', padding: '3px 8px', fontFamily: 'var(--font-mono)' }}>{p}</span>
+                    ))}
+                  </div>
+                  <div style={{ display: 'flex', gap: '8px' }}>
+                    <a href={sys.demoLink} style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '9px 14px', background: `${sys.color}18`, border: `1px solid ${sys.color}35`, borderRadius: '8px', fontSize: '12px', fontWeight: '700', color: sys.color, textDecoration: 'none' }}>
+                      <Play size={12} /> Live Demo
+                    </a>
+                    <a href={sys.archLink} style={{ flex: 1, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '9px 14px', background: 'var(--bg-raised)', border: '1px solid var(--border-default)', borderRadius: '8px', fontSize: '12px', fontWeight: '600', color: 'var(--text-secondary)', textDecoration: 'none' }}>
+                      Architecture <ExternalLink size={11} />
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTIONS 2-5: Business Functions ── */}
+      {businessFunctions.map((fn, fnIdx) => (
+        <section key={fn.id} style={{ padding: 'clamp(56px,8vw,80px) clamp(16px,5vw,32px)', borderBottom: '1px solid var(--border-subtle)', background: fnIdx % 2 === 0 ? 'transparent' : 'var(--bg-surface)' }}>
+          <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+            {/* Function header */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '14px', marginBottom: '40px', paddingBottom: '24px', borderBottom: `1px solid ${fn.border}` }}>
+              <div style={{ padding: '6px 16px', background: fn.badgeBg, border: `1px solid ${fn.badgeBorder}`, borderRadius: '8px', fontSize: '13px', fontWeight: '800', color: fn.badgeColor, letterSpacing: '0.04em' }}>
+                {fn.label}
+              </div>
+              <h2 style={{ fontSize: 'clamp(20px,3vw,30px)', fontWeight: '800', letterSpacing: '-0.02em' }}>{fn.title}</h2>
+            </div>
+
+            {/* Sub-functions */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+              {fn.subFunctions.map(sf => (
+                <div key={sf.id}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
+                    <span style={{ fontSize: '12px', fontWeight: '700', color: fn.badgeColor, fontFamily: 'var(--font-mono)', letterSpacing: '0.08em', textTransform: 'uppercase' }}>{sf.label}</span>
+                    {sf.note && (
+                      <span style={{ fontSize: '11px', color: 'var(--text-muted)', fontStyle: 'italic' }}>{sf.note}</span>
+                    )}
+                    <div style={{ flex: 1, height: '1px', background: `${fn.color}20` }} />
+                  </div>
+
+                  {sf.agents.length > 0 ? (
+                    <div className="grid-3">
+                      {sf.agents.map((agent, i) => (
+                        <AgentCard key={i} agent={agent} gradient={fn.gradient} shadow={fn.shadow} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div style={{ padding: '20px 24px', background: `${fn.color}08`, border: `1px solid ${fn.color}20`, borderRadius: '10px' }}>
+                      <p style={{ fontSize: '13px', color: 'var(--text-muted)', fontStyle: 'italic' }}>
+                        Live multi-agent demos above cover this sub-function end-to-end.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      ))}
+
+      {/* Tech legend */}
+      <section style={{ padding: '32px clamp(16px,5vw,32px)', borderBottom: '1px solid var(--border-subtle)', background: 'var(--bg-surface)' }}>
+        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', alignItems: 'center', gap: '24px', flexWrap: 'wrap' }}>
+          <span style={{ fontSize: '11px', fontWeight: '700', color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', letterSpacing: '0.10em', textTransform: 'uppercase', flexShrink: 0 }}>Implementation</span>
+          {Object.values(techBadges).map(t => (
+            <span key={t.label} style={{ fontSize: '11px', fontWeight: '700', fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '100px', color: t.color, background: t.bg, border: `1px solid ${t.border}` }}>
+              {t.label}
+            </span>
+          ))}
+          <span style={{ fontSize: '12px', color: 'var(--text-muted)' }}>Each card is badged with the tech it was built on.</span>
+        </div>
+      </section>
 
       {/* CTA */}
-      <section style={{ padding: 'clamp(72px,10vw,100px) clamp(16px,5vw,32px)', textAlign: 'center' }}>
+      <section style={{ padding: 'clamp(72px,10vw,96px) clamp(16px,5vw,32px)', textAlign: 'center' }}>
         <div style={{ maxWidth: '600px', margin: '0 auto' }}>
-          <h2 style={{ fontSize: 'clamp(24px,4vw,40px)', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '16px' }}>Ready to run one?</h2>
-          <p style={{ color: '#64748b', fontSize: 'clamp(14px,2vw,17px)', lineHeight: '1.7', marginBottom: '36px' }}>Request demo access and we'll walk you through a live run in under 90 seconds.</p>
-          <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: 'clamp(14px,2vw,18px) clamp(28px,4vw,40px)', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '10px', fontSize: 'clamp(14px,2vw,16px)', fontWeight: '800', textDecoration: 'none', boxShadow: '0 8px 32px rgba(99,102,241,0.35)' }}>
-            Request Demo Access <ArrowRight size={16} />
+          <h2 style={{ fontSize: 'clamp(24px,4vw,38px)', fontWeight: '800', letterSpacing: '-0.02em', marginBottom: '16px' }}>Want to run one?</h2>
+          <p style={{ color: 'var(--text-secondary)', fontSize: 'clamp(14px,2vw,16px)', lineHeight: '1.7', marginBottom: '32px' }}>
+            Three live demos are running today. Get access and see results in under 90 seconds.
+          </p>
+          <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: 'clamp(14px,2vw,16px) clamp(28px,4vw,40px)', background: 'linear-gradient(135deg,var(--accent),#4f46e5)', color: '#fff', borderRadius: '10px', fontSize: 'clamp(14px,2vw,15px)', fontWeight: '800', textDecoration: 'none', boxShadow: 'var(--shadow-accent)' }}>
+            Request Demo Access <ArrowRight size={15} />
           </a>
         </div>
       </section>
@@ -128,6 +239,11 @@ export default function SolutionsPage() {
             <div className="vg-logo-icon"><Zap size={14} color="#fff" /></div>
             <span className="vg-logo-text" style={{ fontSize: '15px' }}>Vinay Gangidi</span>
           </a>
+          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
+            {[['AI Agents', '/solutions'], ['Strategy', '/enterprise-ai-strategy'], ['About Me', '/about'], ['Get in Touch', 'mailto:vinay.gangidi@gmail.com']].map(([l, h]) => (
+              <a key={l} href={h} style={{ fontSize: '13px', color: 'var(--text-muted)', textDecoration: 'none' }}>{l}</a>
+            ))}
+          </div>
           <span style={{ fontSize: '13px', color: 'var(--text-dim)' }}>© 2026 Vinay Gangidi</span>
         </div>
       </footer>
