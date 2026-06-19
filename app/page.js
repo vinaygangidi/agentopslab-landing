@@ -236,7 +236,7 @@ export default function HomePage() {
             <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={18} color="white" />
             </div>
-            <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff', letterSpacing: '-0.01em' }}>AgentOpsLab</span>
+            <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff', letterSpacing: '-0.01em' }}>Vinay Gangidi</span>
           </a>
 
           {/* Desktop Nav */}
@@ -245,6 +245,7 @@ export default function HomePage() {
             <a href="#how-it-works" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>How it Works</a>
             <a href="/enterprise-ai-strategy" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Enterprise AI</a>
             <a href="/developers" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Developers</a>
+            <a href="/about" className="nav-link" style={{ fontSize: '14px', color: '#a78bfa', textDecoration: 'none', fontWeight: '600' }}>About Me</a>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -261,7 +262,7 @@ export default function HomePage() {
         {/* Mobile menu */}
         {menuOpen && (
           <div className="mobile-menu" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '16px clamp(16px,4vw,32px)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Enterprise AI', '/enterprise-ai-strategy'], ['Developers', '/developers']].map(([label, href]) => (
+            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Enterprise AI', '/enterprise-ai-strategy'], ['Developers', '/developers'], ['About Me', '/about']].map(([label, href]) => (
               <a key={label} href={href} onClick={() => setMenuOpen(false)} style={{ fontSize: '16px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>{label}</a>
             ))}
             <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '12px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '15px', fontWeight: '700', textDecoration: 'none' }}>
@@ -481,7 +482,7 @@ export default function HomePage() {
             <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={14} color="white" />
             </div>
-            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>AgentOpsLab</span>
+            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>Vinay Gangidi</span>
             <span style={{ color: '#334155', fontSize: '14px', marginLeft: '8px' }}>© 2026</span>
           </div>
           <div className="footer-links" style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>

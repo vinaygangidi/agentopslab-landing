@@ -1,8 +1,8 @@
 import './globals.css'
 
 export const metadata = {
-  title: 'AgentOpsLab',
-  description: 'AI Agent Operations Platform',
+  title: 'Vinay Gangidi — Enterprise AI & Automation Architect',
+  description: 'Portfolio of Vinay Gangidi. 15+ years building enterprise AI, automation, and analytics across Finance, HR, GTM, and Operations.',
 }
 
 export default function RootLayout({ children }) {

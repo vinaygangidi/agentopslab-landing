@@ -171,7 +171,7 @@ export default function FinanceMap() {
             <div style={{ width: '32px', height: '32px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={15} color="white" />
             </div>
-            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>AgentOpsLab</span>
+            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>Vinay Gangidi</span>
           </a>
           <a href="/" style={{ fontSize: '13px', color: '#64748b', textDecoration: 'none', fontWeight: '500' }}>← Back to home</a>
         </div>
@@ -450,7 +450,7 @@ export default function FinanceMap() {
         <div style={{ marginTop: '32px', borderRadius: '16px', border: '1px solid rgba(99,102,241,0.35)', padding: '20px 24px', background: 'rgba(99,102,241,0.07)' }}>
           <p style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>IA Orchestration Layer</p>
           <div style={{ fontSize: '14px', fontWeight: '600', color: '#e2e8f0', marginBottom: '14px' }}>
-            Where AgentOpsLab earns its keep — cross-cycle workflows no native vendor closes
+            Where Vinay Gangidi earns its keep — cross-cycle workflows no native vendor closes
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {chips.map((chip) => (
@@ -475,7 +475,7 @@ export default function FinanceMap() {
             <div style={{ width: '26px', height: '26px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={13} color="white" />
             </div>
-            <span style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>AgentOpsLab</span>
+            <span style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>Vinay Gangidi</span>
             <span style={{ color: '#334155', fontSize: '13px', marginLeft: '6px' }}>© 2026</span>
           </div>
           <a href="/" style={{ fontSize: '12px', color: '#475569', textDecoration: 'none' }}>← Back to home</a>

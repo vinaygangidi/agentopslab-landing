@@ -41,7 +41,7 @@ export default function SolutionsPage() {
             <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={18} color="white" />
             </div>
-            <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff' }}>AgentOpsLab</span>
+            <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff' }}>Vinay Gangidi</span>
           </a>
           <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <a href="/solutions" className="nav-link" style={{ fontSize: '14px', color: '#818cf8', textDecoration: 'none', fontWeight: '600' }}>Solutions</a>
@@ -135,9 +135,9 @@ export default function SolutionsPage() {
             <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={14} color="white" />
             </div>
-            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>AgentOpsLab</span>
+            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>Vinay Gangidi</span>
           </a>
-          <span style={{ fontSize: '13px', color: '#334155' }}>© 2026 AgentOpsLab</span>
+          <span style={{ fontSize: '13px', color: '#334155' }}>© 2026 Vinay Gangidi</span>
         </div>
       </footer>
     </div>

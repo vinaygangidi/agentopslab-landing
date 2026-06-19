@@ -61,7 +61,7 @@ export default function EnterpriseAIStrategy() {
             <div style={{ width: '32px', height: '32px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={16} color="#fff" />
             </div>
-            <span style={{ fontWeight: '800', fontSize: '16px', color: '#0F172A', fontFamily: 'Space Grotesk, sans-serif' }}>AgentOpsLab</span>
+            <span style={{ fontWeight: '800', fontSize: '16px', color: '#0F172A', fontFamily: 'Space Grotesk, sans-serif' }}>Vinay Gangidi</span>
           </a>
           <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
             <a href="/solutions" className="nav-link">Solutions</a>
@@ -163,7 +163,6 @@ export default function EnterpriseAIStrategy() {
 
               {/* Native agents as tools — left */}
               <rect x="62" y="260" width="340" height="120" rx="10" fill="#fff" stroke="#C7D2FE"/>
-              <div/>
               <text fontFamily="Space Grotesk,sans-serif" fontWeight="600" fontSize="14" fill="#0F172A" x="84" y="288">Agentforce</text>
               <text fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#64748B" x="84" y="308">Salesforce built-in AI</text>
               <text fontFamily="JetBrains Mono,monospace" fontSize="10" fill="#4F46E5" x="84" y="328">called as a helper tool by the orchestrator</text>
@@ -643,7 +642,7 @@ export default function EnterpriseAIStrategy() {
             <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={14} color="#fff" />
             </div>
-            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '700', fontSize: '15px', color: '#0F172A' }}>AgentOpsLab</span>
+            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '700', fontSize: '15px', color: '#0F172A' }}>Vinay Gangidi</span>
           </div>
           <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', color: '#94A3B8' }}>Enterprise AI strategy reference. Platform names used for illustration only.</p>
           <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>
