@@ -55,7 +55,7 @@ export default function APExceptionResolutionPage() {
             <span style={{ color: '#f59e0b' }}>Resolution Agent</span>
           </h1>
           <p style={{ fontSize: '18px', color: '#94a3b8', maxWidth: '680px', lineHeight: '1.7', marginBottom: '40px' }}>
-            A downstream resolution layer for the 20–30% of invoices that fail automated matching in ERP systems — not a replacement for SAP or Oracle's matching engine, but a layer that automates the manual work that follows a block.
+            A downstream resolution layer for the 20–30% of invoices that fail automated matching in ERP systems - not a replacement for SAP or Oracle's matching engine, but a layer that automates the manual work that follows a block.
           </p>
 
           {/* Stats row */}
@@ -82,7 +82,7 @@ export default function APExceptionResolutionPage() {
           <div style={{ display: 'flex', gap: '12px', padding: '20px 24px', background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: '12px', alignItems: 'flex-start' }}>
             <Info size={18} color="#60a5fa" style={{ flexShrink: 0, marginTop: '2px' }} />
             <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.7' }}>
-              <strong style={{ color: '#e2e8f0' }}>Context:</strong> SAP S/4HANA and Oracle Fusion AP both perform 2-way and 3-way invoice matching natively. This agent does not replicate that functionality. It targets what comes next — the invoices those systems have already decided to block — and automates the resolution decisions that would otherwise require a trained AP clerk.
+              <strong style={{ color: '#e2e8f0' }}>Context:</strong> SAP S/4HANA and Oracle Fusion AP both perform 2-way and 3-way invoice matching natively. This agent does not replicate that functionality. It targets what comes next - the invoices those systems have already decided to block - and automates the resolution decisions that would otherwise require a trained AP clerk.
             </p>
           </div>
         </div>
@@ -92,14 +92,14 @@ export default function APExceptionResolutionPage() {
       <section style={{ padding: '0 32px 64px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '26px', fontWeight: '700', marginBottom: '8px' }}>What SAP and Oracle Already Handle Natively</h2>
-          <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '32px' }}>These capabilities exist out of the box — no agent required.</p>
+          <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '32px' }}>These capabilities exist out of the box - no agent required.</p>
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '16px' }}>
             {[
               { title: '2-way match', desc: 'Invoice amount ↔ PO amount, within configured tolerance. Standard in all mid-market and enterprise ERP.' },
               { title: '3-way match engine', desc: 'Invoice ↔ PO ↔ Goods Receipt by line item. SAP MIRO / Oracle MIRA handle this transactionally.' },
               { title: 'Tolerance groups', desc: 'Per-company-code or per-vendor percentage and absolute tolerances. SAP VTOL/LTOL/PP keys, Oracle AP tolerances.' },
-              { title: 'Payment blocking', desc: 'Invoices outside tolerance are automatically moved to "blocked for payment" status — no manual step needed.' },
+              { title: 'Payment blocking', desc: 'Invoices outside tolerance are automatically moved to "blocked for payment" status - no manual step needed.' },
               { title: 'Approval workflows', desc: 'SAP Fiori and Oracle Approvals Management route blocked invoices with SLA timers and escalation paths.' },
               { title: 'Duplicate detection', desc: 'Both platforms detect duplicate invoice numbers and amounts against the same vendor within a window.' },
             ].map((item, i) => (
@@ -136,11 +136,11 @@ export default function APExceptionResolutionPage() {
                     cause: 'GRN not posted yet',
                     erp: 'Blocks full invoice indefinitely',
                     manual: 'Calls warehouse, waits for GRN, re-runs match',
-                    agent: 'Approves confirmed portion, holds remainder — partial payment released same day',
+                    agent: 'Approves confirmed portion, holds remainder - partial payment released same day',
                   },
                   {
                     cause: 'Informal PO amendment (price change agreed verbally/email)',
-                    erp: 'Blocks on price variance — PO still has old price',
+                    erp: 'Blocks on price variance - PO still has old price',
                     manual: 'Finds change order email, confirms with buyer, updates PO or overrides',
                     agent: 'Cross-references PO amendments table; auto-approves if amendment covers the variance',
                   },
@@ -164,7 +164,7 @@ export default function APExceptionResolutionPage() {
                   },
                   {
                     cause: 'Amount just under approval threshold',
-                    erp: 'Clears if amounts match — no pattern context',
+                    erp: 'Clears if amounts match - no pattern context',
                     manual: 'Rarely flagged unless analyst is experienced',
                     agent: 'Structuring signal: flags if amount is within 5% of $50K/$25K/$10K/$5K thresholds',
                   },
@@ -194,13 +194,13 @@ export default function APExceptionResolutionPage() {
                 n: '01', name: 'Vendor Compliance Officer', color: '#f59e0b',
                 what: 'Checks each invoice against per-vendor compliance rules stored in the database.',
                 outputs: 'COMPLIANT → pass downstream. NON_COMPLIANT → block, no further processing.',
-                differentiator: 'Rules are updatable at runtime by AP managers — no code deployment, no IT ticket.',
+                differentiator: 'Rules are updatable at runtime by AP managers - no code deployment, no IT ticket.',
               },
               {
                 n: '02', name: 'Three-Way Match Specialist', color: '#f59e0b',
                 what: 'Matches Invoice ↔ PO ↔ GRN at line-item level. Aggregates partial GRN receipts across multiple delivery notes.',
                 outputs: 'THREE_WAY_MATCHED · PARTIAL_GRN_HOLD · PRICE_UNEXPLAINED · NO_GRN_HOLD · PO_NOT_FOUND',
-                differentiator: 'Calculates approvable amount (confirmed GRN) and hold amount (unconfirmed) per line — enabling partial payment.',
+                differentiator: 'Calculates approvable amount (confirmed GRN) and hold amount (unconfirmed) per line - enabling partial payment.',
               },
               {
                 n: '03', name: 'Exception Intelligence', color: '#f59e0b',
@@ -212,13 +212,13 @@ export default function APExceptionResolutionPage() {
                 n: '04', name: 'Payment Terms Optimizer', color: '#f59e0b',
                 what: 'Parses "D/DD Net NN" terms on every invoice. Calculates annualised ROI on early payment discount.',
                 outputs: 'Priority queue: HIGH · MEDIUM · LOW · EXPIRED · NO_DISCOUNT. ROI = (d/(1-d)) × (365/spread) × 100',
-                differentiator: 'Runs on all invoices, including blocked ones — a blocked invoice with a 36% annualised ROI discount should be prioritised for rapid human resolution.',
+                differentiator: 'Runs on all invoices, including blocked ones - a blocked invoice with a 36% annualised ROI discount should be prioritised for rapid human resolution.',
               },
               {
                 n: '05', name: 'Fraud Signal Detector', color: '#ef4444',
                 what: 'Checks 7 independent signals per invoice: bank account change, email domain mismatch, new vendor, structuring, round numbers, rush terms, first invoice.',
                 outputs: 'FRAUD_RISK_HIGH (payment frozen) · FRAUD_RISK_MEDIUM · FRAUD_RISK_LOW · CLEAR',
-                differentiator: 'Runs on every invoice — including auto-approved ones. Fraud hides in clean-looking invoices.',
+                differentiator: 'Runs on every invoice - including auto-approved ones. Fraud hides in clean-looking invoices.',
               },
               {
                 n: '06', name: 'Resolution Reporter', color: '#f59e0b',
@@ -269,7 +269,7 @@ export default function APExceptionResolutionPage() {
               {
                 icon: <Shield size={18} color="#f59e0b" />,
                 title: 'BEC fraud risk during high-volume periods',
-                desc: 'Year-end or quarter-end — high invoice velocity, AP team under pressure. A business email compromise attempt spoofs a vendor requesting a bank account change. The fraud signal layer flags it before the payment run, even if the invoice amounts match the PO perfectly.',
+                desc: 'Year-end or quarter-end - high invoice velocity, AP team under pressure. A business email compromise attempt spoofs a vendor requesting a bank account change. The fraud signal layer flags it before the payment run, even if the invoice amounts match the PO perfectly.',
               },
             ].map((s, i) => (
               <div key={i} className="scenario-card" style={{ padding: '24px', background: 'rgba(245,158,11,0.04)', border: '1px solid rgba(245,158,11,0.15)', borderRadius: '12px' }}>
@@ -286,11 +286,11 @@ export default function APExceptionResolutionPage() {
           <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px', color: '#94a3b8' }}>When It Does Not Add Value</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {[
-              'Your SAP instance has accurate tolerance groups per vendor and your workflows already route efficiently — the native tooling is sufficient.',
-              'Your GRN process is real-time and invoice timing is rarely an issue — partial GRN approval is not a meaningful use case.',
+              'Your SAP instance has accurate tolerance groups per vendor and your workflows already route efficiently - the native tooling is sufficient.',
+              'Your GRN process is real-time and invoice timing is rarely an issue - partial GRN approval is not a meaningful use case.',
               'Invoice volume is low enough that a skilled AP clerk handles exceptions in under an hour per day.',
-              'You are on SAP S/4HANA Public Cloud — the approval workflows are more configurable, closing more of the gap natively.',
-              'You already run a mature AP automation platform (Esker, Medius, Basware) — these vendors have built comparable exception-handling logic.',
+              'You are on SAP S/4HANA Public Cloud - the approval workflows are more configurable, closing more of the gap natively.',
+              'You already run a mature AP automation platform (Esker, Medius, Basware) - these vendors have built comparable exception-handling logic.',
             ].map((item, i) => (
               <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 16px', background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.12)', borderRadius: '8px' }}>
                 <XCircle size={15} color="#f87171" style={{ flexShrink: 0, marginTop: '2px' }} />
@@ -333,7 +333,7 @@ export default function APExceptionResolutionPage() {
             <div style={{ padding: '24px', background: 'rgba(139,92,246,0.06)', border: '1px solid rgba(139,92,246,0.2)', borderRadius: '12px' }}>
               <div style={{ fontSize: '14px', fontWeight: '700', color: '#a78bfa', marginBottom: '10px' }}>Data Privacy Guard</div>
               <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.7' }}>
-                Bank accounts, exact amounts, vendor names, and email addresses are masked at the tool layer before any data reaches the LLM. The model reasons about signal categories — BANK_ACCOUNT_CHANGE, AMOUNT_HIGH — not raw values. A privacy audit log is written locally per run.
+                Bank accounts, exact amounts, vendor names, and email addresses are masked at the tool layer before any data reaches the LLM. The model reasons about signal categories - BANK_ACCOUNT_CHANGE, AMOUNT_HIGH - not raw values. A privacy audit log is written locally per run.
               </p>
             </div>
             <div style={{ padding: '24px', background: 'rgba(245,158,11,0.06)', border: '1px solid rgba(245,158,11,0.2)', borderRadius: '12px' }}>
@@ -345,7 +345,7 @@ export default function APExceptionResolutionPage() {
             <div style={{ padding: '24px', background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: '12px' }}>
               <div style={{ fontSize: '14px', fontWeight: '700', color: '#4ade80', marginBottom: '10px' }}>Runtime Compliance Updates</div>
               <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.7' }}>
-                Vendor compliance rules (tolerance %, allowed currencies, LLM data permission, blacklist) are stored in a database table, not in code. AP managers can update rules via the Vendor Compliance Updater agent — effective on the next run, no deployment needed.
+                Vendor compliance rules (tolerance %, allowed currencies, LLM data permission, blacklist) are stored in a database table, not in code. AP managers can update rules via the Vendor Compliance Updater agent - effective on the next run, no deployment needed.
               </p>
             </div>
           </div>
@@ -365,12 +365,12 @@ export default function APExceptionResolutionPage() {
                 </p>
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {[
-                    'Data privacy guard is built but not yet wired as enforced middleware — currently optional per agent call',
-                    'No ERP write-back — resolution decisions are JSON reports, not posted back to SAP MIRO or Oracle',
+                    'Data privacy guard is built but not yet wired as enforced middleware - currently optional per agent call',
+                    'No ERP write-back - resolution decisions are JSON reports, not posted back to SAP MIRO or Oracle',
                     'No retry / circuit-breaker logic if LLM API times out mid-pipeline',
-                    'Fraud signal detection has no case investigation UI — FRAUD_RISK_HIGH invoices are frozen but need a human review workflow',
+                    'Fraud signal detection has no case investigation UI - FRAUD_RISK_HIGH invoices are frozen but need a human review workflow',
                     'GL coding relies on keyword matching, not a full chart of accounts integration',
-                    'SQLite mock DB — production deployment requires PostgreSQL or direct ERP API connections',
+                    'SQLite mock DB - production deployment requires PostgreSQL or direct ERP API connections',
                   ].map((gap, i) => (
                     <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', fontSize: '13px', color: '#94a3b8' }}>
                       <span style={{ color: '#f87171', flexShrink: 0 }}>·</span>
@@ -389,7 +389,7 @@ export default function APExceptionResolutionPage() {
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '20px' }}>
           <h2 style={{ fontSize: '28px', fontWeight: '700' }}>View the Source</h2>
           <p style={{ fontSize: '15px', color: '#64748b', maxWidth: '520px', lineHeight: '1.7' }}>
-            Full pipeline, 6 sample exception scenarios, data privacy guard, and vendor compliance tooling — all in the open-source repo.
+            Full pipeline, 6 sample exception scenarios, data privacy guard, and vendor compliance tooling - all in the open-source repo.
           </p>
         </div>
       </section>

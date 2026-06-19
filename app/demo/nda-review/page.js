@@ -3,7 +3,7 @@
 import { useState, useRef } from 'react';
 import { ArrowLeft, Upload, Shield, CheckCircle2, AlertTriangle, FileText, RotateCcw, Clock, Scale, XCircle } from 'lucide-react';
 
-// ─── Pre-computed fixture map — keyed by exact PDF filename ───────────────────
+// ─── Pre-computed fixture map - keyed by exact PDF filename ───────────────────
 const FIXTURE_FILES = [
   'NDA_Luminos_Health_LOW.pdf',
   'NDA_Vantage_Cloud_MEDIUM.pdf',
@@ -29,7 +29,7 @@ const AGENT_STEPS = [
   { step:2, agent:'Clause Extraction Specialist',model:'Haiku',  icon:'🔍', desc:'Identifying 10 NDA clause types across document sections', duration:2600 },
   { step:3, agent:'Legal Playbook Reviewer',     model:'Sonnet', icon:'📋', desc:'Comparing each clause against NovaTech legal playbook',    duration:3000 },
   { step:4, agent:'Risk Scoring Analyst',        model:'Sonnet', icon:'⚖️', desc:'Calculating clause risk scores and aggregate risk level',  duration:2400 },
-  { step:5, agent:'Legal Compliance Officer',    model:'Haiku',  icon:'✅', desc:'Final compliance gate — sign-off routing and action',     duration:1800 },
+  { step:5, agent:'Legal Compliance Officer',    model:'Haiku',  icon:'✅', desc:'Final compliance gate - sign-off routing and action',     duration:1800 },
 ];
 
 // ─── Risk / status config ─────────────────────────────────────────────────────
@@ -41,10 +41,10 @@ const RISK_CONFIG = {
 };
 
 const ACTION_CONFIG = {
-  ESCALATE: { label:'⛔  ESCALATE — Do Not Sign', color:'#ef4444' },
-  REDLINE:  { label:'✏️  REDLINE — Significant Revisions Required', color:'#f59e0b' },
-  REVISE:   { label:'📝  REVISE — Revisions Required', color:'#eab308' },
-  APPROVE:  { label:'✅  APPROVE — Ready for Signature', color:'#22c55e' },
+  ESCALATE: { label:'⛔  ESCALATE - Do Not Sign', color:'#ef4444' },
+  REDLINE:  { label:'✏️  REDLINE - Significant Revisions Required', color:'#f59e0b' },
+  REVISE:   { label:'📝  REVISE - Revisions Required', color:'#eab308' },
+  APPROVE:  { label:'✅  APPROVE - Ready for Signature', color:'#22c55e' },
 };
 
 const CLAUSE_STATUS_CONFIG = {
@@ -83,7 +83,7 @@ export default function NDADemoPage() {
       setPhase('running');
       setAgentStates(AGENT_STEPS.map(s => ({ ...s, status:'waiting' })));
       startTimer();
-      // Run first two agents then surface a document parse error — realistic pipeline failure
+      // Run first two agents then surface a document parse error - realistic pipeline failure
       for (let i = 0; i < 2; i++) {
         const step = AGENT_STEPS[i].step;
         const dur  = AGENT_STEPS[i].duration;
@@ -310,7 +310,7 @@ export default function NDADemoPage() {
                 5-Agent Pipeline Running · {elapsed}s
               </div>
               <h2 style={{ fontSize:'clamp(20px,4.5vw,34px)', fontWeight:'800', marginBottom:'8px' }}>Reviewing {file?.name}</h2>
-              <p style={{ fontSize:'13px', color:'#64748b' }}>5 agents processing sequentially — extracting, reviewing, and scoring</p>
+              <p style={{ fontSize:'13px', color:'#64748b' }}>5 agents processing sequentially - extracting, reviewing, and scoring</p>
             </div>
 
             <div style={{ display:'flex', flexDirection:'column', gap:'10px', marginBottom:'32px' }}>
@@ -478,7 +478,7 @@ export default function NDADemoPage() {
 
             <div style={{ padding:'14px', background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.05)', borderRadius:'10px' }}>
               <p style={{ fontSize:'12px', color:'#475569', lineHeight:'1.6', textAlign:'center' }}>
-                Built on CrewAI with Claude Haiku and Sonnet — configurable for your own legal playbook, clause library, and sign-off thresholds.
+                Built on CrewAI with Claude Haiku and Sonnet - configurable for your own legal playbook, clause library, and sign-off thresholds.
               </p>
             </div>
           </div>

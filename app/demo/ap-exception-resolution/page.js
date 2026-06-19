@@ -5,14 +5,14 @@ import { Zap, ArrowLeft, Play, CheckCircle2, AlertTriangle, Clock, DollarSign, S
 
 const FIXTURE = {
   run_date: "2026-04-10T09:15:42",
-  executive_summary: "6 exception invoices processed. 2 invoices frozen for fraud (BEC signals detected — do not release payment). 1 high-priority early payment discount expiring in 8 days with 36.7% annualised ROI. 2 invoices auto-approved after PO amendment and vendor tolerance verification. 1 partial GRN approval — 75% payable now, remainder on full receipt.",
+  executive_summary: "6 exception invoices processed. 2 invoices frozen for fraud (BEC signals detected - do not release payment). 1 high-priority early payment discount expiring in 8 days with 36.7% annualised ROI. 2 invoices auto-approved after PO amendment and vendor tolerance verification. 1 partial GRN approval - 75% payable now, remainder on full receipt.",
   invoices: [
     { invoice_number: "INV-2024-AS-001",   vendor_name: "Acme Supplies",         amount: "USD 10,000",  exception_type: "Partial GRN",        outcome: "partial_approved",  description: "20 units billed, 15 received per GRN" },
-    { invoice_number: "INV-2024-TP-002",   vendor_name: "TechParts GmbH",        amount: "EUR 3,900",   exception_type: "Price Variance",      outcome: "auto_approved",     description: "€195 vs PO €185 — covered by amendment" },
-    { invoice_number: "INV-2024-GOS-003",  vendor_name: "Global Office Sols.",   amount: "GBP 252.75",  exception_type: "Vendor Tolerance",    outcome: "auto_approved",     description: "1.5% variance — within 3% vendor policy" },
-    { invoice_number: "INV-2024-NF-001",   vendor_name: "Nordic Freight AB",     amount: "SEK 133,750", exception_type: "Payment Terms",       outcome: "payment_priority",  description: "2/10 Net 45 — SEK 2,340 discount, 8 days" },
-    { invoice_number: "INV-2024-FAKE-001", vendor_name: "Fake Acme Supplies",    amount: "USD 4,250",   exception_type: "Fraud — BEC",         outcome: "fraud_frozen",      description: "Bank account changed + lookalike domain" },
-    { invoice_number: "INV-2024-FAST-001", vendor_name: "FastPay Solutions LLC", amount: "USD 49,750",  exception_type: "Fraud — Structuring", outcome: "fraud_frozen",      description: "$49,750 just under $50K approval threshold" },
+    { invoice_number: "INV-2024-TP-002",   vendor_name: "TechParts GmbH",        amount: "EUR 3,900",   exception_type: "Price Variance",      outcome: "auto_approved",     description: "€195 vs PO €185 - covered by amendment" },
+    { invoice_number: "INV-2024-GOS-003",  vendor_name: "Global Office Sols.",   amount: "GBP 252.75",  exception_type: "Vendor Tolerance",    outcome: "auto_approved",     description: "1.5% variance - within 3% vendor policy" },
+    { invoice_number: "INV-2024-NF-001",   vendor_name: "Nordic Freight AB",     amount: "SEK 133,750", exception_type: "Payment Terms",       outcome: "payment_priority",  description: "2/10 Net 45 - SEK 2,340 discount, 8 days" },
+    { invoice_number: "INV-2024-FAKE-001", vendor_name: "Fake Acme Supplies",    amount: "USD 4,250",   exception_type: "Fraud - BEC",         outcome: "fraud_frozen",      description: "Bank account changed + lookalike domain" },
+    { invoice_number: "INV-2024-FAST-001", vendor_name: "FastPay Solutions LLC", amount: "USD 49,750",  exception_type: "Fraud - Structuring", outcome: "fraud_frozen",      description: "$49,750 just under $50K approval threshold" },
   ],
   agents: [
     { n: 1, name: "Vendor Compliance Officer",  model: "Haiku",  icon: "🛡️", ms: 1800, desc: "Checking vendor blacklist, OFAC sanctions, data privacy flags, and compliance rules across all 6 invoices" },
@@ -32,11 +32,11 @@ const FIXTURE = {
         action_required: "Freeze payment. Amount appears structured to avoid approval threshold. Verify vendor legitimacy. Escalate to CFO." },
     ],
     payment_priority: [
-      { invoice_number: "INV-2024-NF-001", vendor_name: "Nordic Freight AB", discount_amount: "SEK 2,340", days_remaining: 8, roi_pct: 36.7, deadline: "2026-04-18", recommendation: "Pay by 2026-04-18 to capture SEK 2,340. Annualised ROI 36.7% — exceeds cost of capital." }
+      { invoice_number: "INV-2024-NF-001", vendor_name: "Nordic Freight AB", discount_amount: "SEK 2,340", days_remaining: 8, roi_pct: 36.7, deadline: "2026-04-18", recommendation: "Pay by 2026-04-18 to capture SEK 2,340. Annualised ROI 36.7% - exceeds cost of capital." }
     ],
     auto_approved: [
-      { invoice_number: "INV-2024-TP-002",  vendor_name: "TechParts GmbH",         amount: "EUR 3,900.00", gl_code: "5100 — Manufacturing & Production", reason: "Price variance covered by PO Amendment #AMD-2024-1002 (2024-11-20). Full GRN confirmed." },
-      { invoice_number: "INV-2024-GOS-003", vendor_name: "Global Office Solutions", amount: "GBP 252.75",   gl_code: "5300 — Office Supplies",            reason: "1.5% variance within vendor-specific 3% tolerance policy (VND-003, negotiated 2024-01-15)." },
+      { invoice_number: "INV-2024-TP-002",  vendor_name: "TechParts GmbH",         amount: "EUR 3,900.00", gl_code: "5100 - Manufacturing & Production", reason: "Price variance covered by PO Amendment #AMD-2024-1002 (2024-11-20). Full GRN confirmed." },
+      { invoice_number: "INV-2024-GOS-003", vendor_name: "Global Office Solutions", amount: "GBP 252.75",   gl_code: "5300 - Office Supplies",            reason: "1.5% variance within vendor-specific 3% tolerance policy (VND-003, negotiated 2024-01-15)." },
     ],
     partial_approved: [
       { invoice_number: "INV-2024-AS-001", vendor_name: "Acme Supplies", approve_amount: "USD 7,500", hold_amount: "USD 2,500", reason: "GRN-2024-001 confirms 15 of 20 units received (75%). Holding $2,500 pending receipt of remaining 5 units." }
@@ -49,7 +49,7 @@ const OUTCOME_CONFIG = {
   auto_approved:    { color: '#4ade80', bg: 'rgba(34,197,94,0.08)',   border: 'rgba(34,197,94,0.2)',   label: 'Auto-Approved',      icon: '✓' },
   partial_approved: { color: '#f59e0b', bg: 'rgba(245,158,11,0.08)', border: 'rgba(245,158,11,0.2)', label: 'Partial Approved',   icon: '◑' },
   payment_priority: { color: '#818cf8', bg: 'rgba(129,140,248,0.08)', border: 'rgba(129,140,248,0.2)', label: 'Discount Priority', icon: '⏱' },
-  fraud_frozen:     { color: '#f87171', bg: 'rgba(248,113,113,0.08)', border: 'rgba(248,113,113,0.2)', label: 'Fraud — Frozen',    icon: '⚠' },
+  fraud_frozen:     { color: '#f87171', bg: 'rgba(248,113,113,0.08)', border: 'rgba(248,113,113,0.2)', label: 'Fraud - Frozen',    icon: '⚠' },
 };
 
 const AGENT_DELAY_MS = 300;
@@ -130,7 +130,7 @@ export default function APExceptionDemoPage() {
             <span style={{ color: '#f59e0b' }}>Agent Pipeline</span>
           </h1>
           <p style={{ fontSize: 'clamp(14px,2vw,17px)', color: '#64748b', lineHeight: '1.7', maxWidth: '600px', marginBottom: '36px' }}>
-            Exceptions flagged by your ERP land in this queue. Six specialised agents triage, match, validate, detect fraud, and route each invoice — autonomously, in under 15 seconds.
+            Exceptions flagged by your ERP land in this queue. Six specialised agents triage, match, validate, detect fraud, and route each invoice - autonomously, in under 15 seconds.
           </p>
           <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
             {[
@@ -201,7 +201,7 @@ export default function APExceptionDemoPage() {
             <div style={{ fontSize: '32px', marginBottom: '12px' }}>⚡</div>
             <h3 style={{ fontSize: '20px', fontWeight: '700', marginBottom: '8px' }}>Ready to Process</h3>
             <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '28px', maxWidth: '420px', margin: '0 auto 28px' }}>
-              6 agents will run sequentially — compliance check, 3-way match, exception analysis, payment optimisation, fraud detection, and GL coding.
+              6 agents will run sequentially - compliance check, 3-way match, exception analysis, payment optimisation, fraud detection, and GL coding.
             </p>
             <button className="run-btn" onClick={runPipeline} style={{ display: 'inline-flex', alignItems: 'center', gap: '10px', padding: '16px 44px', background: 'linear-gradient(135deg,#f59e0b,#d97706)', color: '#0a0a0a', borderRadius: '12px', fontWeight: '800', fontSize: '16px', border: 'none', cursor: 'pointer', boxShadow: '0 8px 32px rgba(245,158,11,0.25)' }}>
               <Play size={18} strokeWidth={2.5} />
@@ -217,7 +217,7 @@ export default function APExceptionDemoPage() {
               <div>
                 <div style={{ fontSize: '11px', fontWeight: '700', color: '#475569', letterSpacing: '0.1em', marginBottom: '4px' }}>PIPELINE</div>
                 <h2 style={{ fontSize: '18px', fontWeight: '700', color: phase === 'done' ? '#4ade80' : '#f59e0b' }}>
-                  {phase === 'running' ? '⚙ Agents Processing...' : '✓ Pipeline Complete — Results Ready'}
+                  {phase === 'running' ? '⚙ Agents Processing...' : '✓ Pipeline Complete - Results Ready'}
                 </h2>
               </div>
               {phase === 'done' && (
@@ -296,7 +296,7 @@ export default function APExceptionDemoPage() {
                   <Lock size={15} color="#f87171" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#f87171' }}>Fraud Frozen — Payment Blocked</div>
+                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#f87171' }}>Fraud Frozen - Payment Blocked</div>
                   <div style={{ fontSize: '12px', color: '#64748b' }}>Do not release. Escalate immediately.</div>
                 </div>
               </div>
@@ -333,7 +333,7 @@ export default function APExceptionDemoPage() {
                   <TrendingUp size={15} color="#818cf8" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#818cf8' }}>Early Payment Discount — Act Now</div>
+                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#818cf8' }}>Early Payment Discount - Act Now</div>
                   <div style={{ fontSize: '12px', color: '#64748b' }}>Deadline approaching. ROI exceeds cost of capital.</div>
                 </div>
               </div>
@@ -354,7 +354,7 @@ export default function APExceptionDemoPage() {
                     </div>
                   </div>
                   <div style={{ fontSize: '13px', color: '#94a3b8', marginBottom: '10px' }}>
-                    Capture <strong style={{ color: '#c4b5fd', fontSize: '15px' }}>{p.discount_amount}</strong> — pay before <strong style={{ color: '#e2e8f0' }}>{p.deadline}</strong>
+                    Capture <strong style={{ color: '#c4b5fd', fontSize: '15px' }}>{p.discount_amount}</strong> - pay before <strong style={{ color: '#e2e8f0' }}>{p.deadline}</strong>
                   </div>
                   <div style={{ padding: '10px 14px', background: 'rgba(99,102,241,0.07)', borderRadius: '8px', fontSize: '12px', color: '#a5b4fc', fontWeight: '500' }}>
                     → {p.recommendation}
@@ -370,7 +370,7 @@ export default function APExceptionDemoPage() {
                   <CheckCircle2 size={15} color="#4ade80" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#4ade80' }}>Auto-Approved — No Human Action Required</div>
+                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#4ade80' }}>Auto-Approved - No Human Action Required</div>
                   <div style={{ fontSize: '12px', color: '#64748b' }}>GL codes assigned. Cleared for payment run.</div>
                 </div>
               </div>
@@ -400,7 +400,7 @@ export default function APExceptionDemoPage() {
                   <BarChart3 size={15} color="#f59e0b" />
                 </div>
                 <div>
-                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#f59e0b' }}>Partial Approved — Split Payment</div>
+                  <div style={{ fontSize: '15px', fontWeight: '700', color: '#f59e0b' }}>Partial Approved - Split Payment</div>
                   <div style={{ fontSize: '12px', color: '#64748b' }}>Approvable amount released. Remainder held pending GRN.</div>
                 </div>
               </div>

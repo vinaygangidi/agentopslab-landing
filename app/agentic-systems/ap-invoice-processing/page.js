@@ -65,7 +65,7 @@ export default function APInvoiceProcessingPage() {
               <p style={{ fontSize: '18px', color: '#a3a3a3', lineHeight: '1.6', maxWidth: '700px' }}>
                 A 5-agent CrewAI pipeline that reads vendor emails from Gmail, runs Mistral OCR on PDF attachments,
                 extracts structured invoice data, reconciles against a PO database, and produces an Excel report
-                with full decision trail — fully automated, end to end.
+                with full decision trail - fully automated, end to end.
               </p>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function APInvoiceProcessingPage() {
           <h2 style={{ fontSize: 'clamp(24px,5vw,36px)', fontWeight: '800', marginBottom: '12px' }}>5-Agent Sequential Pipeline</h2>
           <p style={{ fontSize: '16px', color: '#94a3b8', marginBottom: '48px', lineHeight: '1.7', maxWidth: '680px' }}>
             Each agent handles one stage of the AP workflow and passes a compact manifest to the next.
-            Context windows stay clean. Every artifact is written to disk — fully auditable.
+            Context windows stay clean. Every artifact is written to disk - fully auditable.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -113,7 +113,7 @@ export default function APInvoiceProcessingPage() {
                 tools: ['Gmail Reader Tool', 'Batch Triage Tool'],
                 model: 'Claude Sonnet',
                 what: 'Connects to Gmail via OAuth, fetches all unread emails, and batch-classifies each as INVOICE, NOT_INVOICE, or UNCERTAIN using PDF content peek + sender domain matching. Writes triage_result.json to disk.',
-                output: 'triage_result.json — per-email classification with confidence signals',
+                output: 'triage_result.json - per-email classification with confidence signals',
               },
               {
                 num: '02',
@@ -126,7 +126,7 @@ export default function APInvoiceProcessingPage() {
                 tools: ['Batch OCR Tool'],
                 model: 'Mistral OCR + Claude',
                 what: 'Receives the triage manifest path and runs Mistral OCR on every PDF attachment from INVOICE and UNCERTAIN emails in a single batch call. Handles scanned, digital, and image-only PDFs. Writes per-email OCR JSON to disk.',
-                output: 'ocr_result_{id}.json — full extracted text per PDF attachment',
+                output: 'ocr_result_{id}.json - full extracted text per PDF attachment',
               },
               {
                 num: '03',
@@ -139,7 +139,7 @@ export default function APInvoiceProcessingPage() {
                 tools: ['Invoice Data Extractor Tool'],
                 model: 'Claude Sonnet',
                 what: 'For each OCR result, calls the extractor tool which uses Claude to parse raw OCR text into structured JSON: invoice number, vendor, PO reference, line items (description, qty, unit price), tax, currency, and total. Handles multi-language invoices.',
-                output: 'extracted_{id}.json — structured invoice data per email',
+                output: 'extracted_{id}.json - structured invoice data per email',
               },
               {
                 num: '04',
@@ -152,7 +152,7 @@ export default function APInvoiceProcessingPage() {
                 tools: ['PO Reconciler Tool'],
                 model: 'Claude Sonnet',
                 what: 'Queries the PO database (SQLite) for each extracted invoice. Performs line-item level matching on quantity, unit price, and totals. Classifies each invoice as MATCHED, PARTIAL_MATCH, DISCREPANCY, DUPLICATE, or PO_NOT_FOUND. Uses Claude to reason over exceptions.',
-                output: 'reconciled_{id}.json — match status, discrepancy details, decision rationale',
+                output: 'reconciled_{id}.json - match status, discrepancy details, decision rationale',
               },
               {
                 num: '05',
@@ -165,7 +165,7 @@ export default function APInvoiceProcessingPage() {
                 tools: ['Excel Report Writer Tool'],
                 model: 'Claude Sonnet',
                 what: 'Auto-discovers all reconciled JSON files, builds a multi-sheet Excel workbook: Summary, Approved for Payment, Requires Action, Not Processed, and a full Decision Trail sheet with per-invoice reasoning. Writes the final executive summary.',
-                output: 'invoice_report_{timestamp}.xlsx — full AP run report with decision trail',
+                output: 'invoice_report_{timestamp}.xlsx - full AP run report with decision trail',
               },
             ].map((step, i, arr) => (
               <div key={step.num}>
@@ -246,11 +246,11 @@ export default function APInvoiceProcessingPage() {
           <h2 style={{ fontSize: 'clamp(22px,4vw,32px)', fontWeight: '800', marginBottom: '40px' }}>What Powers It</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 200px), 1fr))', gap: '16px' }}>
             {[
-              { name: 'CrewAI', role: 'Multi-agent orchestration', detail: 'Sequential process — each agent hands off a compact manifest to the next', color: '#10b981' },
+              { name: 'CrewAI', role: 'Multi-agent orchestration', detail: 'Sequential process - each agent hands off a compact manifest to the next', color: '#10b981' },
               { name: 'Claude Sonnet', role: 'Agent reasoning & extraction', detail: 'Powers all 5 agents for triage classification, data extraction, reconciliation reasoning, and report writing', color: '#8b5cf6' },
               { name: 'Mistral OCR', role: 'PDF text extraction', detail: 'Handles digital PDFs, scanned documents, and image-only invoices in prod mode', color: '#f59e0b' },
-              { name: 'Gmail API', role: 'Email ingestion', detail: 'OAuth2 authentication — reads from ap-invoices inbox and marks processed emails', color: '#3b82f6' },
-              { name: 'SQLite', role: 'PO database', detail: 'Local PO mirror with purchase orders, line items, and vendor master — sub-ms queries at reconcile time', color: '#ec4899' },
+              { name: 'Gmail API', role: 'Email ingestion', detail: 'OAuth2 authentication - reads from ap-invoices inbox and marks processed emails', color: '#3b82f6' },
+              { name: 'SQLite', role: 'PO database', detail: 'Local PO mirror with purchase orders, line items, and vendor master - sub-ms queries at reconcile time', color: '#ec4899' },
               { name: 'openpyxl', role: 'Excel report generation', detail: 'Multi-sheet workbook: Summary, Approved, Exceptions, and full Decision Trail', color: '#64748b' },
             ].map(s => (
               <div key={s.name} className="stack-card" style={{ padding: '22px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '14px' }}>
@@ -311,16 +311,16 @@ export default function APInvoiceProcessingPage() {
           <p style={{ fontSize: '15px', color: '#94a3b8', marginBottom: '40px', lineHeight: '1.7', maxWidth: '620px' }}>Covers every reconciliation outcome and multi-currency scenario so you can validate the full pipeline without real vendor data.</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(min(100%, 260px), 1fr))', gap: '12px' }}>
             {[
-              { id: 'inv_01', scenario: 'Matched — USD', outcome: 'MATCHED', color: '#10b981' },
-              { id: 'inv_02', scenario: 'Price variance — EUR (German)', outcome: 'DISCREPANCY', color: '#ef4444' },
-              { id: 'inv_03', scenario: 'Qty overage — GBP', outcome: 'PARTIAL MATCH', color: '#f59e0b' },
-              { id: 'inv_04', scenario: 'Missing item — JPY (Japanese)', outcome: 'DISCREPANCY', color: '#ef4444' },
-              { id: 'inv_05', scenario: 'Extra item — MXN (Spanish)', outcome: 'DISCREPANCY', color: '#ef4444' },
-              { id: 'inv_06', scenario: 'Qty underage — USD', outcome: 'PARTIAL MATCH', color: '#f59e0b' },
-              { id: 'inv_07', scenario: 'Matched — SEK (Swedish)', outcome: 'MATCHED', color: '#10b981' },
-              { id: 'inv_08', scenario: 'Wrong vendor — USD', outcome: 'DISCREPANCY', color: '#ef4444' },
-              { id: 'inv_09', scenario: 'Price variance — EUR', outcome: 'DISCREPANCY', color: '#ef4444' },
-              { id: 'inv_10', scenario: 'Matched services — USD', outcome: 'MATCHED', color: '#10b981' },
+              { id: 'inv_01', scenario: 'Matched - USD', outcome: 'MATCHED', color: '#10b981' },
+              { id: 'inv_02', scenario: 'Price variance - EUR (German)', outcome: 'DISCREPANCY', color: '#ef4444' },
+              { id: 'inv_03', scenario: 'Qty overage - GBP', outcome: 'PARTIAL MATCH', color: '#f59e0b' },
+              { id: 'inv_04', scenario: 'Missing item - JPY (Japanese)', outcome: 'DISCREPANCY', color: '#ef4444' },
+              { id: 'inv_05', scenario: 'Extra item - MXN (Spanish)', outcome: 'DISCREPANCY', color: '#ef4444' },
+              { id: 'inv_06', scenario: 'Qty underage - USD', outcome: 'PARTIAL MATCH', color: '#f59e0b' },
+              { id: 'inv_07', scenario: 'Matched - SEK (Swedish)', outcome: 'MATCHED', color: '#10b981' },
+              { id: 'inv_08', scenario: 'Wrong vendor - USD', outcome: 'DISCREPANCY', color: '#ef4444' },
+              { id: 'inv_09', scenario: 'Price variance - EUR', outcome: 'DISCREPANCY', color: '#ef4444' },
+              { id: 'inv_10', scenario: 'Matched services - USD', outcome: 'MATCHED', color: '#10b981' },
               { id: 'inv_11', scenario: 'Duplicate invoice', outcome: 'DUPLICATE', color: '#8b5cf6' },
             ].map(inv => (
               <div key={inv.id} style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: '14px 16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '10px' }}>
@@ -338,7 +338,7 @@ export default function APInvoiceProcessingPage() {
         <div style={{ maxWidth: '700px', margin: '0 auto', textAlign: 'center' }}>
           <h2 style={{ fontSize: 'clamp(26px,5vw,40px)', fontWeight: '800', marginBottom: '16px' }}>Run It on Your Invoices</h2>
           <p style={{ fontSize: 'clamp(15px,3vw,18px)', color: '#94a3b8', marginBottom: '36px', lineHeight: '1.7' }}>
-            Clone the repo, set your API keys, and run in dev mode first — no Gmail credentials needed.
+            Clone the repo, set your API keys, and run in dev mode first - no Gmail credentials needed.
             The full pipeline runs end to end in minutes.
           </p>
           <div style={{ background: 'rgba(16,185,129,0.06)', border: '1px solid rgba(16,185,129,0.2)', borderRadius: '12px', padding: '20px 24px', marginBottom: '32px', textAlign: 'left' }}>

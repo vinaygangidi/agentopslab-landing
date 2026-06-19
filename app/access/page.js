@@ -9,7 +9,7 @@ export default function RequestDemoPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Demo Request — ${form.company || form.name}`);
+    const subject = encodeURIComponent(`Demo Request - ${form.company || form.name}`);
     const body = encodeURIComponent(
       `Name: ${form.name}\nEmail: ${form.email}\nCompany: ${form.company}\nInterested in: ${form.interest}\n\nMessage:\n${form.message}`
     );
@@ -34,18 +34,23 @@ export default function RequestDemoPage() {
       `}</style>
 
       {/* Nav */}
-      <nav style={{ borderBottom: '1px solid rgba(255,255,255,0.07)', padding: '0 clamp(16px,4vw,32px)', height: '68px', display: 'flex', alignItems: 'center' }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-          <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Zap size={18} color="white" />
+      <nav className="vg-nav">
+        <div className="vg-nav-inner">
+          <a href="/" className="vg-logo">
+            <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
+            <span className="vg-logo-text">Vinay Gangidi</span>
+          </a>
+          <div className="vg-nav-links hide-mobile" style={{ display: 'flex' }}>
+            <a href="/solutions" className="vg-nav-link">AI Agents</a>
+            <a href="/enterprise-ai-strategy" className="vg-nav-link">Strategy</a>
+            <a href="/about" className="vg-nav-link">About Me</a>
           </div>
-          <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff' }}>Vinay Gangidi</span>
-        </a>
+        </div>
       </nav>
 
       <div className="access-layout" style={{ display: 'flex', minHeight: 'calc(100vh - 68px)' }}>
 
-        {/* Left — sidebar */}
+        {/* Left - sidebar */}
         <div className="access-sidebar" style={{ width: '420px', flexShrink: 0, borderRight: '1px solid rgba(255,255,255,0.07)', padding: '56px 48px', background: 'linear-gradient(180deg,rgba(99,102,241,0.05) 0%,transparent 100%)' }}>
           <p style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '20px' }}>What you'll see</p>
           <h2 style={{ fontSize: '26px', fontWeight: '800', letterSpacing: '-0.02em', lineHeight: 1.2, marginBottom: '32px' }}>A live run on real documents. Results in 90 seconds.</h2>
@@ -53,7 +58,7 @@ export default function RequestDemoPage() {
           {[
             { icon: Shield, color: '#6366f1', name: 'NDA Review', desc: 'Upload any NDA PDF. Watch 5 agents review it against a legal playbook and produce a risk-scored memo.' },
             { icon: DollarSign, color: '#10b981', name: 'AP Invoice Processing', desc: 'Submit an invoice batch. See 5 agents extract, reconcile against PO data, and output a full exception report.' },
-            { icon: AlertTriangle, color: '#f59e0b', name: 'Exception Resolution', desc: 'See 6 agents resolve the 20–30% of invoices that fail automated matching — including fraud detection.' },
+            { icon: AlertTriangle, color: '#f59e0b', name: 'Exception Resolution', desc: 'See 6 agents resolve the 20–30% of invoices that fail automated matching - including fraud detection.' },
           ].map(s => {
             const Icon = s.icon;
             return (
@@ -75,7 +80,7 @@ export default function RequestDemoPage() {
           </div>
         </div>
 
-        {/* Right — form */}
+        {/* Right - form */}
         <div style={{ flex: 1, padding: 'clamp(32px,6vw,64px) clamp(16px,5vw,56px)', display: 'flex', alignItems: 'flex-start', justifyContent: 'center' }}>
           <div style={{ width: '100%', maxWidth: '480px' }}>
 

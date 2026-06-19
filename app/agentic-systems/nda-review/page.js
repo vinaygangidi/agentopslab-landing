@@ -55,7 +55,7 @@ export default function NDAReviewPage() {
             <span style={{ color: '#818cf8' }}>Paper Review Agent</span>
           </h1>
           <p style={{ fontSize: '18px', color: '#94a3b8', maxWidth: '680px', lineHeight: '1.7', marginBottom: '40px' }}>
-            A 5-agent pipeline that reviews counterparty-originated NDAs against a configurable legal playbook — scoring each clause, flagging deviations, and producing a compliance memo. Built for the 60–70% of NDAs that arrive on the other party's paper, not yours.
+            A 5-agent pipeline that reviews counterparty-originated NDAs against a configurable legal playbook - scoring each clause, flagging deviations, and producing a compliance memo. Built for the 60–70% of NDAs that arrive on the other party's paper, not yours.
           </p>
 
           <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
@@ -81,7 +81,7 @@ export default function NDAReviewPage() {
           <div style={{ display: 'flex', gap: '12px', padding: '20px 24px', background: 'rgba(59,130,246,0.06)', border: '1px solid rgba(59,130,246,0.2)', borderRadius: '12px', alignItems: 'flex-start' }}>
             <Info size={18} color="#60a5fa" style={{ flexShrink: 0, marginTop: '2px' }} />
             <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.7' }}>
-              <strong style={{ color: '#e2e8f0' }}>Honest framing:</strong> Ironclad, Juro, and Contractbook already do AI-powered counterparty paper review — clause extraction, risk flagging, redline suggestions, workflow routing. This agent is not a better Ironclad. The question is a narrower one: for teams that cannot or will not send NDAs to a third-party SaaS, what does a self-hosted alternative look like?
+              <strong style={{ color: '#e2e8f0' }}>Honest framing:</strong> Ironclad, Juro, and Contractbook already do AI-powered counterparty paper review - clause extraction, risk flagging, redline suggestions, workflow routing. This agent is not a better Ironclad. The question is a narrower one: for teams that cannot or will not send NDAs to a third-party SaaS, what does a self-hosted alternative look like?
             </p>
           </div>
         </div>
@@ -95,9 +95,9 @@ export default function NDAReviewPage() {
 
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '16px', marginBottom: '40px' }}>
             {[
-              { title: 'AI clause extraction from counterparty PDFs', desc: 'Ironclad\'s AI identifies clause types in any format — including non-standard headings. This is not a gap in modern CLM platforms.' },
+              { title: 'AI clause extraction from counterparty PDFs', desc: 'Ironclad\'s AI identifies clause types in any format - including non-standard headings. This is not a gap in modern CLM platforms.' },
               { title: 'Risk flagging against your playbook', desc: 'Playbook positions configured in the platform UI. Deviations are flagged automatically. Juro and Contractbook both offer this.' },
-              { title: 'Redline generation', desc: 'Ironclad generates tracked-change Word documents with your preferred fallback language. This agent does not — a genuine gap.' },
+              { title: 'Redline generation', desc: 'Ironclad generates tracked-change Word documents with your preferred fallback language. This agent does not - a genuine gap.' },
               { title: 'Approval workflow and eSignature', desc: 'Routing to approvers, SLA tracking, DocuSign integration. Mature in all three platforms.' },
               { title: 'Contract repository and obligation tracking', desc: 'Executed contracts stored, obligations tracked, renewals alerted. Full lifecycle management post-signature.' },
               { title: 'CRM and ERP integration', desc: 'Salesforce, HubSpot, NetSuite integrations for contract-to-close workflows. Well-developed in Ironclad.' },
@@ -139,24 +139,24 @@ export default function NDAReviewPage() {
               <tbody>
                 {[
                   {
-                    condition: 'Data sovereignty — NDAs contain sensitive deal terms that cannot leave your infrastructure',
-                    ironclad: 'Cloud SaaS — your NDA PDFs are uploaded to Ironclad\'s servers, processed by their AI infrastructure.',
+                    condition: 'Data sovereignty - NDAs contain sensitive deal terms that cannot leave your infrastructure',
+                    ironclad: 'Cloud SaaS - your NDA PDFs are uploaded to Ironclad\'s servers, processed by their AI infrastructure.',
                     agent: 'Runs on your infra (local, private cloud, or air-gapped). The PDF never leaves your environment. Mistral OCR call is the only external API touch; it can be swapped for a local OCR model.',
                   },
                   {
-                    condition: 'Cost — Ironclad pricing starts at $50K–$100K/year at enterprise tier',
+                    condition: 'Cost - Ironclad pricing starts at $50K–$100K/year at enterprise tier',
                     ironclad: 'Enterprise SaaS pricing. Justified at high volume with full CLM needs. Difficult to justify for teams doing 20–50 NDAs/month without broader CLM requirements.',
                     agent: '~$0.30/doc in Claude + Mistral API costs. No seat licenses, no platform fee. For 50 NDAs/month: ~$15/month in compute.',
                   },
                   {
-                    condition: 'Playbook logic ownership — you need full control over what the AI is reasoning about and why',
+                    condition: 'Playbook logic ownership - you need full control over what the AI is reasoning about and why',
                     ironclad: 'Playbook configured in their UI. The AI model and scoring logic are Ironclad\'s. You see the output, not the reasoning chain.',
                     agent: 'nda_playbook.json is your file. The scoring logic is in your code. Every clause score has a traceable rationale. You can modify the model, the thresholds, and the clause taxonomy.',
                   },
                   {
-                    condition: 'Building internal legal tooling — a legal engineering team embedding NDA review into a larger system',
+                    condition: 'Building internal legal tooling - a legal engineering team embedding NDA review into a larger system',
                     ironclad: 'API access available but still SaaS-dependent. Integration limited to what the platform exposes.',
-                    agent: 'Fully composable. The 5-agent output is structured JSON — pipe it into a Slack alert, a Jira ticket, a CLM import, or a redline generator. No platform dependency.',
+                    agent: 'Fully composable. The 5-agent output is structured JSON - pipe it into a Slack alert, a Jira ticket, a CLM import, or a redline generator. No platform dependency.',
                   },
                 ].map((row, i) => (
                   <tr key={i} className="table-row" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -172,7 +172,7 @@ export default function NDAReviewPage() {
           <div style={{ display: 'flex', gap: '12px', padding: '20px 24px', background: 'rgba(99,102,241,0.06)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px', alignItems: 'flex-start' }}>
             <Info size={18} color="#818cf8" style={{ flexShrink: 0, marginTop: '2px' }} />
             <p style={{ fontSize: '14px', color: '#94a3b8', lineHeight: '1.7' }}>
-              <strong style={{ color: '#e2e8f0' }}>The practical decision tree:</strong> If you need full CLM (workflow, eSignature, repository, redlines) and data residency is not a constraint — use Ironclad. If you need only the review intelligence layer, want it self-hosted, and are comfortable with JSON output rather than a polished UI — this is the approach.
+              <strong style={{ color: '#e2e8f0' }}>The practical decision tree:</strong> If you need full CLM (workflow, eSignature, repository, redlines) and data residency is not a constraint - use Ironclad. If you need only the review intelligence layer, want it self-hosted, and are comfortable with JSON output rather than a polished UI - this is the approach.
             </p>
           </div>
         </div>
@@ -182,14 +182,14 @@ export default function NDAReviewPage() {
       <section style={{ padding: '64px 32px' }}>
         <div style={{ maxWidth: '1100px', margin: '0 auto' }}>
           <h2 style={{ fontSize: '26px', fontWeight: '700', marginBottom: '8px' }}>5-Agent Pipeline</h2>
-          <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '32px' }}>Sequential. Each agent receives only the structured output of the prior one — minimising tokens, maximising accuracy per step.</p>
+          <p style={{ fontSize: '14px', color: '#64748b', marginBottom: '32px' }}>Sequential. Each agent receives only the structured output of the prior one - minimising tokens, maximising accuracy per step.</p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '40px' }}>
             {[
               {
                 n: '01', name: 'Legal Document Parser', model: 'Claude Haiku', color: '#3b82f6',
                 what: 'Calls Mistral OCR on the PDF. Handles digital, scanned, and handwritten contracts. Outputs structured Markdown with [PAGE X of Y] markers.',
-                why: 'Haiku for this step — it\'s mechanical orchestration, not legal reasoning. 20× cheaper than Sonnet for the same result.',
+                why: 'Haiku for this step - it\'s mechanical orchestration, not legal reasoning. 20× cheaper than Sonnet for the same result.',
               },
               {
                 n: '02', name: 'Clause Extractor', model: 'Claude Haiku', color: '#3b82f6',
@@ -199,17 +199,17 @@ export default function NDAReviewPage() {
               {
                 n: '03', name: 'Playbook Reviewer', model: 'Claude Sonnet', color: '#8b5cf6',
                 what: 'Compares each extracted clause against the nda_playbook.json. Identifies acceptable positions, deviations, and risky language. Assigns a risk score (0–10) per clause.',
-                why: 'Sonnet here — understanding the difference between "commercially reasonable efforts" and "best efforts" requires legal language nuance, not pattern matching.',
+                why: 'Sonnet here - understanding the difference between "commercially reasonable efforts" and "best efforts" requires legal language nuance, not pattern matching.',
               },
               {
                 n: '04', name: 'Risk Scoring Analyst', model: 'Claude Sonnet', color: '#8b5cf6',
                 what: 'Aggregates clause scores into a total risk score. Applies thresholds: LOW (0–15), MEDIUM (16–35), HIGH (36–60), CRITICAL (61+). Recommends: APPROVE / REVISE / REDLINE / ESCALATE.',
-                why: 'Risk compounding across clauses requires judgment — a missing indemnification clause combined with foreign jurisdiction is more than the sum of its parts.',
+                why: 'Risk compounding across clauses requires judgment - a missing indemnification clause combined with foreign jurisdiction is more than the sum of its parts.',
               },
               {
                 n: '05', name: 'Compliance Officer', model: 'Claude Haiku', color: '#3b82f6',
                 what: 'Final gate check. Verifies 5 mandatory clauses are present. Issues PASS / CONDITIONAL / FAIL verdict. Determines required sign-off authority (Legal Manager → General Counsel) and estimated revision rounds.',
-                why: 'Rules-based gate — no ambiguity, no reasoning needed. Haiku is the right model for this step.',
+                why: 'Rules-based gate - no ambiguity, no reasoning needed. Haiku is the right model for this step.',
               },
             ].map((step, i) => (
               <div key={i} className="pipeline-step" style={{ display: 'flex', gap: '0', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '12px', overflow: 'hidden' }}>
@@ -234,7 +234,7 @@ export default function NDAReviewPage() {
             </div>
             <div style={{ padding: '24px', background: 'rgba(34,197,94,0.05)', border: '1px solid rgba(34,197,94,0.2)', borderRadius: '12px' }}>
               <div style={{ fontSize: '14px', fontWeight: '700', color: '#4ade80', marginBottom: '10px' }}>PDF Legal Memo</div>
-              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.7' }}>Human-readable memo with clause-by-clause findings, risk narrative, and recommended actions. Generated by a Python report writer — zero LLM cost for the output step.</p>
+              <p style={{ fontSize: '13px', color: '#64748b', lineHeight: '1.7' }}>Human-readable memo with clause-by-clause findings, risk narrative, and recommended actions. Generated by a Python report writer - zero LLM cost for the output step.</p>
             </div>
             <div style={{ padding: '24px', background: 'rgba(99,102,241,0.05)', border: '1px solid rgba(99,102,241,0.2)', borderRadius: '12px' }}>
               <div style={{ fontSize: '14px', fontWeight: '700', color: '#818cf8', marginBottom: '10px' }}>Configurable Playbook</div>
@@ -267,7 +267,7 @@ export default function NDAReviewPage() {
               {
                 icon: <Shield size={18} color="#818cf8" />,
                 title: 'Consistency of playbook application',
-                desc: 'Manual review by different associates on different days produces inconsistent outcomes — same clause, different risk assessment. The agent applies the same playbook to every document, every time. Consistency is the baseline; the lawyer adds judgment on edge cases.',
+                desc: 'Manual review by different associates on different days produces inconsistent outcomes - same clause, different risk assessment. The agent applies the same playbook to every document, every time. Consistency is the baseline; the lawyer adds judgment on edge cases.',
               },
               {
                 icon: <FileText size={18} color="#818cf8" />,
@@ -288,11 +288,11 @@ export default function NDAReviewPage() {
           <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '16px', color: '#94a3b8' }}>When to Use Ironclad Instead</h3>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {[
-              'Data residency is not a constraint and you need full CLM — workflow, eSignature, redline generation, obligation tracking. Use Ironclad.',
+              'Data residency is not a constraint and you need full CLM - workflow, eSignature, redline generation, obligation tracking. Use Ironclad.',
               'You need redlines. This agent identifies what needs to change but does not produce a tracked-change Word document. Ironclad does.',
               'Your volume justifies the platform cost and you want a polished UI, a support SLA, and vendor accountability.',
-              'Your legal team is not technical — Ironclad\'s UI is purpose-built for lawyers; this agent requires engineering to configure and operate.',
-              'Your NDAs involve complex, bespoke terms (M&A, JVs) requiring senior counsel judgment regardless — the first-pass automation value is lower.',
+              'Your legal team is not technical - Ironclad\'s UI is purpose-built for lawyers; this agent requires engineering to configure and operate.',
+              'Your NDAs involve complex, bespoke terms (M&A, JVs) requiring senior counsel judgment regardless - the first-pass automation value is lower.',
             ].map((item, i) => (
               <div key={i} style={{ display: 'flex', gap: '10px', alignItems: 'flex-start', padding: '12px 16px', background: 'rgba(239,68,68,0.04)', border: '1px solid rgba(239,68,68,0.12)', borderRadius: '8px' }}>
                 <XCircle size={15} color="#f87171" style={{ flexShrink: 0, marginTop: '2px' }} />
@@ -316,16 +316,16 @@ export default function NDAReviewPage() {
               ))}
             </div>
             {[
-              { id: 'CL-001', name: 'Definition of Confidential Information', check: 'Scope breadth — overly broad definitions create downstream risk; overly narrow ones leave IP unprotected.' },
-              { id: 'CL-002', name: 'Obligations of Receiving Party', check: '"Reasonable care" vs "best efforts" vs "same degree of care as own confidential info" — the standard matters.' },
+              { id: 'CL-001', name: 'Definition of Confidential Information', check: 'Scope breadth - overly broad definitions create downstream risk; overly narrow ones leave IP unprotected.' },
+              { id: 'CL-002', name: 'Obligations of Receiving Party', check: '"Reasonable care" vs "best efforts" vs "same degree of care as own confidential info" - the standard matters.' },
               { id: 'CL-003', name: 'Term and Duration', check: 'Perpetual obligations are a red flag. Standard acceptable range: 2–5 years. Auto-renewal clauses flagged.' },
               { id: 'CL-004', name: 'Permitted Disclosures', check: 'Does compelled disclosure require prior notice to disclosing party? Is the permitted list appropriately narrow?' },
               { id: 'CL-005', name: 'Return or Destruction of Information', check: 'Destruction certificate required? Timeframe after termination? Backup retention carve-outs flagged.' },
-              { id: 'CL-006', name: 'Remedies and Injunctive Relief', check: 'Asymmetric remedies — one party waives right to injunctive relief, the other retains it — is a risk signal.' },
+              { id: 'CL-006', name: 'Remedies and Injunctive Relief', check: 'Asymmetric remedies - one party waives right to injunctive relief, the other retains it - is a risk signal.' },
               { id: 'CL-007', name: 'Governing Law and Jurisdiction', check: 'Foreign jurisdiction and non-English governing law both increase dispute resolution cost and risk.' },
               { id: 'CL-008', name: 'Mutual vs One-Way Obligations', check: 'Is the NDA truly mutual, or is one party bearing all obligations? Mislabeled "mutual" NDAs are common.' },
               { id: 'CL-009', name: 'Exclusions from Confidentiality', check: 'Standard four exclusions: public domain, prior knowledge, independent development, third-party disclosure.' },
-              { id: 'CL-010', name: 'No License Grant', check: 'Absence of an explicit no-license clause creates ambiguity — counterparty may argue implied license to use IP.' },
+              { id: 'CL-010', name: 'No License Grant', check: 'Absence of an explicit no-license clause creates ambiguity - counterparty may argue implied license to use IP.' },
             ].map((clause, i) => (
               <div key={clause.id} className="table-row" style={{ display: 'grid', gridTemplateColumns: '90px 1fr 1fr', padding: '14px 20px', borderBottom: i < 9 ? '1px solid rgba(255,255,255,0.05)' : 'none' }}>
                 <div className="mono" style={{ fontSize: '12px', color: '#818cf8', fontWeight: '600', paddingTop: '2px' }}>{clause.id}</div>
@@ -347,12 +347,12 @@ export default function NDAReviewPage() {
                 <div style={{ fontSize: '15px', fontWeight: '700', color: '#f87171', marginBottom: '8px' }}>Current Limitations</div>
                 <ul style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
                   {[
-                    'Clause extraction accuracy depends on OCR quality — heavily degraded scans may miss clauses',
-                    'Risk scoring reflects the configured playbook only — legal judgment on genuinely novel terms still requires a lawyer',
-                    'No redline generation — the agent identifies what needs to change but does not produce a marked-up Word document',
-                    'No CLM write-back — the JSON report must be manually imported into Icertis or DocuSign CLM',
-                    'Playbook is English-only — cross-border NDAs with non-English provisions need manual review of those sections',
-                    'No precedent awareness — the agent does not know what your company has accepted from this counterparty in prior contracts',
+                    'Clause extraction accuracy depends on OCR quality - heavily degraded scans may miss clauses',
+                    'Risk scoring reflects the configured playbook only - legal judgment on genuinely novel terms still requires a lawyer',
+                    'No redline generation - the agent identifies what needs to change but does not produce a marked-up Word document',
+                    'No CLM write-back - the JSON report must be manually imported into Icertis or DocuSign CLM',
+                    'Playbook is English-only - cross-border NDAs with non-English provisions need manual review of those sections',
+                    'No precedent awareness - the agent does not know what your company has accepted from this counterparty in prior contracts',
                   ].map((gap, i) => (
                     <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start', fontSize: '13px', color: '#94a3b8' }}>
                       <span style={{ color: '#f87171', flexShrink: 0 }}>·</span>
@@ -371,7 +371,7 @@ export default function NDAReviewPage() {
         <div style={{ maxWidth: '1100px', margin: '0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', gap: '20px' }}>
           <h2 style={{ fontSize: '28px', fontWeight: '700' }}>View the Source</h2>
           <p style={{ fontSize: '15px', color: '#64748b', maxWidth: '520px', lineHeight: '1.7' }}>
-            Full 5-agent pipeline, Mistral OCR integration, configurable playbook, and sample NDAs — all in the repo.
+            Full 5-agent pipeline, Mistral OCR integration, configurable playbook, and sample NDAs - all in the repo.
           </p>
         </div>
       </section>

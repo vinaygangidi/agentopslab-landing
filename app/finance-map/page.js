@@ -8,7 +8,7 @@ export default function FinanceMap() {
 
   const chips = [
     { label: 'CPQ to fulfillment agent', desc: 'Orchestrate order config validation across Salesforce CPQ, SAP inventory, and Icertis contract terms in a single agent workflow.' },
-    { label: 'P2P exception routing', desc: 'Route mismatched invoices with full context from Coupa, SAP, and Icertis to the right human reviewer — with a complete audit trail.' },
+    { label: 'P2P exception routing', desc: 'Route mismatched invoices with full context from Coupa, SAP, and Icertis to the right human reviewer - with a complete audit trail.' },
     { label: 'Intercompany netting', desc: 'Eliminate intercompany balances spanning O2C + P2P + R2R across legal entities. Composite judgment across all three cycles.' },
     { label: 'Commissions to RevRec', desc: 'Chain Xactly commission data → Salesforce ARR → ASC 606 RevRec treatment. Three systems, one orchestrated agent.' },
     { label: 'Sub-ledger to GL recon', desc: 'Pull AR (HighRadius), AP (Coupa), and Payroll (ADP) sub-ledger breaks and reconcile against the GL automatically.' },
@@ -38,7 +38,7 @@ export default function FinanceMap() {
         { name: 'Collections', vendors: [{ label: 'HighRadius', type: 'specialist' }, { label: 'Sidetrade', type: 'specialist' }, { label: 'Kolleno', type: 'specialist' }] },
       ],
       gaps: [
-        { name: 'CPQ to fulfillment', desc: 'Order config in Salesforce CPQ must validate against SAP inventory + Icertis contract terms — no native agent spans this. IA orchestration required.' },
+        { name: 'CPQ to fulfillment', desc: 'Order config in Salesforce CPQ must validate against SAP inventory + Icertis contract terms - no native agent spans this. IA orchestration required.' },
       ],
     },
     {
@@ -86,7 +86,7 @@ export default function FinanceMap() {
         { name: 'Payment run', vendors: [{ label: 'Tipalti', type: 'specialist' }, { label: 'Kyriba', type: 'specialist' }, { label: 'SAP Joule', type: 'native' }] },
       ],
       gaps: [
-        { name: 'PO to match to ERP', desc: 'PO from Coupa must match against goods receipt in SAP + validate contract in Icertis + post to Oracle/SAP GL. Data spans 3–4 systems — prime IA territory.' },
+        { name: 'PO to match to ERP', desc: 'PO from Coupa must match against goods receipt in SAP + validate contract in Icertis + post to Oracle/SAP GL. Data spans 3–4 systems - prime IA territory.' },
         { name: 'Exception routing', desc: 'Mismatched invoices need human-in-loop with context pulled from 3+ systems. No native vendor orchestrates this end-to-end with audit trail.' },
       ],
     },
@@ -112,7 +112,7 @@ export default function FinanceMap() {
         { name: 'Comp & equity', vendors: [{ label: 'Carta', type: 'specialist' }, { label: 'Xactly', type: 'specialist' }, { label: 'Cross-system gap', type: 'gap' }] },
       ],
       gaps: [
-        { name: 'Payroll to GL handoff', desc: 'Payroll journal from ADP/Workday must map to correct GL cost centers in SAP/Oracle — mapping logic often manual or brittle. IA agent with GL master data context closes this.' },
+        { name: 'Payroll to GL handoff', desc: 'Payroll journal from ADP/Workday must map to correct GL cost centers in SAP/Oracle - mapping logic often manual or brittle. IA agent with GL master data context closes this.' },
         { name: 'Commissions to RevRec', desc: 'Sales commission (Xactly) ties to ARR booked in Salesforce + ASC 606 treatment in RevRec. Three systems, no native agent orchestrates the chain.' },
       ],
     },
@@ -138,7 +138,7 @@ export default function FinanceMap() {
         { name: 'Statutory / audit', vendors: [{ label: 'Workiva', type: 'specialist' }, { label: 'AuditBoard', type: 'specialist' }, { label: 'Azure OpenAI', type: 'cloud' }] },
       ],
       gaps: [
-        { name: 'Sub-ledger to GL recon', desc: 'AR, AP, payroll sub-ledgers all post to GL independently. Reconciling breaks across systems requires pulling from HighRadius + Coupa + ADP — no single tool orchestrates this.' },
+        { name: 'Sub-ledger to GL recon', desc: 'AR, AP, payroll sub-ledgers all post to GL independently. Reconciling breaks across systems requires pulling from HighRadius + Coupa + ADP - no single tool orchestrates this.' },
         { name: 'Intercompany netting', desc: "Intercompany eliminations span O2C + P2P + R2R across entities. Composite judgment across all three cycles is IA's highest-value R2R play." },
       ],
     },
@@ -165,15 +165,18 @@ export default function FinanceMap() {
       `}</style>
 
       {/* ── NAV ── */}
-      <nav style={{ position: 'sticky', top: 0, background: 'rgba(10,10,10,0.94)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.07)', zIndex: 100 }}>
-        <div style={{ maxWidth: '1100px', margin: '0 auto', padding: '0 clamp(16px,4vw,32px)', height: '66px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div style={{ width: '32px', height: '32px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Zap size={15} color="white" />
-            </div>
-            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>Vinay Gangidi</span>
+      <nav className="vg-nav">
+        <div className="vg-nav-inner">
+          <a href="/" className="vg-logo">
+            <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
+            <span className="vg-logo-text">Vinay Gangidi</span>
           </a>
-          <a href="/" style={{ fontSize: '13px', color: '#64748b', textDecoration: 'none', fontWeight: '500' }}>← Back to home</a>
+          <div className="vg-nav-links hide-mobile" style={{ display: 'flex' }}>
+            <a href="/solutions" className="vg-nav-link">AI Agents</a>
+            <a href="/enterprise-ai-strategy" className="vg-nav-link">Strategy</a>
+            <a href="/about" className="vg-nav-link">About Me</a>
+          </div>
+          <a href="/enterprise-ai-strategy" className="vg-nav-link hide-mobile" style={{ fontSize: '13px', display: 'flex' }}>← Strategy</a>
         </div>
       </nav>
 
@@ -183,7 +186,7 @@ export default function FinanceMap() {
           <p style={{ fontSize: '12px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: '12px' }}>Intelligence Map</p>
           <h1 style={{ fontSize: 'clamp(26px,5vw,48px)', fontWeight: '800', letterSpacing: '-0.03em', marginBottom: '14px' }}>Finance Cycle Intelligence Map</h1>
           <p style={{ fontSize: 'clamp(14px,2vw,17px)', color: '#94a3b8', lineHeight: '1.75', maxWidth: '640px', marginBottom: '32px' }}>
-            Sub-process flows, dominant agentic vendors, and IA orchestration gaps across O2C, I2C, P2P, H2R, and R2R — where no native vendor closes the loop.
+            Sub-process flows, dominant agentic vendors, and IA orchestration gaps across O2C, I2C, P2P, H2R, and R2R - where no native vendor closes the loop.
           </p>
 
           {/* Legend */}
@@ -324,12 +327,12 @@ export default function FinanceMap() {
         {/* ── O2C AGENT OPPORTUNITIES ── */}
         <div style={{ marginTop: '32px', marginBottom: '28px' }}>
           <div style={{ marginBottom: '20px' }}>
-            <p style={{ fontSize: '11px', fontWeight: '700', color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>O2C — Order-to-Cash</p>
+            <p style={{ fontSize: '11px', fontWeight: '700', color: '#4ade80', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>O2C - Order-to-Cash</p>
             <h2 style={{ fontSize: 'clamp(18px,3vw,26px)', fontWeight: '800', letterSpacing: '-0.02em', color: '#e2e8f0', marginBottom: '8px' }}>
               Build-Ready Agentic Automation Opportunities
             </h2>
             <p style={{ fontSize: '14px', color: '#64748b', lineHeight: 1.6, maxWidth: '640px' }}>
-              High-signal, scoped use cases across the O2C cycle — each solvable with a focused multi-agent pipeline in 2–4 weeks.
+              High-signal, scoped use cases across the O2C cycle - each solvable with a focused multi-agent pipeline in 2–4 weeks.
             </p>
           </div>
 
@@ -392,7 +395,7 @@ export default function FinanceMap() {
               {
                 name: 'Revenue Leakage Detection Agent',
                 step: 'Billing',
-                what: 'Compares billed amounts vs. contracted rates across all invoices. Flags under-billing, missed escalation clauses, and expired pricing — before close.',
+                what: 'Compares billed amounts vs. contracted rates across all invoices. Flags under-billing, missed escalation clauses, and expired pricing - before close.',
                 inputs: ['Invoice data', 'Contract pricing', 'ERP billing records'],
                 output: 'Leakage report with $ impact',
                 build: '2–3 weeks',
@@ -401,7 +404,7 @@ export default function FinanceMap() {
               {
                 name: 'CPQ-to-Fulfillment Orchestrator',
                 step: 'CPQ / quote → Fulfillment',
-                what: 'Bridges the gap between Salesforce CPQ, SAP inventory, and Icertis contract terms — validates configuration, availability, and contract compliance in one pass.',
+                what: 'Bridges the gap between Salesforce CPQ, SAP inventory, and Icertis contract terms - validates configuration, availability, and contract compliance in one pass.',
                 inputs: ['Salesforce CPQ', 'SAP inventory', 'Icertis'],
                 output: 'Fulfillment-ready order or blocker report',
                 build: '3–4 weeks',
@@ -450,7 +453,7 @@ export default function FinanceMap() {
         <div style={{ marginTop: '32px', borderRadius: '16px', border: '1px solid rgba(99,102,241,0.35)', padding: '20px 24px', background: 'rgba(99,102,241,0.07)' }}>
           <p style={{ fontSize: '11px', fontWeight: '700', color: '#6366f1', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: '8px' }}>IA Orchestration Layer</p>
           <div style={{ fontSize: '14px', fontWeight: '600', color: '#e2e8f0', marginBottom: '14px' }}>
-            Where Vinay Gangidi earns its keep — cross-cycle workflows no native vendor closes
+            Where Vinay Gangidi earns its keep - cross-cycle workflows no native vendor closes
           </div>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
             {chips.map((chip) => (

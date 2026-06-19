@@ -25,7 +25,7 @@ function fixturePathFor(filename) {
 // ─── Agent pipeline ───────────────────────────────────────────────────────────
 const AGENT_STEPS = [
   { step:1, agent:'Email Triage Agent',        model:'Haiku',  icon:'📧', desc:'Classifies email, verifies attachment is an invoice document', duration:1800 },
-  { step:2, agent:'Invoice OCR Extractor',     model:'Haiku',  icon:'🔍', desc:'Extracts all fields via Mistral OCR — vendor, amounts, line items', duration:2400 },
+  { step:2, agent:'Invoice OCR Extractor',     model:'Haiku',  icon:'🔍', desc:'Extracts all fields via Mistral OCR - vendor, amounts, line items', duration:2400 },
   { step:3, agent:'PO Reconciliation Agent',   model:'Sonnet', icon:'📋', desc:'3-way match: Invoice vs Purchase Order vs Goods Receipt Note', duration:3000 },
   { step:4, agent:'Exception Intelligence',    model:'Sonnet', icon:'⚖️', desc:'Classifies exception type, severity, and calculates risk score', duration:2200 },
   { step:5, agent:'Resolution Reporter',       model:'Haiku',  icon:'✅', desc:'Generates recommended action, GL codes, and payment routing', duration:1600 },
@@ -38,8 +38,8 @@ const OUTCOME_CONFIG = {
   partial_approved:{ color:'#f59e0b', bg:'rgba(245,158,11,0.08)',  border:'rgba(245,158,11,0.25)',  label:'Partial Approved', icon:'◑',  badgeBg:'rgba(245,158,11,0.15)' },
   hold_for_review: { color:'#fb923c', bg:'rgba(251,146,60,0.08)',  border:'rgba(251,146,60,0.25)',  label:'Hold for Review',  icon:'⏸', badgeBg:'rgba(251,146,60,0.15)' },
   hold_and_notify: { color:'#fb923c', bg:'rgba(251,146,60,0.08)',  border:'rgba(251,146,60,0.25)',  label:'Hold & Notify',    icon:'📢', badgeBg:'rgba(251,146,60,0.15)' },
-  fraud_frozen:    { color:'#f87171', bg:'rgba(239,68,68,0.08)',   border:'rgba(239,68,68,0.25)',   label:'Fraud — Frozen',   icon:'⚠', badgeBg:'rgba(239,68,68,0.15)' },
-  reject_duplicate:{ color:'#f87171', bg:'rgba(239,68,68,0.08)',   border:'rgba(239,68,68,0.25)',   label:'Duplicate — Blocked', icon:'✕', badgeBg:'rgba(239,68,68,0.15)' },
+  fraud_frozen:    { color:'#f87171', bg:'rgba(239,68,68,0.08)',   border:'rgba(239,68,68,0.25)',   label:'Fraud - Frozen',   icon:'⚠', badgeBg:'rgba(239,68,68,0.15)' },
+  reject_duplicate:{ color:'#f87171', bg:'rgba(239,68,68,0.08)',   border:'rgba(239,68,68,0.25)',   label:'Duplicate - Blocked', icon:'✕', badgeBg:'rgba(239,68,68,0.15)' },
 };
 
 const RISK_COLOR = { LOW:'#4ade80', MEDIUM:'#f59e0b', HIGH:'#f87171', CRITICAL:'#ef4444' };
@@ -393,7 +393,7 @@ export default function APInvoiceDemoPage() {
                 <div>
                   <div style={{ fontSize:'14px', fontWeight:'700', color:'#818cf8', marginBottom:'4px' }}>Early Payment Discount Available</div>
                   <div style={{ fontSize:'13px', color:'#94a3b8' }}>
-                    {result.currency} {Number(result.discount_available).toLocaleString()} savings if paid by <strong style={{ color:'#e2e8f0' }}>{result.discount_deadline}</strong> — annualised rate 36.5%
+                    {result.currency} {Number(result.discount_available).toLocaleString()} savings if paid by <strong style={{ color:'#e2e8f0' }}>{result.discount_deadline}</strong> - annualised rate 36.5%
                   </div>
                 </div>
               </div>
@@ -509,7 +509,7 @@ export default function APInvoiceDemoPage() {
 
             <div style={{ padding:'14px', background:'rgba(255,255,255,0.02)', border:'1px solid rgba(255,255,255,0.05)', borderRadius:'10px' }}>
               <p style={{ fontSize:'12px', color:'#475569', lineHeight:'1.6', textAlign:'center' }}>
-                Built on CrewAI with Claude Haiku and Sonnet — configurable for your vendor master, PO database, GL chart of accounts, and approval thresholds.
+                Built on CrewAI with Claude Haiku and Sonnet - configurable for your vendor master, PO database, GL chart of accounts, and approval thresholds.
               </p>
             </div>
           </div>

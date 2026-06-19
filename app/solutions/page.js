@@ -10,15 +10,10 @@ export default function SolutionsPage() {
   const totalAgents = getTotalAgentCount();
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', background: '#0a0a0a', color: '#fff', minHeight: '100vh' }}>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; overflow-x: hidden; }
+    <div style={{ fontFamily: 'var(--font-sans)', background: 'var(--bg-base)', color: 'var(--text-primary)', minHeight: '100vh' }}>
+      <style jsx>{`
         .agent-card { transition: all 0.3s ease; text-decoration: none; color: inherit; display: block; }
-        .agent-card:hover { transform: translateY(-4px); border-color: rgba(99,102,241,0.5) !important; }
-        .nav-link { transition: color 0.2s; }
-        .nav-link:hover { color: #fff !important; }
+        .agent-card:hover { transform: translateY(-4px); border-color: var(--accent-border) !important; }
         .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
         @media (max-width: 640px) {
           .grid-3 { grid-template-columns: 1fr; gap: 14px; }
@@ -35,35 +30,33 @@ export default function SolutionsPage() {
       `}</style>
 
       {/* Nav */}
-      <nav style={{ position: 'sticky', top: 0, background: 'rgba(10,10,10,0.92)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.07)', zIndex: 100 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(16px,4vw,32px)', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Zap size={18} color="white" />
-            </div>
-            <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff' }}>Vinay Gangidi</span>
+      <nav className="vg-nav">
+        <div className="vg-nav-inner">
+          <a href="/" className="vg-logo">
+            <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
+            <span className="vg-logo-text">Vinay Gangidi</span>
           </a>
-          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <a href="/solutions" className="nav-link" style={{ fontSize: '14px', color: '#818cf8', textDecoration: 'none', fontWeight: '600' }}>Solutions</a>
-            <a href="/#how-it-works" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>How it Works</a>
-            <a href="/developers" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Developers</a>
+          <div className="nav-desktop vg-nav-links" style={{ display: 'flex' }}>
+            <a href="/solutions" className="vg-nav-link active">AI Agents</a>
+            <a href="/enterprise-ai-strategy" className="vg-nav-link">Strategy</a>
+            <a href="/about" className="vg-nav-link">About Me</a>
           </div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <a href="/access" className="nav-desktop" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>
-              Request Demo <ArrowRight size={13} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <a href="mailto:vinay.gangidi@gmail.com" className="nav-desktop vg-btn-primary">
+              Get in Touch <ArrowRight size={13} />
             </a>
-            <button className="nav-mobile-btn" onClick={() => setMenuOpen(o => !o)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '4px' }}>
-              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            <button className="nav-mobile-btn" onClick={() => setMenuOpen(o => !o)} style={{ background: 'none', border: '1px solid var(--border-default)', borderRadius: '8px', padding: '7px', color: 'var(--text-primary)', cursor: 'pointer', display: 'none', alignItems: 'center' }}>
+              {menuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
         {menuOpen && (
-          <div className="mobile-menu" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '16px clamp(16px,4vw,32px)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {[['Solutions', '/solutions'], ['How it Works', '/#how-it-works'], ['Developers', '/developers']].map(([l, h]) => (
-              <a key={l} href={h} onClick={() => setMenuOpen(false)} style={{ fontSize: '16px', color: '#94a3b8', textDecoration: 'none' }}>{l}</a>
+          <div className="mobile-menu vg-mobile-menu">
+            {[['AI Agents', '/solutions'], ['Strategy', '/enterprise-ai-strategy'], ['About Me', '/about']].map(([l, h]) => (
+              <a key={l} href={h} onClick={() => setMenuOpen(false)} className="vg-nav-link" style={{ fontSize: '16px' }}>{l}</a>
             ))}
-            <a href="/access" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '12px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '15px', fontWeight: '700', textDecoration: 'none' }}>
-              Request Demo <ArrowRight size={15} />
+            <a href="mailto:vinay.gangidi@gmail.com" className="vg-btn-primary" style={{ justifyContent: 'center' }}>
+              Get in Touch <ArrowRight size={15} />
             </a>
           </div>
         )}
@@ -129,15 +122,13 @@ export default function SolutionsPage() {
       </section>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: 'clamp(28px,4vw,40px) clamp(16px,5vw,32px)' }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '16px' }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '8px', textDecoration: 'none' }}>
-            <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Zap size={14} color="white" />
-            </div>
-            <span style={{ fontSize: '15px', fontWeight: '700', color: '#fff' }}>Vinay Gangidi</span>
+      <footer className="vg-footer">
+        <div className="vg-footer-inner">
+          <a href="/" className="vg-logo">
+            <div className="vg-logo-icon"><Zap size={14} color="#fff" /></div>
+            <span className="vg-logo-text" style={{ fontSize: '15px' }}>Vinay Gangidi</span>
           </a>
-          <span style={{ fontSize: '13px', color: '#334155' }}>© 2026 Vinay Gangidi</span>
+          <span style={{ fontSize: '13px', color: 'var(--text-dim)' }}>© 2026 Vinay Gangidi</span>
         </div>
       </footer>
     </div>

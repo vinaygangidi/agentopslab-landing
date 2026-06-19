@@ -8,40 +8,14 @@ export default function EnterpriseAIStrategy() {
   const [activeTab, setActiveTab] = useState('architecture');
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', background: '#F8FAFC', color: '#0F172A', minHeight: '100vh', overflowX: 'hidden' }}>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #F8FAFC; overflow-x: hidden; }
-        :root {
-          --bg: #F8FAFC;
-          --surface: #FFFFFF;
-          --surface-2: #F1F5F9;
-          --border: #E2E8F0;
-          --border-2: #CBD5E1;
-          --txt: #0F172A;
-          --txt-2: #475569;
-          --txt-3: #94A3B8;
-          --cyan: #0891B2;
-          --cyan-light: #E0F2FE;
-          --indigo: #4F46E5;
-          --indigo-light: #EEF2FF;
-          --violet: #7C3AED;
-          --violet-light: #F5F3FF;
-          --amber: #D97706;
-          --amber-light: #FFFBEB;
-          --green: #059669;
-          --green-light: #ECFDF5;
-        }
-        .nav-link { transition: color 0.2s; color: #475569; text-decoration: none; font-size: 14px; font-weight: 500; }
-        .nav-link:hover { color: #0F172A !important; }
-        .nav-link-active { color: #4F46E5 !important; font-weight: 600 !important; }
-        .tab-btn { transition: all 0.2s; cursor: pointer; }
-        .tab-btn:hover { background: #EEF2FF !important; border-color: #A5B4FC !important; color: #4F46E5 !important; }
-        .principle-card { transition: all 0.3s; background: #fff; border: 1px solid #E2E8F0; border-radius: 14px; padding: 28px; }
-        .principle-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); border-color: #A5B4FC; }
+    <div style={{ fontFamily: 'var(--font-sans)', background: 'var(--bg-base)', color: 'var(--text-primary)', minHeight: '100vh', overflowX: 'hidden' }}>
+      <style jsx>{`
+        .tab-btn { transition: all 0.2s; cursor: pointer; font-family: var(--font-sans); }
+        .tab-btn:hover { background: var(--accent-subtle) !important; border-color: var(--accent-border) !important; color: var(--accent-bright) !important; }
+        .principle-card { transition: all 0.3s; background: var(--bg-surface); border: 1px solid var(--border-default); border-radius: 14px; padding: 28px; }
+        .principle-card:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(0,0,0,0.3); border-color: var(--accent-border); }
         .phase-card { transition: all 0.3s; }
-        .phase-card:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,0.07); }
+        .phase-card:hover { transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,0.25); }
         @media (max-width: 768px) {
           .nav-desktop { display: none !important; }
           .nav-mobile-btn { display: flex !important; }
@@ -49,37 +23,30 @@ export default function EnterpriseAIStrategy() {
           .grid-2 { grid-template-columns: 1fr !important; }
           .hero-title { font-size: 32px !important; }
         }
-        @media (min-width: 769px) {
-          .nav-mobile-btn { display: none !important; }
-        }
+        @media (min-width: 769px) { .nav-mobile-btn { display: none !important; } }
       `}</style>
 
       {/* NAV */}
-      <nav style={{ position: 'sticky', top: 0, zIndex: 100, background: 'rgba(248,250,252,0.95)', backdropFilter: 'blur(16px)', borderBottom: '1px solid #E2E8F0', padding: '0 28px' }}>
-        <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div style={{ width: '32px', height: '32px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Zap size={16} color="#fff" />
-            </div>
-            <span style={{ fontWeight: '800', fontSize: '16px', color: '#0F172A', fontFamily: 'Space Grotesk, sans-serif' }}>Vinay Gangidi</span>
+      <nav className="vg-nav">
+        <div className="vg-nav-inner" style={{ maxWidth: '1300px' }}>
+          <a href="/" className="vg-logo">
+            <div className="vg-logo-icon"><Zap size={16} color="#fff" /></div>
+            <span className="vg-logo-text">Vinay Gangidi</span>
           </a>
-          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <a href="/solutions" className="nav-link">Solutions</a>
-            <a href="/enterprise-ai-strategy" className="nav-link nav-link-active">Enterprise AI Strategy</a>
-            <a href="/finance-map" className="nav-link">Finance Map</a>
-            <a href="/developers" className="nav-link">Developers</a>
-            <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none', boxShadow: '0 2px 8px rgba(99,102,241,0.35)' }}>
-              Get Access <ArrowRight size={13} />
-            </a>
+          <div className="nav-desktop vg-nav-links" style={{ display: 'flex' }}>
+            <a href="/solutions" className="vg-nav-link">AI Agents</a>
+            <a href="/enterprise-ai-strategy" className="vg-nav-link active">Strategy</a>
+            <a href="/about" className="vg-nav-link">About Me</a>
+            <a href="mailto:vinay.gangidi@gmail.com" className="vg-btn-primary">Get in Touch <ArrowRight size={13} /></a>
           </div>
-          <button className="nav-mobile-btn" onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'none', border: '1px solid #E2E8F0', borderRadius: '8px', padding: '8px', color: '#0F172A', cursor: 'pointer', display: 'none', alignItems: 'center', justifyContent: 'center' }}>
+          <button className="nav-mobile-btn" onClick={() => setMenuOpen(!menuOpen)} style={{ background: 'none', border: '1px solid var(--border-default)', borderRadius: '8px', padding: '8px', color: 'var(--text-primary)', cursor: 'pointer', display: 'none', alignItems: 'center', justifyContent: 'center' }}>
             {menuOpen ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
         {menuOpen && (
-          <div style={{ padding: '16px 0', borderTop: '1px solid #E2E8F0', display: 'flex', flexDirection: 'column', gap: '16px', background: '#fff' }}>
-            {[['Solutions', '/solutions'], ['Enterprise AI Strategy', '/enterprise-ai-strategy'], ['Finance Map', '/finance-map'], ['Developers', '/developers']].map(([label, href]) => (
-              <a key={label} href={href} onClick={() => setMenuOpen(false)} style={{ fontSize: '16px', color: '#475569', textDecoration: 'none', fontWeight: '500', padding: '0 28px' }}>{label}</a>
+          <div className="vg-mobile-menu">
+            {[['AI Agents', '/solutions'], ['Strategy', '/enterprise-ai-strategy'], ['About Me', '/about']].map(([label, href]) => (
+              <a key={label} href={href} onClick={() => setMenuOpen(false)} className="vg-nav-link" style={{ fontSize: '16px' }}>{label}</a>
             ))}
           </div>
         )}
@@ -87,22 +54,22 @@ export default function EnterpriseAIStrategy() {
 
       {/* HERO */}
       <section style={{ padding: '72px 28px 0', maxWidth: '1300px', margin: '0 auto' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.12em', textTransform: 'uppercase', color: '#0891B2', border: '1px solid #BAE6FD', background: '#E0F2FE', padding: '6px 14px', borderRadius: '100px', marginBottom: '28px' }}>
-          <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: '#0891B2', display: 'inline-block' }} />
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: '9px', fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--cyan)', border: '1px solid var(--cyan-subtle)', background: 'var(--cyan-subtle)', padding: '6px 14px', borderRadius: '100px', marginBottom: '28px' }}>
+          <span style={{ width: '7px', height: '7px', borderRadius: '50%', background: 'var(--cyan)', display: 'inline-block' }} />
           Enterprise AI · Solution Architecture
         </div>
-        <h1 className="hero-title" style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '700', fontSize: 'clamp(32px,5vw,58px)', lineHeight: '1.06', letterSpacing: '-.02em', maxWidth: '22ch', marginBottom: '24px', color: '#0F172A' }}>
+        <h1 className="hero-title" style={{ fontFamily: 'var(--font-sans)', fontWeight: '700', fontSize: 'clamp(32px,5vw,58px)', lineHeight: '1.06', letterSpacing: '-.02em', maxWidth: '22ch', marginBottom: '24px', color: 'var(--text-primary)' }}>
           Intelligence on a foundation<br />
           <span style={{ background: 'linear-gradient(92deg, #0891B2, #4F46E5)', WebkitBackgroundClip: 'text', backgroundClip: 'text', color: 'transparent' }}>we trust and own.</span>
         </h1>
-        <p style={{ maxWidth: '68ch', color: '#475569', fontSize: 'clamp(16px,1.8vw,19px)', lineHeight: '1.7', marginBottom: '36px' }}>
-          One central AI brain serves Finance, GTM, HR and Legal. It reads from a shared data layer, hands off tasks to each platform's own AI tools, and writes results back to the right system. Built in the right order: <strong style={{ color: '#0F172A' }}>connect the data first, add rules second, then add AI on top.</strong>
+        <p style={{ maxWidth: '68ch', color: 'var(--text-secondary)', fontSize: 'clamp(16px,1.8vw,19px)', lineHeight: '1.7', marginBottom: '36px' }}>
+          One central AI brain serves Finance, GTM, HR and Legal. It reads from a shared data layer, hands off tasks to each platform's own AI tools, and writes results back to the right system. Built in the right order: <strong style={{ color: 'var(--text-primary)' }}>connect the data first, add rules second, then add AI on top.</strong>
         </p>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0', borderTop: '1px solid #E2E8F0', marginBottom: '56px' }}>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0', borderTop: '1px solid var(--border-subtle)', marginBottom: '56px' }}>
           {[['Serves', 'Finance · GTM · HR · Legal'], ['Build order', 'Connect, then rules, then AI'], ['Standard', 'MCP / A2A (open)'], ['Data layer', 'Snowflake (governed)'], ['Orchestrator', 'Neutral, company-owned']].map(([k, v]) => (
-            <div key={k} style={{ padding: '16px 28px 16px 0', marginRight: '28px', borderRight: '1px solid #E2E8F0' }}>
-              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', letterSpacing: '.14em', textTransform: 'uppercase', color: '#94A3B8' }}>{k}</div>
-              <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '4px', color: '#0F172A' }}>{v}</div>
+            <div key={k} style={{ padding: '16px 28px 16px 0', marginRight: '28px', borderRight: '1px solid var(--border-subtle)' }}>
+              <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10.5px', letterSpacing: '.14em', textTransform: 'uppercase', color: 'var(--text-muted)' }}>{k}</div>
+              <div style={{ fontWeight: '600', fontSize: '14px', marginTop: '4px', color: 'var(--text-primary)' }}>{v}</div>
             </div>
           ))}
         </div>
@@ -112,7 +79,7 @@ export default function EnterpriseAIStrategy() {
       <section style={{ maxWidth: '1300px', margin: '0 auto', padding: '0 28px 24px' }}>
         <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
           {[['architecture', 'Architecture Diagram'], ['principles', 'Design Principles'], ['platforms', 'Platform Strategy'], ['roadmap', 'Phased Roadmap']].map(([key, label]) => (
-            <button key={key} className="tab-btn" onClick={() => setActiveTab(key)} style={{ padding: '9px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', background: activeTab === key ? '#EEF2FF' : '#fff', border: activeTab === key ? '1px solid #A5B4FC' : '1px solid #E2E8F0', color: activeTab === key ? '#4F46E5' : '#64748B' }}>
+            <button key={key} className="tab-btn" onClick={() => setActiveTab(key)} style={{ padding: '9px 20px', borderRadius: '8px', fontSize: '13px', fontWeight: '600', background: activeTab === key ? 'var(--accent-subtle)' : 'var(--bg-surface)', border: activeTab === key ? '1px solid var(--accent-border)' : '1px solid var(--border-default)', color: activeTab === key ? 'var(--accent-bright)' : 'var(--text-muted)' }}>
               {label}
             </button>
           ))}
@@ -123,11 +90,11 @@ export default function EnterpriseAIStrategy() {
       {activeTab === 'architecture' && (
         <section style={{ maxWidth: '1300px', margin: '0 auto', padding: '8px 28px 64px' }}>
           {/* Build order callout */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', padding: '12px 18px', background: '#EEF2FF', border: '1px solid #C7D2FE', borderRadius: '10px', fontSize: '13px', color: '#4338CA', fontFamily: 'JetBrains Mono, monospace' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '16px', padding: '12px 18px', background: 'var(--accent-subtle)', border: '1px solid var(--accent-border)', borderRadius: '10px', fontSize: '13px', color: 'var(--accent-bright)', fontFamily: 'JetBrains Mono, monospace' }}>
             <span style={{ fontWeight: '700', letterSpacing: '.05em' }}>READ BOTTOM UP:</span>
             <span style={{ color: '#6366F1' }}>L1 Integration (foundation) → L2 Rules → L3 AI → L4 Experience (top). The numbers show build order, not visual position.</span>
           </div>
-          <div style={{ background: '#fff', border: '1px solid #E2E8F0', borderRadius: '16px', padding: '20px', boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>
+          <div style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: '16px', padding: '20px', boxShadow: '0 4px 24px rgba(0,0,0,0.06)' }}>
             <svg viewBox="0 0 1300 1060" style={{ width: '100%', height: 'auto', display: 'block' }} role="img" aria-label="Enterprise AI solution architecture">
               <defs>
                 <marker id="ac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#0891B2" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"/></marker>
@@ -136,9 +103,9 @@ export default function EnterpriseAIStrategy() {
                 <linearGradient id="orchGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#0891B2" stopOpacity="0.10"/><stop offset="100%" stopColor="#4F46E5" stopOpacity="0.10"/></linearGradient>
               </defs>
 
-              {/* L4 EXPERIENCE (top — consumed last, built last) */}
+              {/* L4 EXPERIENCE (top - consumed last, built last) */}
               <rect x="44" y="28" width="1212" height="152" rx="12" fill="#F8FAFC" stroke="#CBD5E1" strokeDasharray="5 4"/>
-              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#64748B" x="62" y="50">L4 · EXPERIENCE LAYER — HOW EACH TEAM USES THE INTELLIGENCE</text>
+              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#64748B" x="62" y="50">L4 · EXPERIENCE LAYER - HOW EACH TEAM USES THE INTELLIGENCE</text>
               {[
                 { x: 80,  label: 'M365 Copilot',     sub: 'Teams · Outlook · Excel' },
                 { x: 380, label: 'Power BI',          sub: 'Fabric semantic layer'   },
@@ -159,9 +126,9 @@ export default function EnterpriseAIStrategy() {
 
               {/* L3 AI ORCHESTRATION */}
               <rect x="44" y="220" width="1212" height="180" rx="12" fill="#EEF2FF" stroke="#A5B4FC" strokeWidth="1.5"/>
-              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#4F46E5" x="62" y="244">L3 · AI LAYER — THE BRAIN. BUILD THIS THIRD, AFTER DATA AND RULES ARE SOLID.</text>
+              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#4F46E5" x="62" y="244">L3 · AI LAYER - THE BRAIN. BUILD THIS THIRD, AFTER DATA AND RULES ARE SOLID.</text>
 
-              {/* Native agents as tools — left */}
+              {/* Native agents as tools - left */}
               <rect x="62" y="260" width="340" height="120" rx="10" fill="#fff" stroke="#C7D2FE"/>
               <text fontFamily="Space Grotesk,sans-serif" fontWeight="600" fontSize="14" fill="#0F172A" x="84" y="288">Agentforce</text>
               <text fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#64748B" x="84" y="308">Salesforce built-in AI</text>
@@ -180,7 +147,7 @@ export default function EnterpriseAIStrategy() {
               <text fontFamily="JetBrains Mono,monospace" fontSize="10" fill="#6366F1" x="500" y="358">MCP / A2A open standard</text>
               <text fontFamily="JetBrains Mono,monospace" fontSize="10" fill="#94A3B8" x="500" y="374">company-owned · not a vendor product</text>
 
-              {/* Native agents as tools — right */}
+              {/* Native agents as tools - right */}
               <rect x="898" y="260" width="340" height="120" rx="10" fill="#fff" stroke="#C7D2FE"/>
               <text fontFamily="Space Grotesk,sans-serif" fontWeight="600" fontSize="14" fill="#0F172A" x="920" y="288">Cortex Agents</text>
               <text fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#64748B" x="920" y="308">Snowflake built-in AI</text>
@@ -200,7 +167,7 @@ export default function EnterpriseAIStrategy() {
 
               {/* L2 RULES */}
               <rect x="44" y="436" width="1212" height="90" rx="11" fill="#F0FDF4" stroke="#86EFAC" strokeWidth="1.5"/>
-              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#15803D" x="62" y="460">L2 · RULES LAYER — SAME STEPS EVERY TIME. BUILD THIS SECOND.</text>
+              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#15803D" x="62" y="460">L2 · RULES LAYER - SAME STEPS EVERY TIME. BUILD THIS SECOND.</text>
               <text fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#16A34A" x="62" y="480">Consistent, reliable automation for known processes. No AI needed here.</text>
               {['approvals', 'validation', 'routing', 'reconciliation', 'notifications'].map((label, i) => (
                 <g key={label}>
@@ -215,7 +182,7 @@ export default function EnterpriseAIStrategy() {
 
               {/* L1 API INTEGRATION */}
               <rect x="44" y="562" width="1212" height="90" rx="11" fill="#FFF7ED" stroke="#FCD34D" strokeWidth="1.5"/>
-              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#B45309" x="62" y="586">L1 · INTEGRATION LAYER — CONNECT ALL SYSTEMS FIRST. BUILD THIS FIRST.</text>
+              <text fontFamily="JetBrains Mono, monospace" fontSize="10" letterSpacing="2" fill="#B45309" x="62" y="586">L1 · INTEGRATION LAYER - CONNECT ALL SYSTEMS FIRST. BUILD THIS FIRST.</text>
               <text fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#D97706" x="62" y="606">Clean, reliable connections between every platform. The foundation everything else sits on.</text>
               <rect x="62" y="616" width="200" height="28" rx="14" fill="#fff" stroke="#FCD34D"/>
               <text fontFamily="JetBrains Mono,monospace" fontSize="11" fill="#B45309" x="162" y="635" textAnchor="middle">MCP / A2A standard</text>
@@ -280,7 +247,7 @@ export default function EnterpriseAIStrategy() {
             </svg>
 
             {/* Legend */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid #E2E8F0', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: '#475569' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '18px', marginTop: '16px', paddingTop: '16px', borderTop: '1px solid var(--border-subtle)', fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color: 'var(--text-secondary)' }}>
               {[['#0891B2', 'data flow / read path'], ['#4F46E5', 'MCP / A2A (AI tool connections) / write path'], ['#D97706', 'vendor restriction (SAP blocked from direct AI access)'], ['#15803D', 'rules layer (no AI)']].map(([color, label]) => (
                 <span key={label} style={{ display: 'inline-flex', alignItems: 'center', gap: '7px' }}>
                   <span style={{ width: '11px', height: '11px', borderRadius: '3px', background: color, display: 'inline-block', flexShrink: 0 }}/>
@@ -300,24 +267,24 @@ export default function EnterpriseAIStrategy() {
       {activeTab === 'principles' && (
         <section style={{ maxWidth: '1300px', margin: '0 auto', padding: '32px 28px 80px' }}>
           <div style={{ marginBottom: '40px' }}>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: '#4F46E5', marginBottom: '12px' }}>Core design principles</div>
-            <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '600', fontSize: 'clamp(24px,3vw,36px)', letterSpacing: '-.015em', maxWidth: '26ch', marginBottom: '16px', color: '#0F172A' }}>Six decisions that determine whether this works.</h2>
-            <p style={{ maxWidth: '68ch', color: '#475569', lineHeight: '1.7' }}>These are not just guidelines. They are the key decisions that hold the whole architecture together. Get them wrong and you end up with AI tools that contradict each other, cannot be audited, and lock you into a vendor you cannot leave.</p>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--accent-bright)', marginBottom: '12px' }}>Core design principles</div>
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: '600', fontSize: 'clamp(24px,3vw,36px)', letterSpacing: '-.015em', maxWidth: '26ch', marginBottom: '16px', color: 'var(--text-primary)' }}>Six decisions that determine whether this works.</h2>
+            <p style={{ maxWidth: '68ch', color: 'var(--text-secondary)', lineHeight: '1.7' }}>These are not just guidelines. They are the key decisions that hold the whole architecture together. Get them wrong and you end up with AI tools that contradict each other, cannot be audited, and lock you into a vendor you cannot leave.</p>
           </div>
           <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '20px' }}>
             {[
               {
                 num: '01',
                 color: '#0891B2',
-                bg: '#E0F2FE',
+                bg: 'rgba(8,145,178,0.12)',
                 title: 'The AI brain must be neutral and company-owned.',
                 detail: "A vendor's own AI is great inside that vendor's product but poor at working across multiple systems. Salesforce's Agentforce will always be a great Salesforce tool, but a poor cross-system brain. The layer that plans, reasons, and remembers across all your tools must never be owned by any one vendor. Build it on AI Foundry or something similar so you can swap the AI model out at any time and keep control.",
                 tag: 'Architecture principle',
               },
               {
                 num: '02',
-                color: '#4F46E5',
-                bg: '#EEF2FF',
+                color: 'var(--accent-bright)',
+                bg: 'var(--accent-subtle)',
                 title: "Use each platform's built-in AI as a helper, not as the brain.",
                 detail: "Native vendor AI tools like Agentforce, Cortex, and Joule are called as helpers by your central orchestrator. This means each vendor maintains their own piece while you own the intelligence at the top. The rule is: check if the vendor already does it well before you build something custom. If they do, call their tool. Do not build your entire strategy inside one vendor's AI platform.",
                 tag: 'Build vs buy vs embed',
@@ -325,7 +292,7 @@ export default function EnterpriseAIStrategy() {
               {
                 num: '03',
                 color: '#D97706',
-                bg: '#FFFBEB',
+                bg: 'rgba(245,158,11,0.10)',
                 title: 'SAP is a special case. Treat it as a data feed only.',
                 detail: "SAP's April 2026 policy explicitly blocks any external AI from calling SAP's APIs directly. This includes Microsoft Copilot and any custom AI agent. Nothing outside SAP's own Joule tool can reach live SAP data. The right approach is to keep SAP feeding data into Snowflake and let AI agents work from that copy. Do not plan any AI workflow that needs to call SAP live.",
                 tag: 'Vendor restriction',
@@ -333,7 +300,7 @@ export default function EnterpriseAIStrategy() {
               {
                 num: '04',
                 color: '#0891B2',
-                bg: '#E0F2FE',
+                bg: 'rgba(8,145,178,0.12)',
                 title: 'Read from Snowflake. Write to the source system.',
                 detail: "Snowflake is the only place all your systems are joined together in one view. No single system alone can answer cross-functional questions like why margin dropped or which accounts are at renewal risk. AI agents should read from Snowflake to think and reason. But when an agent takes action, like approving an invoice or updating a deal stage, that write goes directly to the right source system: SAP, NetSuite, or Salesforce.",
                 tag: 'Data architecture rule',
@@ -341,15 +308,15 @@ export default function EnterpriseAIStrategy() {
               {
                 num: '05',
                 color: '#7C3AED',
-                bg: '#F5F3FF',
+                bg: 'rgba(124,58,237,0.10)',
                 title: 'Governance must be built in, not added later.',
                 detail: "AI failures are different from software failures. An AI agent can give a confident, well-formatted answer that is simply wrong for the situation. No error is thrown and nothing shows up in standard logs. You need monitoring that catches wrong answers, a clear list of what each agent is allowed to access, full logs of every decision, and different levels of autonomy depending on how risky the task is. An AI Council should review what gets built before it ships.",
                 tag: 'Governance requirement',
               },
               {
                 num: '06',
-                color: '#4F46E5',
-                bg: '#EEF2FF',
+                color: 'var(--accent-bright)',
+                bg: 'var(--accent-subtle)',
                 title: 'Moving to Microsoft does not remove vendor lock-in. Choose your trade deliberately.',
                 detail: "Switching to Microsoft as your AI platform does not mean you escape vendor dependency. You are just trading many small dependencies for one large one. Microsoft has just as much pricing power as Salesforce. The question is which lock-in is easier to leave. If you build on AI Foundry with open standards like MCP and A2A, you can swap the AI model or move platforms. If you build inside Copilot Studio, you are inside Microsoft's closed surface. Use Copilot Studio for everyday M365 tasks. Use AI Foundry for anything that crosses systems.",
                 tag: 'Strategic trade-off',
@@ -360,10 +327,10 @@ export default function EnterpriseAIStrategy() {
                   <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '13px', fontWeight: '700', color: '#fff', background: color, width: '36px', height: '36px', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>{num}</span>
                   <div>
                     <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color, background: bg, padding: '3px 9px', borderRadius: '100px', display: 'inline-block', marginBottom: '8px' }}>{tag}</div>
-                    <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '600', fontSize: '16px', lineHeight: '1.4', color: '#0F172A' }}>{title}</h3>
+                    <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: '600', fontSize: '16px', lineHeight: '1.4', color: 'var(--text-primary)' }}>{title}</h3>
                   </div>
                 </div>
-                <p style={{ color: '#475569', fontSize: '14px', lineHeight: '1.75' }}>{detail}</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.75' }}>{detail}</p>
               </div>
             ))}
           </div>
@@ -374,9 +341,9 @@ export default function EnterpriseAIStrategy() {
       {activeTab === 'platforms' && (
         <section style={{ maxWidth: '1300px', margin: '0 auto', padding: '32px 28px 80px' }}>
           <div style={{ marginBottom: '40px' }}>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: '#4F46E5', marginBottom: '12px' }}>Platform overview</div>
-            <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '600', fontSize: 'clamp(24px,3vw,36px)', letterSpacing: '-.015em', marginBottom: '16px', color: '#0F172A' }}>Know what you already own before you build anything new.</h2>
-            <p style={{ maxWidth: '68ch', color: '#475569', lineHeight: '1.7' }}>The AI landscape moved fast. Before writing a single custom agent, check what each platform already offers. Most common use cases are already covered and maintained by the vendor. The decision rule: use the built-in tool first, buy a third-party solution second, build from scratch last.</p>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--accent-bright)', marginBottom: '12px' }}>Platform overview</div>
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: '600', fontSize: 'clamp(24px,3vw,36px)', letterSpacing: '-.015em', marginBottom: '16px', color: 'var(--text-primary)' }}>Know what you already own before you build anything new.</h2>
+            <p style={{ maxWidth: '68ch', color: 'var(--text-secondary)', lineHeight: '1.7' }}>The AI landscape moved fast. Before writing a single custom agent, check what each platform already offers. Most common use cases are already covered and maintained by the vendor. The decision rule: use the built-in tool first, buy a third-party solution second, build from scratch last.</p>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
             {[
@@ -385,8 +352,8 @@ export default function EnterpriseAIStrategy() {
                 agent: 'Agentforce',
                 statusLabel: 'Open platform',
                 color: '#0891B2',
-                border: '#BAE6FD',
-                bg: '#F0F9FF',
+                border: 'rgba(8,145,178,0.28)',
+                bg: 'rgba(8,145,178,0.07)',
                 role: 'CRM · GTM · Revenue',
                 native: 'Salesforce has a full AI agent platform with its own reasoning engine. It opens up all of Salesforce through APIs, and agents can work from Slack, other AI tools, or external systems using the MCP standard.',
                 orchestratorRole: 'Called as a helper tool by the central AI orchestrator. It handles Salesforce-specific tasks like updating opportunity stages, pulling account data, and sending outreach. It does not own the intelligence across systems.',
@@ -397,8 +364,8 @@ export default function EnterpriseAIStrategy() {
                 agent: 'Cortex Agents',
                 statusLabel: 'MCP supported',
                 color: '#0891B2',
-                border: '#BAE6FD',
-                bg: '#F0F9FF',
+                border: 'rgba(8,145,178,0.28)',
+                bg: 'rgba(8,145,178,0.07)',
                 role: 'Data layer · AI memory · Audit log',
                 native: 'Cortex Agents can build data agents that plan tasks, use tools, and respond across structured and unstructured data. Snowflake MCP Server connects to Anthropic, Agentforce, UiPath, and Azure AI Foundry.',
                 orchestratorRole: 'The one place where all your systems are joined together for AI to read from. Snowflake also stores AI memory and logs every decision. Snowpipe Streaming keeps data fresh within 5 seconds from other systems.',
@@ -409,8 +376,8 @@ export default function EnterpriseAIStrategy() {
                 agent: 'Joule',
                 statusLabel: 'Restricted since April 2026',
                 color: '#D97706',
-                border: '#FDE68A',
-                bg: '#FFFBEB',
+                border: 'rgba(245,158,11,0.30)',
+                bg: 'rgba(245,158,11,0.07)',
                 role: 'Finance ERP · Procurement · HR',
                 native: 'SAP Joule is the only permitted AI entry point for SAP data as of April 2026. External AI tools are explicitly blocked from calling SAP APIs on their own.',
                 orchestratorRole: 'SAP sends data to Snowflake on a regular schedule. Any AI agent working with SAP financial data reads from that Snowflake copy, not from SAP directly. Joule handles tasks that must happen inside SAP itself.',
@@ -420,9 +387,9 @@ export default function EnterpriseAIStrategy() {
                 platform: 'Microsoft',
                 agent: 'AI Foundry + Copilot Studio',
                 statusLabel: 'Use AI Foundry for agents',
-                color: '#4F46E5',
-                border: '#C7D2FE',
-                bg: '#EEF2FF',
+                color: 'var(--accent-bright)',
+                border: 'var(--accent-border)',
+                bg: 'var(--accent-subtle)',
                 role: 'Orchestration · M365 · Azure',
                 native: 'AI Foundry is the recommended platform for the central AI orchestrator. It supports swappable AI models and open standards like MCP and A2A. Copilot Studio is for business users working in Teams, Outlook, and Excel. Power Automate handles simple workflow automation.',
                 orchestratorRole: 'AI Foundry is where enterprise-grade cross-system agents live. Copilot Studio is how Finance, GTM, and HR teams access the intelligence through their everyday tools. Do not build cross-system agents inside Copilot Studio. It is a user interface, not an AI platform.',
@@ -433,8 +400,8 @@ export default function EnterpriseAIStrategy() {
                 agent: 'SuiteAnalytics + REST',
                 statusLabel: 'Open via REST',
                 color: '#059669',
-                border: '#A7F3D0',
-                bg: '#ECFDF5',
+                border: 'rgba(5,150,105,0.30)',
+                bg: 'rgba(5,150,105,0.07)',
                 role: 'Mid-market ERP · Finance · Procurement',
                 native: 'NetSuite has full REST APIs and SuiteQL. Unlike SAP, there are no restrictions on external AI calling NetSuite directly. SuiteAnalytics feeds Snowflake for cross-system reasoning.',
                 orchestratorRole: 'The central orchestrator can read from and write to NetSuite directly. Journal entries, purchase orders, and payment runs can all be triggered by AI via MCP-connected tools. Also feeds Snowflake for analysis.',
@@ -445,8 +412,8 @@ export default function EnterpriseAIStrategy() {
                 agent: 'Gong AI + API',
                 statusLabel: 'Open via API',
                 color: '#D97706',
-                border: '#FDE68A',
-                bg: '#FFFBEB',
+                border: 'rgba(245,158,11,0.30)',
+                bg: 'rgba(245,158,11,0.07)',
                 role: 'Revenue intelligence · Sales signals',
                 native: 'Gong has full APIs for call recordings, deal insights, and engagement signals. Gong AI offers in-platform coaching and deal risk scoring. Data syncs to Snowflake for blending with other sources.',
                 orchestratorRole: 'Gong data in Snowflake makes it possible to score deals using both pipeline data from Salesforce and conversation signals from Gong. Neither system alone has the full picture. Snowflake is where they come together.',
@@ -456,27 +423,27 @@ export default function EnterpriseAIStrategy() {
               <div key={platform} style={{ border: `1px solid ${border}`, borderRadius: '14px', padding: '24px', background: bg }}>
                 <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
                   <div style={{ flex: '0 0 auto' }}>
-                    <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '700', fontSize: '20px', color: '#0F172A', marginBottom: '4px' }}>{platform}</div>
+                    <div style={{ fontFamily: 'var(--font-sans)', fontWeight: '700', fontSize: '20px', color: 'var(--text-primary)', marginBottom: '4px' }}>{platform}</div>
                     <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '12px', color }}>native AI: {agent}</div>
                   </div>
                   <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', marginLeft: 'auto' }}>
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '100px', background: '#fff', border: `1px solid ${border}`, color }}>{statusLabel}</span>
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '100px', background: '#fff', border: '1px solid #E2E8F0', color: '#64748B' }}>{role}</span>
+                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '100px', background: 'var(--bg-surface)', border: `1px solid ${border}`, color }}>{statusLabel}</span>
+                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.1em', textTransform: 'uppercase', padding: '4px 10px', borderRadius: '100px', background: 'var(--bg-surface)', border: '1px solid var(--border-default)', color: 'var(--text-muted)' }}>{role}</span>
                   </div>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
                   <div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: '#94A3B8', marginBottom: '6px' }}>Built-in AI capability</div>
-                    <p style={{ color: '#475569', fontSize: '13px', lineHeight: '1.7' }}>{native}</p>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '6px' }}>Built-in AI capability</div>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.7' }}>{native}</p>
                   </div>
                   <div>
-                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: '#94A3B8', marginBottom: '6px' }}>Role in the architecture</div>
-                    <p style={{ color: '#475569', fontSize: '13px', lineHeight: '1.7' }}>{orchestratorRole}</p>
+                    <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: '6px' }}>Role in the architecture</div>
+                    <p style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.7' }}>{orchestratorRole}</p>
                   </div>
                   {constraint && (
-                    <div style={{ gridColumn: '1 / -1', background: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '8px', padding: '12px 16px' }}>
-                      <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: '#D97706', marginBottom: '6px' }}>Known restriction</div>
-                      <p style={{ color: '#92400E', fontSize: '13px', lineHeight: '1.7' }}>{constraint}</p>
+                    <div style={{ gridColumn: '1 / -1', background: 'var(--amber-subtle)', border: '1px solid rgba(245,158,11,0.25)', borderRadius: '8px', padding: '12px 16px' }}>
+                      <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--amber)', marginBottom: '6px' }}>Known restriction</div>
+                      <p style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.7' }}>{constraint}</p>
                     </div>
                   )}
                 </div>
@@ -490,9 +457,9 @@ export default function EnterpriseAIStrategy() {
       {activeTab === 'roadmap' && (
         <section style={{ maxWidth: '1300px', margin: '0 auto', padding: '32px 28px 80px' }}>
           <div style={{ marginBottom: '40px' }}>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: '#4F46E5', marginBottom: '12px' }}>Implementation roadmap</div>
-            <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '600', fontSize: 'clamp(24px,3vw,36px)', letterSpacing: '-.015em', marginBottom: '16px', color: '#0F172A' }}>The order you do things matters as much as what you build.</h2>
-            <p style={{ maxWidth: '68ch', color: '#475569', lineHeight: '1.7' }}>Do not start with the most exciting use cases. Start with the boring, high-volume, low-risk ones. These are the best early bets because they are forgiving when things go wrong, and they generate the evidence you need to fund the next phase.</p>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--accent-bright)', marginBottom: '12px' }}>Implementation roadmap</div>
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: '600', fontSize: 'clamp(24px,3vw,36px)', letterSpacing: '-.015em', marginBottom: '16px', color: 'var(--text-primary)' }}>The order you do things matters as much as what you build.</h2>
+            <p style={{ maxWidth: '68ch', color: 'var(--text-secondary)', lineHeight: '1.7' }}>Do not start with the most exciting use cases. Start with the boring, high-volume, low-risk ones. These are the best early bets because they are forgiving when things go wrong, and they generate the evidence you need to fund the next phase.</p>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
             {[
@@ -501,8 +468,8 @@ export default function EnterpriseAIStrategy() {
                 label: 'Foundation',
                 period: '0 to 6 months',
                 color: '#0891B2',
-                border: '#BAE6FD',
-                bg: '#F0F9FF',
+                border: 'rgba(8,145,178,0.28)',
+                bg: 'rgba(8,145,178,0.07)',
                 headline: 'Not glamorous, but required.',
                 objective: 'Connect the data across systems, set up the governance process for AI agents, and launch low-risk, high-volume pilots. The goal is to generate real evidence of cost savings and time saved to fund the next phase.',
                 workstreams: [
@@ -516,9 +483,9 @@ export default function EnterpriseAIStrategy() {
                 phase: '02',
                 label: 'Scale',
                 period: '6 to 18 months',
-                color: '#4F46E5',
-                border: '#C7D2FE',
-                bg: '#EEF2FF',
+                color: 'var(--accent-bright)',
+                border: 'var(--accent-border)',
+                bg: 'var(--accent-subtle)',
                 headline: 'The platform starts to pay back.',
                 objective: 'Embed AI into the tools people already use every day. Stand up a real AI Center of Excellence. Ship the first cross-system agents that the central orchestrator owns and runs.',
                 workstreams: [
@@ -533,8 +500,8 @@ export default function EnterpriseAIStrategy() {
                 label: 'Transform',
                 period: '18 to 36 months',
                 color: '#7C3AED',
-                border: '#C4B5FD',
-                bg: '#F5F3FF',
+                border: 'rgba(124,58,237,0.28)',
+                bg: 'rgba(124,58,237,0.07)',
                 headline: 'Where the payoff shows up.',
                 objective: 'Largely autonomous operations where humans only review genuine exceptions. AI is inseparable from Finance, GTM, HR, and Legal workflows at this point.',
                 workstreams: [
@@ -551,21 +518,21 @@ export default function EnterpriseAIStrategy() {
                     <span style={{ fontFamily: 'JetBrains Mono, monospace', fontWeight: '700', fontSize: '14px', color: '#fff' }}>{phase}</span>
                   </div>
                   <div>
-                    <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '700', fontSize: '22px', color: '#0F172A' }}>{label}</div>
+                    <div style={{ fontFamily: 'var(--font-sans)', fontWeight: '700', fontSize: '22px', color: 'var(--text-primary)' }}>{label}</div>
                     <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', color, marginTop: '2px' }}>{period}</div>
                   </div>
-                  <div style={{ marginLeft: 'auto', fontFamily: 'Space Grotesk, sans-serif', fontStyle: 'italic', fontSize: '14px', color: '#64748B' }}>{headline}</div>
+                  <div style={{ marginLeft: 'auto', fontFamily: 'var(--font-sans)', fontStyle: 'italic', fontSize: '14px', color: 'var(--text-muted)' }}>{headline}</div>
                 </div>
-                <p style={{ color: '#475569', fontSize: '14px', lineHeight: '1.75', marginBottom: '24px', maxWidth: '80ch' }}>{objective}</p>
+                <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: '1.75', marginBottom: '24px', maxWidth: '80ch' }}>{objective}</p>
                 <div className="grid-3" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '16px', marginBottom: avoid ? '20px' : '0' }}>
                   {workstreams.map(({ fn, items }) => (
-                    <div key={fn} style={{ background: '#fff', border: `1px solid ${border}`, borderRadius: '10px', padding: '16px' }}>
+                    <div key={fn} style={{ background: 'var(--bg-surface)', border: `1px solid ${border}`, borderRadius: '10px', padding: '16px' }}>
                       <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.14em', textTransform: 'uppercase', color, marginBottom: '12px', fontWeight: '700' }}>{fn}</div>
                       <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px' }}>
                         {items.map((item, i) => (
                           <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
                             <ChevronRight size={12} color={color} style={{ flexShrink: 0, marginTop: '3px' }} />
-                            <span style={{ color: '#475569', fontSize: '13px', lineHeight: '1.6' }}>{item}</span>
+                            <span style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.6' }}>{item}</span>
                           </li>
                         ))}
                       </ul>
@@ -573,9 +540,9 @@ export default function EnterpriseAIStrategy() {
                   ))}
                 </div>
                 {avoid && (
-                  <div style={{ background: '#FFFBEB', border: '1px solid #FDE68A', borderRadius: '8px', padding: '14px 18px' }}>
-                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: '#D97706', marginRight: '8px' }}>Avoid in this phase:</span>
-                    <span style={{ color: '#92400E', fontSize: '13px', lineHeight: '1.7' }}>{avoid}</span>
+                  <div style={{ background: 'var(--amber-subtle)', border: '1px solid rgba(245,158,11,0.25)', borderRadius: '8px', padding: '14px 18px' }}>
+                    <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color: 'var(--amber)', marginRight: '8px' }}>Avoid in this phase:</span>
+                    <span style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.7' }}>{avoid}</span>
                   </div>
                 )}
               </div>
@@ -583,19 +550,19 @@ export default function EnterpriseAIStrategy() {
           </div>
 
           {/* 90-day action box */}
-          <div style={{ marginTop: '32px', background: 'linear-gradient(135deg, #EEF2FF, #E0F2FE)', border: '1px solid #C7D2FE', borderRadius: '16px', padding: '32px' }}>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '.14em', textTransform: 'uppercase', color: '#4F46E5', marginBottom: '12px' }}>First 90 days: what to do before anything is built</div>
-            <h3 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '600', fontSize: '20px', marginBottom: '20px', color: '#0F172A' }}>The concrete first moves for the Enterprise AI team.</h3>
+          <div style={{ marginTop: '32px', background: 'var(--bg-surface)', border: '1px solid var(--accent-border)', borderRadius: '16px', padding: '32px' }}>
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11px', letterSpacing: '.14em', textTransform: 'uppercase', color: 'var(--accent-bright)', marginBottom: '12px' }}>First 90 days: what to do before anything is built</div>
+            <h3 style={{ fontFamily: 'var(--font-sans)', fontWeight: '600', fontSize: '20px', marginBottom: '20px', color: 'var(--text-primary)' }}>The concrete first moves for the Enterprise AI team.</h3>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '16px' }}>
               {[
                 { weeks: 'Weeks 1 to 3', title: 'Scoped assessment', detail: 'Run an AI readiness check focused on Business Systems only, not the whole enterprise. Answer four questions: Is the data clean enough per domain? Does the AI Council have a lane for Business Systems requests? Do we have any way to monitor AI for wrong answers? Or is every AI project a one-off with no shared standards?' },
                 { weeks: 'Weeks 4 to 6', title: 'Get the key policies approved', detail: 'Write down and get sign-off on the build vs buy vs embed decision rule and the MCP-based architecture approach. This stops the same debate from happening on every new use case. Also get the SAP restriction documented and escalated to the VP now, not after a team builds something that depends on live SAP data.' },
                 { weeks: 'Weeks 7 to 12', title: 'Three pilots, one per function', detail: 'Ship one small win in Finance, one in GTM, one in HR. Measure the impact in concrete terms: cost per transaction, time saved, hours returned to higher-value work. These three pilots also test the embedded AI lead model in each function before scaling it.' },
               ].map(({ weeks, title, detail }) => (
-                <div key={weeks} style={{ background: '#fff', border: '1px solid #E2E8F0', borderRadius: '10px', padding: '18px' }}>
-                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: '#4F46E5', marginBottom: '6px', fontWeight: '700' }}>{weeks}</div>
-                  <div style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '600', fontSize: '15px', marginBottom: '8px', color: '#0F172A' }}>{title}</div>
-                  <p style={{ color: '#475569', fontSize: '13px', lineHeight: '1.7' }}>{detail}</p>
+                <div key={weeks} style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-default)', borderRadius: '10px', padding: '18px' }}>
+                  <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', color: 'var(--accent-bright)', marginBottom: '6px', fontWeight: '700' }}>{weeks}</div>
+                  <div style={{ fontFamily: 'var(--font-sans)', fontWeight: '600', fontSize: '15px', marginBottom: '8px', color: 'var(--text-primary)' }}>{title}</div>
+                  <p style={{ color: 'var(--text-secondary)', fontSize: '13px', lineHeight: '1.7' }}>{detail}</p>
                 </div>
               ))}
             </div>
@@ -605,30 +572,30 @@ export default function EnterpriseAIStrategy() {
 
       {/* OVERVIEW SECTION */}
       <section style={{ maxWidth: '1300px', margin: '0 auto', padding: '0 28px 80px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', borderTop: '1px solid #E2E8F0', paddingTop: '48px' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '24px', borderTop: '1px solid var(--border-subtle)', paddingTop: '48px' }}>
           <div>
-            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: '#4F46E5', marginBottom: '14px' }}>How it all fits together</div>
-            <h2 style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '600', fontSize: 'clamp(22px,2.5vw,30px)', letterSpacing: '-.015em', marginBottom: '18px', lineHeight: '1.2', color: '#0F172A' }}>One brain, many systems, and a solid foundation underneath it all.</h2>
-            <p style={{ color: '#475569', lineHeight: '1.8', marginBottom: '14px', fontSize: '15px' }}>
-              A request from Finance, GTM, or HR lands on a <strong style={{ color: '#0F172A' }}>single central AI brain that your company owns.</strong> It does not try to replace what each platform already does well. Instead it calls Salesforce AI and Snowflake AI as helper tools using an open standard, so the intelligence spans all systems rather than being stuck inside one vendor.
+            <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', letterSpacing: '.18em', textTransform: 'uppercase', color: 'var(--accent-bright)', marginBottom: '14px' }}>How it all fits together</div>
+            <h2 style={{ fontFamily: 'var(--font-sans)', fontWeight: '600', fontSize: 'clamp(22px,2.5vw,30px)', letterSpacing: '-.015em', marginBottom: '18px', lineHeight: '1.2', color: 'var(--text-primary)' }}>One brain, many systems, and a solid foundation underneath it all.</h2>
+            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8', marginBottom: '14px', fontSize: '15px' }}>
+              A request from Finance, GTM, or HR lands on a <strong style={{ color: 'var(--text-primary)' }}>single central AI brain that your company owns.</strong> It does not try to replace what each platform already does well. Instead it calls Salesforce AI and Snowflake AI as helper tools using an open standard, so the intelligence spans all systems rather than being stuck inside one vendor.
             </p>
-            <p style={{ color: '#475569', lineHeight: '1.8', marginBottom: '14px', fontSize: '15px' }}>
-              The AI brain <strong style={{ color: '#0F172A' }}>reads from Snowflake</strong>, the one place all your systems are joined, and <strong style={{ color: '#0F172A' }}>writes actions back to the source systems</strong> where the authoritative records live. SAP is the deliberate exception. Its platform blocks external AI, so it only connects through the data layer as a feed, never as a live target.
+            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8', marginBottom: '14px', fontSize: '15px' }}>
+              The AI brain <strong style={{ color: 'var(--text-primary)' }}>reads from Snowflake</strong>, the one place all your systems are joined, and <strong style={{ color: 'var(--text-primary)' }}>writes actions back to the source systems</strong> where the authoritative records live. SAP is the deliberate exception. Its platform blocks external AI, so it only connects through the data layer as a feed, never as a live target.
             </p>
-            <p style={{ color: '#475569', lineHeight: '1.8', fontSize: '15px' }}>
-              Governance runs <strong style={{ color: '#0F172A' }}>under every layer</strong>. The AI Council reviews what ships, every decision is logged and replayable, and autonomy levels are set based on how risky the task is. That is what makes this defensible to an auditor, not just impressive in a demo.
+            <p style={{ color: 'var(--text-secondary)', lineHeight: '1.8', fontSize: '15px' }}>
+              Governance runs <strong style={{ color: 'var(--text-primary)' }}>under every layer</strong>. The AI Council reviews what ships, every decision is logged and replayable, and autonomy levels are set based on how risky the task is. That is what makes this defensible to an auditor, not just impressive in a demo.
             </p>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
             {[
-              { label: 'How to measure success', value: 'Hours returned to judgment work, not the number of agents deployed', color: '#0891B2', bg: '#E0F2FE' },
-              { label: 'Biggest real risk', value: 'Data quality and change management, not the AI technology itself', color: '#D97706', bg: '#FFFBEB' },
-              { label: 'Operating model', value: 'Federated: one central platform team plus one embedded AI lead per function', color: '#4F46E5', bg: '#EEF2FF' },
-              { label: 'Honest bottom line', value: 'Snowflake is your competitive advantage. The AI orchestrator is replaceable as long as you use open standards like MCP and A2A as the connection layer.', color: '#059669', bg: '#ECFDF5' },
+              { label: 'How to measure success', value: 'Hours returned to judgment work, not the number of agents deployed', color: '#0891B2', bg: 'rgba(8,145,178,0.08)' },
+              { label: 'Biggest real risk', value: 'Data quality and change management, not the AI technology itself', color: '#D97706', bg: 'var(--amber-subtle)' },
+              { label: 'Operating model', value: 'Federated: one central platform team plus one embedded AI lead per function', color: 'var(--accent-bright)', bg: 'var(--accent-subtle)' },
+              { label: 'Honest bottom line', value: 'Snowflake is your competitive advantage. The AI orchestrator is replaceable as long as you use open standards like MCP and A2A as the connection layer.', color: '#059669', bg: 'rgba(5,150,105,0.08)' },
             ].map(({ label, value, color, bg }) => (
-              <div key={label} style={{ background: bg, border: '1px solid #E2E8F0', borderRadius: '10px', padding: '16px 20px' }}>
+              <div key={label} style={{ background: bg, border: '1px solid var(--border-default)', borderRadius: '10px', padding: '16px 20px' }}>
                 <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '10px', letterSpacing: '.12em', textTransform: 'uppercase', color, marginBottom: '6px', fontWeight: '700' }}>{label}</div>
-                <div style={{ fontSize: '14px', color: '#0F172A', lineHeight: '1.5', fontWeight: '500' }}>{value}</div>
+                <div style={{ fontSize: '14px', color: 'var(--text-primary)', lineHeight: '1.5', fontWeight: '500' }}>{value}</div>
               </div>
             ))}
           </div>
@@ -636,15 +603,15 @@ export default function EnterpriseAIStrategy() {
       </section>
 
       {/* FOOTER */}
-      <footer style={{ padding: '40px 28px 60px', borderTop: '1px solid #E2E8F0', background: '#fff' }}>
+      <footer style={{ padding: '40px 28px 60px', borderTop: '1px solid var(--border-subtle)', background: 'var(--bg-surface)' }}>
         <div style={{ maxWidth: '1300px', margin: '0 auto', display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', gap: '16px' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
             <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={14} color="#fff" />
             </div>
-            <span style={{ fontFamily: 'Space Grotesk, sans-serif', fontWeight: '700', fontSize: '15px', color: '#0F172A' }}>Vinay Gangidi</span>
+            <span style={{ fontFamily: 'var(--font-sans)', fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)' }}>Vinay Gangidi</span>
           </div>
-          <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', color: '#94A3B8' }}>Enterprise AI strategy reference. Platform names used for illustration only.</p>
+          <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', color: 'var(--text-muted)' }}>Enterprise AI strategy reference. Platform names used for illustration only.</p>
           <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>
             Get Access <ArrowRight size={13} />
           </a>

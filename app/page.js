@@ -23,7 +23,7 @@ const SOLUTIONS = [
     badgeColor: '#818cf8',
     badgeBg: 'rgba(99,102,241,0.15)',
     badgeBorder: 'rgba(99,102,241,0.4)',
-    desc: 'Reviews counterparty-originated NDAs against your legal playbook — the 60–70% of NDAs that arrive as someone else\'s PDF. Flags high-risk clauses, scores overall risk, routes to the right sign-off, and produces a structured legal memo in under 6 minutes.',
+    desc: 'Reviews counterparty-originated NDAs against your legal playbook - the 60–70% of NDAs that arrive as someone else\'s PDF. Flags high-risk clauses, scores overall risk, routes to the right sign-off, and produces a structured legal memo in under 6 minutes.',
     tags: ['Mistral OCR', 'Claude Haiku', 'Claude Sonnet', 'CrewAI', 'ReportLab'],
     stats: [{ val: '97%', label: 'Faster' }, { val: '6 min', label: 'Per doc' }, { val: '$0.30', label: 'Cost' }],
     pipeline: [
@@ -47,7 +47,7 @@ const SOLUTIONS = [
     badgeColor: '#10b981',
     badgeBg: 'rgba(16,185,129,0.15)',
     badgeBorder: 'rgba(16,185,129,0.4)',
-    desc: 'A 5-agent pipeline that reads vendor emails, runs OCR on PDF invoices, extracts structured line-item data, reconciles every item against the PO database, and outputs a full exception report — 100% automated, zero manual touchpoints.',
+    desc: 'A 5-agent pipeline that reads vendor emails, runs OCR on PDF invoices, extracts structured line-item data, reconciles every item against the PO database, and outputs a full exception report - 100% automated, zero manual touchpoints.',
     tags: ['Mistral OCR', 'Claude Sonnet', 'CrewAI', 'Gmail API', 'SQLite'],
     stats: [{ val: '100%', label: 'Automated' }, { val: '5', label: 'Agents' }, { val: '$0.02', label: '/invoice' }],
     pipeline: [
@@ -71,7 +71,7 @@ const SOLUTIONS = [
     badgeColor: '#f59e0b',
     badgeBg: 'rgba(245,158,11,0.15)',
     badgeBorder: 'rgba(245,158,11,0.4)',
-    desc: 'Resolves the 20–30% of invoices that fail automated matching in SAP or Oracle — partial GRN approvals, PO amendment cross-referencing, per-vendor tolerance policies, early payment discount capture, and BEC fraud detection.',
+    desc: 'Resolves the 20–30% of invoices that fail automated matching in SAP or Oracle - partial GRN approvals, PO amendment cross-referencing, per-vendor tolerance policies, early payment discount capture, and BEC fraud detection.',
     tags: ['CrewAI', 'Claude Opus', '3-Way Match', 'Fraud Detection', 'SQLite'],
     stats: [{ val: '25%', label: 'Exception Queue' }, { val: '6', label: 'Agents' }, { val: '7', label: 'Fraud Signals' }],
     pipeline: [
@@ -190,20 +190,14 @@ export default function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div style={{ fontFamily: 'Inter, sans-serif', background: '#0a0a0a', color: '#fff', overflowX: 'hidden' }}>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0a0a0a; overflow-x: hidden; }
+    <div style={{ fontFamily: 'var(--font-sans)', background: 'var(--bg-base)', color: 'var(--text-primary)', overflowX: 'hidden' }}>
+      <style jsx>{`
         .hover-lift { transition: all 0.3s ease; }
         .hover-lift:hover { transform: translateY(-3px); }
-        .nav-link { transition: color 0.2s; }
-        .nav-link:hover { color: #fff !important; }
         .cta-primary { transition: all 0.2s; }
-        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(99,102,241,0.4) !important; }
+        .cta-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(99,102,241,0.5) !important; }
         .step-card { transition: all 0.3s; }
-        .step-card:hover { border-color: rgba(99,102,241,0.4) !important; background: rgba(99,102,241,0.06) !important; }
-
+        .step-card:hover { border-color: var(--accent-border) !important; background: var(--accent-subtle) !important; }
         @media (max-width: 768px) {
           .hero-layout { flex-direction: column !important; }
           .pipeline-preview { display: none !important; }
@@ -211,8 +205,6 @@ export default function HomePage() {
           .steps-grid { grid-template-columns: 1fr !important; }
           .stats-grid { grid-template-columns: repeat(2,1fr) !important; }
           .clouds-strip { flex-wrap: wrap !important; gap: 12px !important; }
-          .solution-body { flex-direction: column !important; }
-          .solution-pipeline { width: 100% !important; }
           .hero-btns { flex-direction: column !important; }
           .hero-btns a { width: 100%; justify-content: center !important; }
           .footer-links { flex-direction: column !important; gap: 16px !important; }
@@ -229,44 +221,34 @@ export default function HomePage() {
       `}</style>
 
       {/* ── NAV ── */}
-      <nav style={{ position: 'sticky', top: 0, background: 'rgba(10,10,10,0.92)', backdropFilter: 'blur(16px)', borderBottom: '1px solid rgba(255,255,255,0.07)', zIndex: 100 }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 clamp(16px,4vw,32px)', height: '68px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          {/* Logo */}
-          <a href="/" style={{ display: 'flex', alignItems: 'center', gap: '10px', textDecoration: 'none' }}>
-            <div style={{ width: '36px', height: '36px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '9px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <Zap size={18} color="white" />
-            </div>
-            <span style={{ fontSize: '18px', fontWeight: '800', color: '#fff', letterSpacing: '-0.01em' }}>Vinay Gangidi</span>
+      <nav className="vg-nav">
+        <div className="vg-nav-inner">
+          <a href="/" className="vg-logo">
+            <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
+            <span className="vg-logo-text">Vinay Gangidi</span>
           </a>
-
-          {/* Desktop Nav */}
-          <div className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '32px' }}>
-            <a href="/solutions" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Solutions</a>
-            <a href="#how-it-works" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>How it Works</a>
-            <a href="/enterprise-ai-strategy" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Enterprise AI</a>
-            <a href="/developers" className="nav-link" style={{ fontSize: '14px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>Developers</a>
-            <a href="/about" className="nav-link" style={{ fontSize: '14px', color: '#a78bfa', textDecoration: 'none', fontWeight: '600' }}>About Me</a>
+          <div className="nav-desktop vg-nav-links" style={{ display: 'flex' }}>
+            <a href="/solutions" className="vg-nav-link">AI Agents</a>
+            <a href="#how-it-works" className="vg-nav-link">How it Works</a>
+            <a href="/enterprise-ai-strategy" className="vg-nav-link">Strategy</a>
+            <a href="/about" className="vg-nav-link active">About Me</a>
           </div>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-            <a href="/access" className="nav-desktop cta-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '9px 18px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none', boxShadow: '0 4px 20px rgba(99,102,241,0.3)' }}>
-              Request Demo <ArrowRight size={13} />
+          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <a href="mailto:vinay.gangidi@gmail.com" className="nav-desktop vg-btn-primary">
+              Get in Touch <ArrowRight size={13} />
             </a>
-            {/* Mobile menu toggle */}
-            <button className="nav-mobile-btn" onClick={() => setMenuOpen(o => !o)} style={{ background: 'none', border: 'none', color: '#fff', cursor: 'pointer', padding: '4px' }}>
-              {menuOpen ? <X size={22} /> : <Menu size={22} />}
+            <button className="nav-mobile-btn" onClick={() => setMenuOpen(o => !o)} style={{ background: 'none', border: '1px solid var(--border-default)', borderRadius: '8px', padding: '7px', color: 'var(--text-primary)', cursor: 'pointer', display: 'none', alignItems: 'center' }}>
+              {menuOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
-
-        {/* Mobile menu */}
         {menuOpen && (
-          <div className="mobile-menu" style={{ borderTop: '1px solid rgba(255,255,255,0.07)', padding: '16px clamp(16px,4vw,32px)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Enterprise AI', '/enterprise-ai-strategy'], ['Developers', '/developers'], ['About Me', '/about']].map(([label, href]) => (
-              <a key={label} href={href} onClick={() => setMenuOpen(false)} style={{ fontSize: '16px', color: '#94a3b8', textDecoration: 'none', fontWeight: '500' }}>{label}</a>
+          <div className="mobile-menu vg-mobile-menu">
+            {[['AI Agents', '/solutions'], ['How it Works', '#how-it-works'], ['Strategy', '/enterprise-ai-strategy'], ['About Me', '/about']].map(([label, href]) => (
+              <a key={label} href={href} onClick={() => setMenuOpen(false)} className="vg-nav-link" style={{ fontSize: '16px' }}>{label}</a>
             ))}
-            <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '6px', padding: '12px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '15px', fontWeight: '700', textDecoration: 'none' }}>
-              Request Demo <ArrowRight size={15} />
+            <a href="mailto:vinay.gangidi@gmail.com" className="vg-btn-primary" style={{ justifyContent: 'center' }}>
+              Get in Touch <ArrowRight size={15} />
             </a>
           </div>
         )}
@@ -277,7 +259,7 @@ export default function HomePage() {
         <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
           <div className="hero-layout" style={{ display: 'flex', alignItems: 'center', gap: '60px', justifyContent: 'space-between' }}>
 
-            {/* Left — copy */}
+            {/* Left - copy */}
             <div style={{ flex: 1, minWidth: 0 }}>
               {/* Live badge */}
               <div style={{ display: 'inline-flex', alignItems: 'center', gap: '8px', padding: '6px 14px', background: 'rgba(74,222,128,0.08)', border: '1px solid rgba(74,222,128,0.2)', borderRadius: '100px', marginBottom: '28px' }}>
@@ -291,7 +273,7 @@ export default function HomePage() {
               </h1>
 
               <p style={{ fontSize: 'clamp(15px,2.5vw,19px)', color: '#94a3b8', lineHeight: '1.75', maxWidth: '560px', marginBottom: '40px' }}>
-                Replace slow, expensive manual review with coordinated multi-agent systems that reason, decide, and deliver structured results — in minutes, not hours.
+                Replace slow, expensive manual review with coordinated multi-agent systems that reason, decide, and deliver structured results - in minutes, not hours.
               </p>
 
               <div className="hero-btns" style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
@@ -304,7 +286,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            {/* Right — animated pipeline */}
+            {/* Right - animated pipeline */}
             <div className="pipeline-preview" style={{ flexShrink: 0, width: '260px' }}>
               <AnimatedPipeline />
             </div>
@@ -323,8 +305,8 @@ export default function HomePage() {
           <div className="problems-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '20px' }}>
             {[
               { icon: '📋', title: 'Hours per document', desc: 'Legal teams spend 2–4 hours reviewing a single NDA. AP clerks manually key-enter invoice line items from PDFs. This doesn\'t scale.' },
-              { icon: '💸', title: 'Expensive and error-prone', desc: 'Senior lawyer time costs $400–800/hour. Manual data entry has a 1–4% error rate — a $0.50 mistake that costs thousands downstream.' },
-              { icon: '🚫', title: 'No structured output', desc: 'A PDF review leaves no machine-readable trail. Downstream systems — ERP, CLM, DMS — can\'t consume a Word document with comments.' },
+              { icon: '💸', title: 'Expensive and error-prone', desc: 'Senior lawyer time costs $400–800/hour. Manual data entry has a 1–4% error rate - a $0.50 mistake that costs thousands downstream.' },
+              { icon: '🚫', title: 'No structured output', desc: 'A PDF review leaves no machine-readable trail. Downstream systems - ERP, CLM, DMS - can\'t consume a Word document with comments.' },
             ].map(p => (
               <div key={p.title} className="step-card" style={{ padding: 'clamp(24px,3vw,32px)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px' }}>
                 <div style={{ fontSize: '32px', marginBottom: '16px' }}>{p.icon}</div>
@@ -347,7 +329,7 @@ export default function HomePage() {
           <div className="steps-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: '24px' }}>
             {[
               { num: '01', title: 'Submit', icon: '📤', desc: 'Upload a PDF or send an invoice batch via the demo UI or REST API. Authenticated with your API key.', detail: 'Supports PDF, JSON batch, or direct API POST.' },
-              { num: '02', title: 'Agents Reason', icon: '🧠', desc: 'A coordinated pipeline of 5–6 specialized agents runs sequentially. Each reads the prior agent\'s output and reasons on top of it.', detail: 'Watch each step via SSE streaming — no black boxes.' },
+              { num: '02', title: 'Agents Reason', icon: '🧠', desc: 'A coordinated pipeline of 5–6 specialized agents runs sequentially. Each reads the prior agent\'s output and reasons on top of it.', detail: 'Watch each step via SSE streaming - no black boxes.' },
               { num: '03', title: 'Structured Output', icon: '✅', desc: 'Receive a JSON result with risk scores, GL codes, redline suggestions, exception classifications, and an audit trail.', detail: 'Delivered via API response or HMAC-signed webhook.' },
             ].map((step, i) => (
               <div key={i} className="step-card" style={{ padding: 'clamp(24px,3vw,36px)', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '16px', position: 'relative' }}>
@@ -426,9 +408,9 @@ export default function HomePage() {
               </div>
               <div style={{ flex: 1, minWidth: '220px', display: 'flex', flexDirection: 'column', gap: '14px' }}>
                 {[
-                  { icon: '🔐', title: 'Private LLM endpoints only', desc: 'AWS Bedrock · Azure OpenAI · GCP Vertex — all via private network, zero public transit' },
+                  { icon: '🔐', title: 'Private LLM endpoints only', desc: 'AWS Bedrock · Azure OpenAI · GCP Vertex - all via private network, zero public transit' },
                   { icon: '🏢', title: 'Deploy in your cloud', desc: 'Same container image runs on AWS ECS, Azure Container Apps, GCP Cloud Run, or on-prem Kubernetes' },
-                  { icon: '📋', title: 'Full audit trail', desc: 'Every agent decision logged with reasoning — satisfies SOX, GDPR, ISO 27001 audit requirements' },
+                  { icon: '📋', title: 'Full audit trail', desc: 'Every agent decision logged with reasoning - satisfies SOX, GDPR, ISO 27001 audit requirements' },
                 ].map(f => (
                   <div key={f.title} style={{ display: 'flex', gap: '12px', alignItems: 'flex-start', padding: '16px', background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '12px' }}>
                     <span style={{ fontSize: '20px', flexShrink: 0 }}>{f.icon}</span>
@@ -451,7 +433,7 @@ export default function HomePage() {
             <div style={{ border: '1px solid #AFA9EC', borderRadius: 14, padding: '20px 28px', background: 'linear-gradient(135deg,#EEEDFE,#f5f4ff)', cursor: 'pointer', display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
               <div>
                 <div style={{ fontSize: 13, fontWeight: 700, color: '#3C3489', marginBottom: 6 }}>Finance Cycle Intelligence Map</div>
-                <div style={{ fontSize: 12, color: '#534AB7', lineHeight: 1.6 }}>Vendor coverage + IA orchestration gaps across O2C, I2C, P2P, H2R, and R2R — where no native agent closes the loop.</div>
+                <div style={{ fontSize: 12, color: '#534AB7', lineHeight: 1.6 }}>Vendor coverage + IA orchestration gaps across O2C, I2C, P2P, H2R, and R2R - where no native agent closes the loop.</div>
               </div>
               <div style={{ fontSize: 12, fontWeight: 700, color: '#6366f1', whiteSpace: 'nowrap' }}>Explore map →</div>
             </div>
@@ -486,8 +468,8 @@ export default function HomePage() {
             <span style={{ color: '#334155', fontSize: '14px', marginLeft: '8px' }}>© 2026</span>
           </div>
           <div className="footer-links" style={{ display: 'flex', gap: '28px', flexWrap: 'wrap' }}>
-            {[['Solutions', '/solutions'], ['How it Works', '#how-it-works'], ['Developers', '/developers'], ['Request Demo', '/access']].map(([label, href]) => (
-              <a key={label} href={href} className="nav-link" style={{ fontSize: '13px', color: '#475569', textDecoration: 'none', fontWeight: '500' }}>{label}</a>
+            {[['AI Agents', '/solutions'], ['Strategy', '/enterprise-ai-strategy'], ['About Me', '/about'], ['Get in Touch', 'mailto:vinay.gangidi@gmail.com']].map(([label, href]) => (
+              <a key={label} href={href} className="vg-nav-link" style={{ fontSize: '13px' }}>{label}</a>
             ))}
           </div>
         </div>
