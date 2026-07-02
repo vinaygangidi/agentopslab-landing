@@ -188,11 +188,11 @@ export default function HomePage() {
         <div className="vg-nav-inner">
           <a href="/" className="vg-logo">
             <div className="vg-logo-icon"><Zap size={16} color="#fff" /></div>
-            <span className="vg-logo-text">AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
+            <span className="vg-logo-text">AgentOpsLab</span>
           </a>
           <div className="nav-desktop vg-nav-links" style={{ display: 'flex' }}>
             <a href="/" className="vg-nav-link">Agents</a>
-            <a href="/enterprise-ai-strategy" className="vg-nav-link">Strategy</a>
+            <a href="/playbook" className="vg-nav-link">Agentic Playbook</a>
             <a href="/about" className="vg-nav-link active">About</a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -206,7 +206,7 @@ export default function HomePage() {
         </div>
         {menuOpen && (
           <div className="mobile-menu vg-mobile-menu">
-            {[['Agents', '/'], ['Strategy', '/enterprise-ai-strategy'], ['About', '/about']].map(([l, h]) => (
+            {[['Agents', '/'], ['Agentic Playbook', '/playbook'], ['About', '/about']].map(([l, h]) => (
               <a key={l} href={h} onClick={() => setMenuOpen(false)} className="vg-nav-link" style={{ fontSize: '16px' }}>{l}</a>
             ))}
             <a href="mailto:vinay.gangidi@gmail.com" className="vg-btn-primary" style={{ justifyContent: 'center' }}>
@@ -415,7 +415,7 @@ export default function HomePage() {
             <div style={{ fontWeight: '700', fontSize: '16px', color: 'var(--text-primary)' }}>Enterprise AI Strategy: Architecture Reference</div>
             <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '4px' }}>Full architecture diagram, platform strategy, design principles, and phased roadmap.</div>
           </div>
-          <a href="/enterprise-ai-strategy" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: 'var(--accent)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none', flexShrink: 0 }}>
+          <a href="https://vinay-portfolio-wine.vercel.app" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: 'var(--accent)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none', flexShrink: 0 }}>
             Read the strategy <ArrowRight size={13} />
           </a>
         </div>
@@ -519,10 +519,10 @@ export default function HomePage() {
             <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={14} color="#fff" />
             </div>
-            <span style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)' }}>AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
+            <span style={{ fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)' }}>AgentOpsLab</span>
           </div>
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-            {[['AI Agents', '/solutions'], ['Strategy', '/enterprise-ai-strategy'], ['Get in Touch', 'mailto:vinay.gangidi@gmail.com']].map(([l, h]) => (
+            {[['AI Agents', '/solutions'], ['Agentic Playbook', '/playbook'], ['Get in Touch', 'mailto:vinay.gangidi@gmail.com']].map(([l, h]) => (
               <a key={l} href={h} style={{ fontSize: '13px', color: 'var(--text-muted)', textDecoration: 'none' }}>{l}</a>
             ))}
           </div>

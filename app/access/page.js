@@ -38,11 +38,11 @@ export default function RequestDemoPage() {
         <div className="vg-nav-inner">
           <a href="/" className="vg-logo">
             <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
-            <span className="vg-logo-text">AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
+            <span className="vg-logo-text">AgentOpsLab</span>
           </a>
           <div className="vg-nav-links hide-mobile" style={{ display: 'flex' }}>
             <a href="/solutions" className="vg-nav-link">AI Agents</a>
-            <a href="/enterprise-ai-strategy" className="vg-nav-link">Strategy</a>
+            <a href="/playbook" className="vg-nav-link">Agentic Playbook</a>
             <a href="/about" className="vg-nav-link">About Me</a>
           </div>
         </div>

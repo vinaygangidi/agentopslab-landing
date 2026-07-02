@@ -40,11 +40,11 @@ export default function Home() {
         <div className="vg-nav-inner">
           <a href="/" className="vg-logo">
             <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
-            <span className="vg-logo-text">AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
+            <span className="vg-logo-text">AgentOpsLab</span>
           </a>
           <div className="nav-desktop vg-nav-links" style={{ display: 'flex' }}>
             <a href="/" className="vg-nav-link active">Agents</a>
-            <a href="/enterprise-ai-strategy" className="vg-nav-link">Strategy</a>
+            <a href="/playbook" className="vg-nav-link">Agentic Playbook</a>
             <a href="/about" className="vg-nav-link">About</a>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
@@ -58,7 +58,7 @@ export default function Home() {
         </div>
         {menuOpen && (
           <div className="mobile-menu vg-mobile-menu">
-            {[['Agents', '/'], ['Strategy', '/enterprise-ai-strategy'], ['About', '/about']].map(([l, h]) => (
+            {[['Agents', '/'], ['Agentic Playbook', '/playbook'], ['About', '/about']].map(([l, h]) => (
               <a key={l} href={h} onClick={() => setMenuOpen(false)} className="vg-nav-link" style={{ fontSize: '16px' }}>{l}</a>
             ))}
             <a href="mailto:vinay.gangidi@gmail.com" className="vg-btn-primary" style={{ justifyContent: 'center' }}>
@@ -240,11 +240,11 @@ export default function Home() {
             <span className="vg-logo-text" style={{ fontSize: '15px' }}>Vinay Gangidi</span>
           </a>
           <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-            {[['AI Agents', '/solutions'], ['Strategy', '/enterprise-ai-strategy'], ['About Me', '/about'], ['Get in Touch', 'mailto:vinay.gangidi@gmail.com']].map(([l, h]) => (
+            {[['AI Agents', '/solutions'], ['Agentic Playbook', '/playbook'], ['About Me', '/about'], ['Get in Touch', 'mailto:vinay.gangidi@gmail.com']].map(([l, h]) => (
               <a key={l} href={h} style={{ fontSize: '13px', color: 'var(--text-muted)', textDecoration: 'none' }}>{l}</a>
             ))}
           </div>
-          <span style={{ fontSize: '13px', color: 'var(--text-dim)' }}>© 2026 AgentOpsLab · by Vinay Gangidi</span>
+          <span style={{ fontSize: '13px', color: 'var(--text-dim)' }}>© 2026 AgentOpsLab</span>
         </div>
       </footer>
     </div>

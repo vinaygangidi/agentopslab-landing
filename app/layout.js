@@ -2,7 +2,7 @@ import './globals.css'
 
 export const metadata = {
   title: 'AgentOpsLab — Production AI Agents for the Enterprise',
-  description: 'AgentOpsLab by Vinay: a working catalog of production AI agents across GTM, Finance, HR, Legal, and Operations — with the governance to run them safely at scale.',
+  description: 'AgentOpsLab: a working catalog of production AI agents across GTM, Finance, HR, Legal, and Operations — with the governance to run them safely at scale.',
 }
 
 export default function RootLayout({ children }) {
