@@ -38,7 +38,7 @@ export default function RequestDemoPage() {
         <div className="vg-nav-inner">
           <a href="/" className="vg-logo">
             <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
-            <span className="vg-logo-text">Vinay Gangidi</span>
+            <span className="vg-logo-text">AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
           </a>
           <div className="vg-nav-links hide-mobile" style={{ display: 'flex' }}>
             <a href="/solutions" className="vg-nav-link">AI Agents</a>

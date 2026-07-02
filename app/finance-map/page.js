@@ -169,7 +169,7 @@ export default function FinanceMap() {
         <div className="vg-nav-inner">
           <a href="/" className="vg-logo">
             <div className="vg-logo-icon"><Zap size={17} color="#fff" /></div>
-            <span className="vg-logo-text">Vinay Gangidi</span>
+            <span className="vg-logo-text">AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
           </a>
           <div className="vg-nav-links hide-mobile" style={{ display: 'flex' }}>
             <a href="/solutions" className="vg-nav-link">AI Agents</a>
@@ -478,7 +478,7 @@ export default function FinanceMap() {
             <div style={{ width: '26px', height: '26px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={13} color="white" />
             </div>
-            <span style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>Vinay Gangidi</span>
+            <span style={{ fontSize: '14px', fontWeight: '700', color: '#fff' }}>AgentOpsLab <span style={{ color: 'rgba(255,255,255,0.6)', fontWeight: 600 }}>by Vinay</span></span>
             <span style={{ color: '#334155', fontSize: '13px', marginLeft: '6px' }}>© 2026</span>
           </div>
           <a href="/" style={{ fontSize: '12px', color: '#475569', textDecoration: 'none' }}>← Back to home</a>

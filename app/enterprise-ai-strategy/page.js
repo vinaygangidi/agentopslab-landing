@@ -31,7 +31,7 @@ export default function EnterpriseAIStrategy() {
         <div className="vg-nav-inner" style={{ maxWidth: '1300px' }}>
           <a href="/" className="vg-logo">
             <div className="vg-logo-icon"><Zap size={16} color="#fff" /></div>
-            <span className="vg-logo-text">Vinay Gangidi</span>
+            <span className="vg-logo-text">AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
           </a>
           <div className="nav-desktop vg-nav-links" style={{ display: 'flex' }}>
             <a href="/solutions" className="vg-nav-link">AI Agents</a>
@@ -609,7 +609,7 @@ export default function EnterpriseAIStrategy() {
             <div style={{ width: '28px', height: '28px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', borderRadius: '7px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
               <Zap size={14} color="#fff" />
             </div>
-            <span style={{ fontFamily: 'var(--font-sans)', fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)' }}>Vinay Gangidi</span>
+            <span style={{ fontFamily: 'var(--font-sans)', fontWeight: '700', fontSize: '15px', color: 'var(--text-primary)' }}>AgentOpsLab <span style={{ color: 'var(--text-muted)', fontWeight: 600 }}>by Vinay</span></span>
           </div>
           <p style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: '11.5px', color: 'var(--text-muted)' }}>Enterprise AI strategy reference. Platform names used for illustration only.</p>
           <a href="/access" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', padding: '10px 20px', background: 'linear-gradient(135deg,#6366f1,#4f46e5)', color: '#fff', borderRadius: '8px', fontSize: '13px', fontWeight: '700', textDecoration: 'none' }}>
