@@ -1,10 +1,10 @@
-import { ExternalLink, Mail, Zap, Users, Building2, TrendingUp, FileText, AlertTriangle, Search, Target, BarChart3, MessageSquare, DollarSign, Shield, UserCheck, Briefcase, Award, Clock, FileCheck, AlertCircle, Scale } from 'lucide-react';
+import { ExternalLink, Mail, Zap, Users, Building2, TrendingUp, FileText, AlertTriangle, Search, Target, BarChart3, MessageSquare, DollarSign, Shield, UserCheck, Briefcase, Award, Clock, FileCheck, AlertCircle, Scale, Brain } from 'lucide-react';
 import { techBadges } from '../lib/agentsData';
 
 const iconMap = {
   Mail, Zap, Users, Building2, TrendingUp, FileText, AlertTriangle, Search,
   Target, BarChart3, MessageSquare, DollarSign, Shield, UserCheck, Briefcase,
-  Award, Clock, FileCheck, AlertCircle, Scale
+  Award, Clock, FileCheck, AlertCircle, Scale, Brain
 };
 
 export default function AgentCard({ agent, gradient, shadow }) {
