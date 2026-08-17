@@ -1,255 +1,147 @@
-# AgentOpsLab Landing Page
+# agentopslab-landing
 
-**Live Site:** [https://agentopslab-landing.vercel.app/](https://agentopslab-landing.vercel.app/)
+Next.js marketing site and agent catalog for AgentOpsLab.
 
-Landing page for AgentOpsLab - an open-source educational portfolio demonstrating how to rapidly build production-ready AI automation with Claude Sonnet 4. Showcases 33+ example agents across Sales, Revenue, Finance, HR, and Legal operations.
+![Language](https://img.shields.io/badge/language-JavaScript-yellow?style=flat-square)
+![Framework](https://img.shields.io/badge/Next.js-16.2.1-black?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/vinaygangidi/agentopslab-landing?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-blue?style=flat-square)
 
----
+**Live site:** https://agentopslab-landing.vercel.app/
 
-## 🚀 Overview
+## What This Does
 
-This is the marketing and documentation landing page for the AgentOpsLab project. It provides:
+A statically rendered Next.js site that catalogs the AgentOpsLab agent portfolio and hosts
+three interactive demos. The homepage is the catalog itself — 37 single-purpose agents
+grouped by business function, plus 3 multi-agent systems that have their own walkthrough
+and architecture pages.
 
-- **Agent Showcase**: Visual catalog of all 33+ AI agents with direct links to source code
-- **Category Organization**: Agents grouped by business function (Sales, RevOps, Finance, HR, Legal)
-- **Live Examples**: Working implementations with GitHub integration
-- **Educational Resource**: Learning materials for developers building enterprise AI agents
+The catalog is data-driven: everything renders from `lib/agentsData.js`, so adding an agent
+means editing one file rather than touching components.
 
----
-
-## 🛠️ Tech Stack
-
-- **Framework**: [Next.js 16.2.1](https://nextjs.org/) (App Router)
-- **Language**: TypeScript 5.9.3
-- **Styling**: Tailwind CSS 3.4.1
-- **Icons**: Lucide React 0.294.0
-- **Deployment**: Vercel (auto-deploy from `main` branch)
-- **Package Manager**: npm
-
----
-
-## 📦 Project Structure
+## How It Works
 
 ```
-agentopslab-landing/
-├── app/                    # Next.js App Router pages
-│   ├── page.tsx           # Homepage
-│   ├── layout.tsx         # Root layout
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   ├── AgentCard.tsx      # Individual agent showcase cards
-│   ├── CategorySection.tsx # Agent category sections
-│   ├── Header.tsx         # Site header/navigation
-│   └── Footer.tsx         # Site footer
-├── lib/                   # Utilities and helpers
-├── public/                # Static assets
-├── next.config.js         # Next.js configuration
-├── tailwind.config.js     # Tailwind configuration
-├── tsconfig.json          # TypeScript configuration
-└── package.json           # Dependencies
+lib/agentsData.js          single source of truth
+  ├── techBadges           per-stack badge styling (Python/CrewAI, n8n, Claude, Azure OpenAI)
+  ├── multiAgentSystems    3 systems with demo + architecture links
+  ├── businessFunctions    4 functions → 10 sub-functions → 37 agents
+  └── helpers              getAgentsByCategory, getCategoryCount, getTotalAgentCount
+        │
+        ▼
+components/AgentCard.jsx   renders one catalog entry
+        │
+        ▼
+app/**/page.js             App Router pages (server components, no client data fetching)
 ```
 
----
+Routes:
 
-## 🏃 Getting Started
+| Route | Purpose |
+|---|---|
+| `/` | Agent catalog homepage |
+| `/solutions` | Solution overview |
+| `/playbook` | Agentic playbook |
+| `/finance-map` | Finance function map |
+| `/about` | About page |
+| `/access` | Access request page |
+| `/demo/ap-invoice-processing` | Interactive AP invoice demo |
+| `/demo/ap-exception-resolution` | Interactive AP exception demo |
+| `/demo/nda-review` | Interactive NDA review demo |
+| `/agentic-systems/<name>` | Architecture write-up for each of the 3 systems |
 
-### Prerequisites
+The four business functions are Go-to-Market, Finance & ERP, Human Resources, and Legal &
+Compliance, subdivided into ten sub-functions (Sales Ops, Revenue Ops, GTM Strategy,
+Finance, Accounts Payable, Cash & ERP, Financial Risk, Talent Acquisition, Employee
+Lifecycle, Contract Ops, Regulatory).
 
-- Node.js 18.x or later
-- npm or yarn
+Demos run entirely on committed fixtures in `public/` — JSON and PDF files under
+`public/invoice-fixtures/` and `public/ap-exception-demo-fixture.json`. No backend call is
+made and no API key is needed.
 
-### Installation
+## Quickstart
 
-1. **Clone the repository**
+1. Clone and install:
    ```bash
    git clone https://github.com/vinaygangidi/agentopslab-landing.git
    cd agentopslab-landing
-   ```
-
-2. **Install dependencies**
-   ```bash
    npm install
    ```
 
-3. **Run development server**
+2. Run the dev server:
    ```bash
    npm run dev
    ```
 
-4. **Open in browser**
-   ```
-   http://localhost:3000
-   ```
+3. Open http://localhost:3000.
 
-### Build for Production
+Production build:
 
 ```bash
-# Create production build
 npm run build
-
-# Start production server
 npm start
 ```
 
----
+No `.env` file is required. Nothing in `app/`, `lib/`, or `components/` reads an
+environment variable.
 
-## 🌐 Deployment
+## Configuration
 
-This site is automatically deployed to Vercel:
+The application code on this branch reads **no environment variables**. Configuration is
+limited to `next.config.js`:
 
-- **Production URL**: https://agentopslab-landing.vercel.app/
-- **Auto-Deploy**: Every push to `main` branch triggers automatic deployment
-- **Preview Deployments**: Pull requests get preview URLs
+| Setting | Value | Description |
+|---|---|---|
+| `reactStrictMode` | `true` | React strict mode |
+| `images.unoptimized` | `true` | Disables the Next.js image optimizer, required for static export |
 
-### Deploy Your Own
+| Name | Required | Default | Description |
+|---|---|---|---|
+| `ACCESS_TOKENS` | No | `''` | Read only by `proxy.js`, which Next.js never loads. Setting it has no effect — see Limitations |
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vinaygangidi/agentopslab-landing)
+### Adding an agent
 
----
+Edit `lib/agentsData.js`. Append an entry to the appropriate `subFunctions[].agents` array
+with `name`, `desc`, `tech` (one of `python`, `n8n`, `claude`, `azure`), and `github`.
+`getTotalAgentCount()` derives its total from the data, so no count needs updating by hand.
 
-## 🔗 Related Repositories
+## Limitations
 
-This landing page showcases agents from multiple repositories:
+- **`proxy.js` is dead code, and the demo routes are unprotected.** It defines
+  bearer-token auth over a `PUBLIC_PREFIXES` allowlist and reads `ACCESS_TOKENS`, but the
+  file is not named `middleware.js` and exports no `middleware` function — only a `config`
+  object. Next.js never loads it, so **no authentication runs on this site** and
+  `/demo/*` is publicly reachable. Anyone with the URL can open the demos.
+- **The session cookie design is not secure.** `proxy.js` compares a cookie against the
+  literal string `'authorized'`. There is no signing, expiry, or revocation, so the value
+  is trivially forgeable if the file were ever wired up as-is.
+- **No tests and no CI.** No test runner, no `test` script in `package.json`, no workflow
+  in `.github/`.
+- **No linting configured.** No ESLint config and no `lint` script, despite Next.js
+  shipping ESLint support.
+- **TypeScript is a dependency but unused for application code.** `typescript`,
+  `@types/react`, and `@types/node` are installed and `tsconfig.json` exists, but every
+  page and component is `.js` or `.jsx`. Only `next-env.d.ts` is TypeScript.
+- **Demo output is fixtures, not live agents.** The three demos replay committed JSON. They
+  demonstrate interface and reasoning shape, not a running pipeline — the actual agents
+  live in separate repositories.
+- **Catalog links point to repositories that are private.** Most `github` URLs in
+  `lib/agentsData.js` target per-agent repositories that are not public, so a visitor
+  clicking through will hit 404s.
+- **`react-dom` and `react` are pinned exactly (`18.2.0`) while `next` floats (`^16.2.1`).**
+  A `npm install` months apart can resolve a different Next.js minor against a fixed React.
+- **Content claims are not independently verified.** Accuracy figures and agent counts
+  shown in the UI come from `lib/agentsData.js` and are descriptive copy, not measured
+  benchmarks.
 
-| Repository | Description | Link |
-|------------|-------------|------|
-| **AgentOpsLab** | Core Python agents (Sales, HR, Legal) | [View Repo](https://github.com/vinaygangidi/AgentOpsLab) |
-| **revops-ai-agents** | Claude Code RevOps agents | [View Repo](https://github.com/vinaygangidi/revops-ai-agents) |
-| **n8n-enterprise-ai-agents** | N8n workflow agents (GTM, Finance) | [View Repo](https://github.com/vinaygangidi/n8n-enterprise-ai-agents) |
+## Related Repositories
 
----
+| Repository | Contents |
+|---|---|
+| [revops-ai-agents](https://github.com/vinaygangidi/revops-ai-agents) | Claude Code subagent definitions for RevOps |
+| [n8n-enterprise-ai-agents](https://github.com/vinaygangidi/n8n-enterprise-ai-agents) | n8n workflow JSONs for finance, GTM, loan origination |
+| [agentopslab-api](https://github.com/vinaygangidi/agentopslab-api) | FastAPI service behind the NDA review demo |
 
-## 📋 Agent Categories
+## License
 
-### Sales Operations (6 Agents)
-- Email Intelligence
-- Pipeline Orchestrator
-- Contact Creator
-- Account Creator
-- Deal Intelligence
-- CPQ Agent
-
-### Revenue Operations (6 Agents)
-- Churn Detector
-- Competitive Intel
-- Deal Risk Assessor
-- ICP Analyst
-- Objection Mapper
-- Win-Loss Analyst
-
-### Enterprise Operations (9 Agents)
-- GTM Account 360 Copilot
-- ICP Segmentation
-- GTM Win-Loss Analysis
-- Cash Reconciliation
-- ERP Copilot
-- ERP Customer Orders
-- Tax Agent
-- Loan Fraud Detection
-- Loan Underwriting
-
-### HR Operations (6 Agents)
-- Resume Screening
-- Onboarding Workflow
-- Performance Review Analyzer
-- Employee Offboarding
-- Benefits Enrollment
-- Training Compliance
-
-### Legal Operations (6 Agents)
-- Contract Review
-- NDA Generator
-- Contract Risk Analyzer
-- Document Classifier
-- Compliance Checker
-- Legal Research
-
----
-
-## 🎨 Customization
-
-### Updating Agent Information
-
-Edit the agent data in `components/AgentCard.tsx` or create a centralized data file:
-
-```typescript
-// lib/agents-data.ts
-export const agents = [
-  {
-    category: "Sales Operations",
-    name: "Email Intelligence",
-    description: "Extract contacts, companies, deals from emails",
-    badge: "95%+ accuracy",
-    githubUrl: "https://github.com/vinaygangidi/AgentOpsLab/blob/main/agents/email_intelligence_agent.py"
-  },
-  // ... more agents
-];
-```
-
-### Styling
-
-- **Colors**: Modify `tailwind.config.js` to change the color scheme
-- **Fonts**: Update `app/layout.tsx` for custom fonts
-- **Components**: All UI components are in `components/` directory
-
----
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-## 🤝 Contributing
-
-This is an educational portfolio project. Contributions, issues, and feature requests are welcome!
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
----
-
-## 👤 Author
-
-**Vinay Gangidi**
-
-- Email: vinay.gangidi@gmail.com
-- GitHub: [@vinaygangidi](https://github.com/vinaygangidi)
-- Landing Page: [agentopslab-landing.vercel.app](https://agentopslab-landing.vercel.app/)
-
----
-
-## 🙏 Acknowledgments
-
-- Built with [Next.js](https://nextjs.org/)
-- Deployed on [Vercel](https://vercel.com)
-- Powered by [Claude Sonnet 4](https://www.anthropic.com/claude) (Anthropic)
-- Icons from [Lucide](https://lucide.dev/)
-
----
-
-## 📊 Project Stats
-
-![GitHub stars](https://img.shields.io/github/stars/vinaygangidi/agentopslab-landing?style=social)
-![GitHub forks](https://img.shields.io/github/forks/vinaygangidi/agentopslab-landing?style=social)
-![GitHub issues](https://img.shields.io/github/issues/vinaygangidi/agentopslab-landing)
-![GitHub license](https://img.shields.io/github/license/vinaygangidi/agentopslab-landing)
-
----
-
-## 📝 Educational Purpose
-
-This project is built for **educational purposes** to demonstrate:
-- Enterprise AI agent development patterns
-- Production-ready code architecture
-- Integration with modern AI APIs (Claude, OpenAI)
-- Real-world automation workflows
-
-**Not intended for commercial sale.** All code is open-source and free to use for learning.
-
----
-
-**⭐ If you find this project helpful, please consider giving it a star on GitHub!**
+MIT — see [LICENSE](LICENSE).
